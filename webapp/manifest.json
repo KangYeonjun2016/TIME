@@ -93,6 +93,7 @@
 			},
 			"routes": [
         { "pattern": "", "name": "timeHome", "target": "home" },
+        { "pattern": "test", "name": "test", "target": "test" },
         { "pattern": "test", "name": "test", "target": "test" }
 			],
 			"targets": {
