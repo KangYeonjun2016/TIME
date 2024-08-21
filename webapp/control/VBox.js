@@ -1,0 +1,32 @@
+sap.ui.define(
+    [
+      'sap/m/VBox', //
+    ],
+    function (VBox) {
+      'use strict';
+  
+      return VBox.extend('sap.ui.time.control.VBox', {
+        metadata: {
+          events: {
+            press: {},
+            hover: {},
+            leave: {},
+          },
+        },
+  
+        renderer: {},
+  
+        onclick() {
+          this.firePress();
+        },
+  
+        onmouseover() {
+          this.fireHover();
+        },
+  
+        onmouseout() {
+          this.fireLeave();
+        },
+      });
+    }
+  );

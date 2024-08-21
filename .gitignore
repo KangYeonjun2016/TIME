@@ -1,0 +1,9 @@
+dist
+node_modules
+.sandbox
+.vscode
+.vscode/settings.json
+.env
+package-lock.json
+
+OdataTest.http

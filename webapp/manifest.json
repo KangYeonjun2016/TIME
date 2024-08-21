@@ -1,0 +1,104 @@
+{
+	"_version": "1.17.0",
+
+  "sap.app": {
+    "id": "sap.ui.time",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "ach": "set-ach",
+    "resources": "resources.json"
+  },
+
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "sap-icon://detail-view",
+      "favIcon": "asset/favicon.ico",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+
+  "sap.ui5": {
+    "rootView": {
+      "id": "app",
+      "viewName": "sap.ui.time.mvc.view.app.App",
+      "type": "XML",
+      "async": true
+    },
+    "dependencies": {
+      "minUI5Version": "1.71.33",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {},
+        "sap.ui.table": {},
+        "sap.ui.unified": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "sap.ui.time.i18n.i18n",
+          "supportedLocales": ["ko", "en"],
+          "fallbackLocale": ""
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        { "uri": "asset/css/pretendard-subset.css" },
+        { "uri": "asset/css/style.css" },
+        { "uri": "asset/css/placeholder.css" },
+        { "uri": "asset/css/util/font.css" },
+        { "uri": "asset/css/util/margin.css" },
+        { "uri": "asset/css/util/padding.css" },
+        { "uri": "asset/css/util/border.css" },
+        { "uri": "asset/css/util/size.css" },
+        { "uri": "asset/css/util/align.css" }
+      ]
+    },
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "sap.ui.time.mvc.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"bypassed": {
+					"target": "notFound"
+				},
+				"async": true
+			},
+			"routes": [
+        { "pattern": "", "name": "timeHome", "target": "home" },
+        { "pattern": "test", "name": "test", "target": "test" }
+			],
+			"targets": {
+        "home": { "viewId": "home", "viewPath": "sap.ui.time.mvc.view.home", "viewName": "App" },
+        "test": { "viewId": "test", "viewPath": "sap.ui.time.mvc.view.home", "viewName": "Test" }
+			}
+		}
+	}
+}

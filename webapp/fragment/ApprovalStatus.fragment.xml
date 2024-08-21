@@ -1,0 +1,101 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:table="sap.ui.table"
+    xmlns:core="sap.ui.core">
+    <VBox id="commonApprovalStatusBox" class="vCardBox" visible="{/settings/visible}" busy="true" busyIndicatorDelay="0">
+        <HBox class="table-toolbar">
+            <HBox class="title">
+                <Title level="H2" text="{i18n>LABEL_00169}" />
+            </HBox>
+            <HBox class="table-actions" visible="{/settings/activeRef}">
+                <Button icon="sap-icon://add" text="{i18n>LABEL_00229}" press=".onRefAdd" />
+                <Button icon="sap-icon://less" text="{i18n>LABEL_00230}" press=".onRefDel" />
+            </HBox>
+        </HBox>
+        <table:Table id="commonApprovalStatusTable" width="100%" enableSelectAll="false" selectionMode="{= ${/settings/activeRef} ? 'MultiToggle' : 'None'}" columnHeaderHeight="45" rowHeight="44" visibleRowCount="{/rowCount}" rows="{/list}" noData="{i18n>MSG_00001}">
+            <table:columns>
+                <table:Column width="4%">
+                    <Label text="No"/>
+                    <table:template>
+                        <Text text="{ path: 'Seqnr', type: 'sap.ui.time.mvc.model.type.Pernr' }" width="100%" textAlign="Center" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="4%">
+                    <Label text="{i18n>LABEL_00147}"/>
+                    <table:template>
+                        <Text text="{Lintytx}" width="100%" textAlign="Center" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="10%">
+                    <Label text="{i18n>LABEL_00210}"/>
+                    <table:template>
+                        <VBox>
+                            <HBox justifyContent="Center" alignItems="Center" visible="{= !${/settings/activeRef} || ${Linty} !== '40' }">
+                                <Image src="{Perpic}" class="member-photo mt-4-px" mode="Background" width="34px" height="34px" error=".loadErrorAvatarImage" />
+                                <Text text="{Ename}" width="100%" textAlign="Center" class="ml-4-px" />
+                            </HBox>
+                            <HBox justifyContent="Center" alignItems="Center" visible="{= ${/settings/activeRef} &amp;&amp; ${Linty} === '40' }">
+                                <Image src="{Perpic}" class="member-photo mt-4-px mr-4-px" mode="Background" width="34px" height="34px" error=".loadErrorAvatarImage" />
+                                <Input value="{Ename}" textAlign="Begin" width="100%" maxSuggestionWidth="500px" showSuggestion="true" showTableSuggestionValueHelp="false" suggestionRows="{ path:'/settings/Employees', templateShareable: false }" busyIndicatorDelay="0" busy="{/contentsBusy/search}" suggestionItemSelected=".onApprovalRefSelectSuggest" submit=".onApprovalRefSubmitSuggest">
+                                    <suggestionColumns>
+                                        <core:Fragment fragmentName="sap.ui.time.fragment.SuggestionColumnTemplate" type="XML" />
+                                    </suggestionColumns>
+                                    <suggestionRows>
+                                        <core:Fragment fragmentName="sap.ui.time.fragment.SuggestionRowTemplate" type="XML" />
+                                    </suggestionRows>
+                                </Input>
+                            </HBox>
+                        </VBox>
+                    </table:template>
+                </table:Column>
+                <table:Column width="auto">
+                    <Label text="{i18n>LABEL_00214}"/>
+                    <table:template>
+                        <Text text="{Zzcaltltx}" width="100%" textAlign="Center" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="auto">
+                    <Label text="{i18n>LABEL_00217}"/>
+                    <table:template>
+                        <Text text="{Zzpsgrptx}" width="100%" textAlign="Center" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="14%">
+                    <Label text="{i18n>LABEL_00219}"/>
+                    <table:template>
+                        <Text text="{Orgtx}" width="100%" textAlign="Center" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="auto">
+                    <Label text="{i18n>LABEL_00190}"/>
+                    <table:template>
+                        <Text text="{Appsttx}" width="100%" textAlign="Center" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="auto">
+                    <Label text="{i18n>LABEL_00170}"/>
+                    <table:template>
+                        <Text text="{ path: 'Sgnda', type: 'sap.ui.time.mvc.model.type.Date' }" width="100%" textAlign="Center" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="auto">
+                    <Label text="{i18n>LABEL_00180}"/>
+                    <table:template>
+                        <Text text="{ path: 'Sgntm', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="25%" visible="{/settings/activeInput}">
+                    <Label text="Comments" />
+                    <table:template>
+                        <Input value="{Comnt}" width="100%" editable="{enabledComments}" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="25%" visible="{= !${/settings/activeInput} }">
+                    <Label text="Comments" />
+                    <table:template>
+                        <Text width="100%" text="{Comnt}" />
+                    </table:template>
+                </table:Column>
+            </table:columns>
+        </table:Table>
+    </VBox>
+</core:FragmentDefinition>

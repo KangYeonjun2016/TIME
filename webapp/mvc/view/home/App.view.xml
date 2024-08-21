@@ -1,0 +1,22 @@
+<mvc:View controllerName="sap.ui.time.mvc.controller.home.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:custom="sap.ui.time.control">
+    <Page title="HOME" showHeader="false">
+        <VBox class="contents-header">
+            <HBox justifyContent="SpaceBetween" class="breadcrumbs">
+                <custom:Breadcrumbs />
+            </HBox>
+        </VBox>
+        <VBox class="contents">
+            <VBox class="vCardBox">
+                <HBox justifyContent="Center" alignItems="Center" class="title">
+                    <layoutData>
+                        <FlexItemData minHeight="400px" />
+                    </layoutData>
+                    <Title text="{appointeeModel>/Ename}님 안녕하세요." level="H2" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </Page>
+</mvc:View>
