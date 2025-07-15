@@ -2,7 +2,7 @@
   xmlns:core="sap.ui.core"
   xmlns:table="sap.ui.table"
   xmlns:custom="sap.ui.time.control">
-  <Dialog title="{i18n>LABEL_00207}" contentWidth="800px" contentHeight="440px" busyIndicatorDelay="0" busy="{/busy}">
+  <Dialog title="{i18n>LABEL_00207}" contentWidth="1000px" busyIndicatorDelay="0" busy="{/busy}">
     <beginButton>
       <Button text="{i18n>LABEL_00112}" press=".onPressSelectOrg" type="Emphasized" />
     </beginButton>
@@ -13,29 +13,52 @@
       <VBox class="hCardBox sapUiSmallMarginBottom">
         <HBox class="form-bar" alignItems="Center">
           <Label text="{i18n>LABEL_00191}" />
-          <custom:DatePicker dateValue="{ path: '/Datum', type: 'sap.ui.time.mvc.model.type.Date' }" width="200px" change=".onPressSearchOrg" />
+          <custom:DatePicker dateValue="{ path: '/Datum', type: 'sap.ui.time.mvc.model.type.Date' }" width="200px" change=".onPressSearchOrg" enabled="false" />
           <Label text="{i18n>LABEL_00201}" />
           <Input value="{/Stext}" width="200px" submit=".onPressSearchOrg" />
           <Button icon="/sap/public/bc/ui2/zui5_tesnahr/images/icon_search03.png" iconDensityAware="false" text="{i18n>LABEL_00101}" press=".onPressSearchOrg" class="icon-button" />
         </HBox>
       </VBox>
       <VBox class="hCardBox">
-        <table:Table class="radio-selection-table" enableSelectAll="false" selectionBehavior="Row" rows="{/orglist}" visibleRowCount="{/rowcount}" rowHeight="44" columnHeaderHeight="45" rowSelectionChange=".onOrganizationRowSelection">
-          <table:columns>
-            <table:Column width="auto" sortProperty="Stext" filterProperty="Stext">
-              <Label text="{i18n>LABEL_00216}"/>
-              <table:template>
-                <Text text="{Stext}" width="100%" wrapping="false" class="tableRow_Text"/>
-              </table:template>
-            </table:Column>
-            <table:Column width="200px" sortProperty="EnameM" filterProperty="EnameM">
-              <Label text="{i18n>LABEL_00213}"/>
-              <table:template>
-                <Text text="{EnameM}" textAlign="Center" width="100%" wrapping="false" class="tableRow_Text"/>
-              </table:template>
-            </table:Column>
-          </table:columns>
-        </table:Table>
+        <IconTabBar selectedKey="{/selectedTab}">
+          <layoutData>
+            <FlexItemData growFactor="1" />
+          </layoutData>
+          <items>
+            <IconTabFilter text="소속부서" key="A">
+              <table:Table class="radio-selection-table" enableSelectAll="false" selectionBehavior="Row" rows="{/orglist}" visibleRowCount="{/rowcount}" rowHeight="44" columnHeaderHeight="45" rowSelectionChange=".onOrganizationRowSelection">
+                <table:columns>
+                  <table:Column width="auto" sortProperty="Stext" filterProperty="Stext">
+                    <Label text="{i18n>LABEL_00216}"/>
+                    <table:template>
+                      <Text text="{Stext}" width="100%" wrapping="false" class="tableRow_Text"/>
+                    </table:template>
+                  </table:Column>
+                  <table:Column width="200px" sortProperty="EnameM" filterProperty="EnameM">
+                    <Label text="{i18n>LABEL_00213}"/>
+                    <table:template>
+                      <Text text="{EnameM}" textAlign="Center" width="100%" wrapping="false" class="tableRow_Text"/>
+                    </table:template>
+                  </table:Column>
+                </table:columns>
+              </table:Table>
+            </IconTabFilter>
+            <IconTabFilter text="조직도" key="B">
+              <ScrollContainer width="100%" height="60vh" vertical="true" busyIndicatorDelay="0" busy="{/treeBusy}">
+                <!-- <VBox renderType="Bare" busyIndicatorDelay="0" busy="{/treeBusy}"> -->
+                <Tree mode="SingleSelectMaster" items="{/tree}">
+                  <CustomTreeItem>
+                    <HBox alignItems="Center">
+                      <Text text="{Stext}" />
+                      <ObjectStatus class="sapUiTinyMarginBegin pt-5-px" text="({PernrM} {EnameM})" state="Indication05" visible="{= !!${EnameM} }" />
+                    </HBox>
+                  </CustomTreeItem>
+                </Tree>
+              </ScrollContainer>
+            </IconTabFilter>
+          </items>
+        </IconTabBar>
+
       </VBox>
     </content>
   </Dialog>

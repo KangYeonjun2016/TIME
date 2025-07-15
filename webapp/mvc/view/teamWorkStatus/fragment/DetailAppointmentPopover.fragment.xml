@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Popover contentMinWidth="250px" placement="Auto" title="{/DetailAppointData/Ename}" class="AppointmentPopover">
+        <customData>
+            <core:CustomData key="AppointmentType" value="{/DetailAppointData/Colty}" writeToDom="true" />
+        </customData>
+        <VBox>
+            <customData>
+                <core:CustomData key="AppointmentType" value="{/DetailAppointData/Colty}" writeToDom="true" />
+            </customData>
+            <VBox class="p-10-px">
+                <Label text="{i18n>LABEL_00260}" class="SubTitle3"/>
+                <Text text="{/DetailAppointData/Awrsntx}" />
+            </VBox>
+            <VBox class="p-10-px">
+                <HBox width="100%">
+                    <VBox width="50%">
+                        <Label text="{i18n>LABEL_00261}" class="SubTitle3" />
+                        <Text text="{/DetailAppointData/StartFormatted}" />
+                    </VBox>
+                    <VBox width="50%">
+                        <Label text="{i18n>LABEL_00262}" class="SubTitle3" />
+                        <Text text="{/DetailAppointData/EndFormatted}" />
+                    </VBox>
+                </HBox>
+            </VBox>
+            <VBox class="p-10-px">
+                <Label text="시간" class="SubTitle3"/>
+                <Text text="{/DetailAppointData/Time}" />
+            </VBox>
+        </VBox>
+    </Popover>
+</core:FragmentDefinition>

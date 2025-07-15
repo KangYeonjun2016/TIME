@@ -119,6 +119,51 @@ sap.ui.define(
         );
       },
 
+      // export({ oTable, sFileName, aTableData = [], aCustomColumns = [], sStatCode = 'ZappStatAl', sStatTxt = 'ZappStxtAl' }) {
+      //   if (!oTable && !aCustomColumns) return;
+
+      //   const aExportTableRowData = _.isEmpty(aTableData) ? this._getTableRowData(oTable) : aTableData;
+
+      //   if (!aExportTableRowData.length) return;
+
+      //   const i9Hours = 9 * 60 * 60 * 1000;
+      //   const oSheet = new Spreadsheet({
+      //     worker: false,
+      //     dataSource: _.map(aExportTableRowData, (o) => {
+      //       return _.forOwn(o, (v, p) => {
+      //         if (_.isObject(v) && _.has(v, 'ms')) {
+      //           _.set(o, p, moment(v.ms - i9Hours).format('HH:mm'));
+      //         } else if (
+      //           _.isString(v) &&
+      //           _.size(v) === 4 &&
+      //           (_.startsWith(p, 'Beguz') || _.startsWith(p, 'Enduz') || _.startsWith(p, 'Sobeg') || _.startsWith(p, 'Soend') || _.startsWith(p, 'Pbeg') || _.startsWith(p, 'Pend'))
+      //         ) {
+      //           _.set(o, p, v.replace(/(\d{2})(\d)/g, '$1:$2'));
+      //         }
+      //       });
+      //     }),
+      //     fileName: `${sFileName}_${moment().format('YYYYMMDD')}.xlsx`,
+      //     workbook: {
+      //       hierarchyLevel: 'Level',
+      //       columns: _.isEmpty(aCustomColumns)
+      //         ? _.chain(oTable.getColumns())
+      //             .map((col) => ({
+      //               ...this._getEdmType(col),
+      //               property: this._getPropertyPath(col, sStatCode, sStatTxt),
+      //               label: this._getLabelText(col),
+      //             }))
+      //             .reject({ property: '' })
+      //             .reject({ label: '' })
+      //             .value()
+      //         : aCustomColumns,
+      //     },
+      //   });
+
+      //   oSheet.build().finally(function () {
+      //     oSheet.destroy();
+      //   });
+      // },
+
       export({ oTable, sFileName, aTableData = [], aCustomColumns = [], sStatCode = 'ZappStatAl', sStatTxt = 'ZappStxtAl' }) {
         if (!oTable && !aCustomColumns) return;
 
@@ -126,32 +171,44 @@ sap.ui.define(
 
         if (!aExportTableRowData.length) return;
 
+        _.map(aExportTableRowData, (o) => {
+          return _.forOwn(o, (v, p) => {
+            if (_.isObject(v) && _.has(v, 'ms')) {
+              _.set(o, p, moment(v.ms - i9Hours).format('HH:mm'));
+            } else if (
+              _.isString(v) &&
+              _.size(v) === 4 &&
+              (_.startsWith(p, 'Beguz') || _.startsWith(p, 'Enduz') || _.startsWith(p, 'Sobeg') || _.startsWith(p, 'Soend') || _.startsWith(p, 'Pbeg') || _.startsWith(p, 'Pend'))
+            ) {
+              _.set(o, p, v.replace(/(\d{2})(\d)/g, '$1:$2'));
+            }
+          });
+        });
+
+        console.log(aExportTableRowData);
+
+        aCustomColumns = _.isEmpty(aCustomColumns)
+          ? _.chain(oTable.getColumns())
+              .map((col) => ({
+                ...this._getEdmType(col),
+                property: this._getPropertyPath(col, sStatCode, sStatTxt),
+                label: this._getLabelText(col),
+              }))
+              .reject({ property: '' })
+              .reject({ label: '' })
+              .value()
+          : aCustomColumns;
+
+        console.log(aCustomColumns);
+
         const i9Hours = 9 * 60 * 60 * 1000;
         const oSheet = new Spreadsheet({
           worker: false,
-          dataSource: _.map(aExportTableRowData, (o) => {
-            return _.forOwn(o, (v, p) => {
-              if (_.isObject(v) && _.has(v, 'ms')) {
-                _.set(o, p, moment(v.ms - i9Hours).format('HH:mm'));
-              } else if (_.isString(v) && _.size(v) === 4 && (_.startsWith(p, 'Beguz') || _.startsWith(p, 'Enduz'))) {
-                _.set(o, p, v.replace(/(\d{2})(\d)/g, '$1:$2'));
-              }
-            });
-          }),
+          dataSource: aExportTableRowData,
           fileName: `${sFileName}_${moment().format('YYYYMMDD')}.xlsx`,
           workbook: {
             hierarchyLevel: 'Level',
-            columns: _.isEmpty(aCustomColumns)
-              ? _.chain(oTable.getColumns())
-                  .map((col) => ({
-                    ...this._getEdmType(col),
-                    property: this._getPropertyPath(col, sStatCode, sStatTxt),
-                    label: this._getLabelText(col),
-                  }))
-                  .reject({ property: '' })
-                  .reject({ label: '' })
-                  .value()
-              : aCustomColumns,
+            columns: aCustomColumns,
           },
         });
 
@@ -198,8 +255,9 @@ sap.ui.define(
       _getPropertyPath(oColumn, sStatCode, sStatTxt) {
         if (!oColumn || !oColumn.getTemplate() || !oColumn.getVisible()) return '';
 
-        const sPropertyPath = _.chain(oColumn.getTemplate().mBindingInfos).omit('items').values().head().get(['parts', 0, 'path'], '').value();
+        let sPropertyPath = _.chain(oColumn.getTemplate().mBindingInfos).omit('items').values().head().get(['parts', 0, 'path'], '').value();
 
+        if (sPropertyPath === 'Ratnans') sPropertyPath = 'Ratnanstx';
         return _.isEqual(sPropertyPath, sStatCode) ? sStatTxt : sPropertyPath;
       },
 
@@ -220,6 +278,80 @@ sap.ui.define(
               oPrevTD = oTD;
             }
           });
+
+          $(sId)
+            .get()
+            .forEach((oTD) => {
+              $(oTD)
+                .find('span')
+                .text(_.split($(oTD).text(), '--', 1));
+            });
+        });
+      },
+
+      _rederTableRowspan(oTable, aColumnIndexes, aCondition, aDeleteRowIdx, aDeleteRowCount) {
+        aColumnIndexes.forEach((colIndex) => {
+          const sId = `#${oTable.getId()}-${'table'} tbody>tr td:nth-child(${colIndex + 1}):visible`;
+          const aTDs = $(sId).get();
+          if (aDeleteRowIdx != null && aDeleteRowCount != null) {
+            aTDs.splice(aDeleteRowIdx, aDeleteRowCount);
+          }
+          let oPrevTD = aTDs.shift();
+          const sConditionId = `#${oTable.getId()}-${'table'} tbody>tr td:nth-child(${aCondition + 1}):visible`;
+          const aConditionTDs = $(sConditionId).get();
+          let oPrevConditionTD = aConditionTDs.shift();
+
+          aTDs.forEach((oTD, oCTD) => {
+            const $p = $(oPrevTD);
+            const $c = $(oTD);
+
+            const $pC = $(oPrevConditionTD);
+            const $cC = $(oCTD);
+
+            if ($c.text() === $p.text() && $cC.text() === $pC.text()) {
+              $p.attr('rowspan', Number($p.attr('rowspan') || 1) + 1);
+              $c.hide();
+            } else {
+              oPrevTD = oTD;
+              oPrevConditionTD = oCTD;
+            }
+          });
+
+          $(sId)
+            .get()
+            .forEach((oTD) => {
+              $(oTD)
+                .find('span')
+                .text(_.split($(oTD).text(), '--', 1));
+            });
+        });
+      },
+
+      _rederAwardTableRowspan(oTable, aColumnIndexes, aCondition, aDeleteRowIdx, aDeleteRowCount) {
+        aColumnIndexes.forEach((colIndex) => {
+          const sId = `#${oTable.getId()}-${'table'} tbody>tr td:nth-child(${colIndex + 1}):visible`;
+          const aTDs = $(sId).get();
+          let oPrevTD = aTDs.shift();
+          let Conditions = ['평일연장', '휴일근무', '휴일연장'];
+          if (aCondition !== '0900') {
+            Conditions.splice(0, 1);
+          }
+
+          let aRowData = oTable.getModel().getData().Formlist;
+
+          for (let i = 0; i < aTDs.length; i++) {
+            const $p = $(oPrevTD);
+            const $c = $(aTDs[i]);
+            const $cC = aRowData[i + 1].Subty30Ty;
+            const $pC = aRowData[i].Subty30Ty;
+
+            if ($c.text() === $p.text() && Conditions.includes($cC) && Conditions.includes($pC)) {
+              $p.attr('rowspan', Number($p.attr('rowspan') || 1) + 1);
+              $c.hide();
+            } else {
+              oPrevTD = aTDs[i];
+            }
+          }
 
           $(sId)
             .get()
@@ -316,6 +448,34 @@ sap.ui.define(
         }
 
         aRows.forEach((row) => _.forOwn(mColorMap, (value, key) => $(`#${row.getId()}-col${key}`).addClass(value)));
+      },
+
+      setColorColumnWithCondition({ oTable, mColorMap = {}, bIncludeHeader = false, mHeaderColorMap = {}, bHasSumRow = false }) {
+        const aRows = [...oTable.getRows()];
+
+        if (bHasSumRow) aRows.pop(); // delete last
+
+        if (bIncludeHeader) {
+          const oColumns = oTable.getColumns();
+
+          if (_.isEmpty(mHeaderColorMap)) {
+            _.forOwn(mColorMap, (value, key) => $(`#${_.get(oColumns, key).getId()}`).addClass(value));
+          } else {
+            _.forOwn(mHeaderColorMap, (value, key) => $(`#${_.get(oColumns, key).getId()}`).addClass(value));
+          }
+        }
+
+        aRows.forEach((row) =>
+          _.forOwn(mColorMap, (value, key) => {
+            if ($(`#${row.getId()}-col${key}`).text() === '휴일근무') {
+              $(`#${row.getId()}-col${key}`).addClass(value);
+            } else {
+              $(`#${row.getId()}-col${key}`).removeClass(value);
+            }
+          })
+        );
+
+        // aRows.forEach((row) => _.forOwn(mColorMap, (value, key) => $(`#${row.getId()}-col${key}`).addClass(value)));
       },
 
       clearTablePicker(oTable) {

@@ -1,0 +1,212 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:table="sap.ui.table"
+    xmlns:control="sap.ui.time.control">
+    <VBox width="100%">
+        <HBox class="pl-10-px">
+            <VBox width="55%">
+                <IconTabBar headerBackgroundDesign="Transparent" select=".onIconTabSelect" selectedKey="{detailView>/selectedTab}" class="displayFlex justifyItemLeft timeClosingwidth100p">
+                    <items>
+                        <IconTabFilter showAll="true" key="All" text="{i18n>LABEL_00251}" count="{/entry/Total}"/>
+                        <IconTabSeparator />
+                        <IconTabFilter icon="sap-icon://play" text="{i18n>LABEL_00103}" key="Save" count="{/entry/Save}" iconColor="Neutral"/>
+                        <IconTabFilter icon="sap-icon://message-success" text="{i18n>LABEL_00252}" key="Complete" count="{/entry/Complete}" iconColor="Positive"/>
+                        <IconTabFilter icon="sap-icon://message-warning" text="{i18n>LABEL_00253}" key="Incomplete" count="{/entry/Incomplete}" iconColor="Critical"/>
+                        <IconTabFilter icon="sap-icon://message-error" text="{i18n>LABEL_00254}" key="Confirm" count="{/entry/Confirm}" iconColor="Negative"/>
+                        <IconTabFilter icon="sap-icon://time-off" text="휴무" key="Holiday" count="{/entry/Holiday}" iconColor="NonInteractive"/>
+                    </items>
+                </IconTabBar>
+            </VBox>
+            <VBox class="justifyEnd mb-10-px" width="35%">
+                <HBox class="justifyEnd timeClosingButtonGroup">
+                    <Button type="Emphasized" text="{i18n>LABEL_00104}" busyIndicatorDelay="0" busy="{/contentsBusy/button}" visible="{= ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} !== 'X' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} !== 'M' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} !== 'I' &amp;&amp; ( ${/entry/MytimeHeader/Pernr} === ${/Pernr} || ${/Auth} === 'H' ) }" press=".onPressSave" />
+                    <Button type="Accept" text="{i18n>LABEL_00252}" busyIndicatorDelay="0" busy="{/contentsBusy/button}" visible="{= ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} !== 'X' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} !== 'M' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} !== 'I' &amp;&amp; ( ${/entry/MytimeHeader/Pernr} === ${/Pernr} || ${/Auth} === 'H' ) }" press=".onPressComplete" />
+                    <Button type="Reject" text="{i18n>LABEL_00255}" busyIndicatorDelay="0" busy="{/contentsBusy/button}" visible="{= ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} !== 'M' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} !== 'I' &amp;&amp; ( ${/entry/MytimeHeader/Pernr} === ${/Pernr} || ${/Auth} === 'H' ) }" press=".onPressCancel" />
+                    <Button type="Default" text="월 마감신청" busyIndicatorDelay="0" busy="{/contentsBusy/button}" visible="{= ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === 'X' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} !== 'I' &amp;&amp; ( ${/entry/MytimeHeader/Pernr} === ${/Pernr} || ${/Auth} === 'H' ) }" press=".onPressCloseRequestCheck" />
+                    <Button type="Reject" text="마감신청취소" busyIndicatorDelay="0" busy="{/contentsBusy/button}" visible="{= ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === 'I' &amp;&amp; ( ${/entry/MytimeHeader/Pernr} === ${/Pernr} || ${/Auth} === 'H' ) }" press=".onPressCancelCloseRequest" />
+                </HBox>
+            </VBox>
+            <VBox class="justifyEnd mb-10-px" width="10%">
+                <HBox>
+                    <Button icon="sap-icon://excel-attachment" text="Excel" press=".onPressExcelDownload" />
+                </HBox>
+            </VBox>
+        </HBox>
+    </VBox>
+    <VBox width="100%" class="mt-10-px">
+        <table:Table id="MainTable" selectionMode="None" width="100%" columnHeaderHeight="45" rowHeight="44" rows="{ path: '/entry/MytimeMonthlyPerson', templateShareable: false }" visibleRowCount="{/entry/MytimeMonthlyPersonRowCount}" busyIndicatorDelay="0" busy="{/contentsBusy/table}">
+            <table:rowSettingsTemplate>
+                <table:RowSettings highlight="{=${Confirmyn} ==='X' ? 'Indication05' : ${Confirmyn} ==='C' ? 'Indication04' : ${Confirmyn} ==='A' ? 'Indication03' : 'None'}"/>
+            </table:rowSettingsTemplate>
+            <table:columns>
+                <table:Column width="3.5rem">
+                    <table:multiLabels>
+                        <CheckBox textAlign="Center" selected="{/entry/SelectedAll}" select=".SelectDetailAll" />
+                    </table:multiLabels>
+                    <table:template>
+                        <CheckBox textAlign="Center" selected="{Selected}" editable="{= ${Confirmyn} !== 'A' &amp;&amp; ( ${/entry/MytimeHeader/Pernr} === ${/Pernr} || ${/Auth} === 'H' ) }" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="3.7rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00134}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00134}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <!-- <Text text="{=${Confirmyn} ==='X' ? '확정' : ${Confirmyn} ==='C' ? '저장' : ${Confirmyn} ==='A' ? '휴무' : '미확정'}" width="100%" textAlign="Center" wrapping="false" /> -->
+                        <Text text="{Confirmyntx}" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="6.5rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00156}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00156}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{ path: 'Tmdat', type: 'sap.ui.time.mvc.model.type.Date' }" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="3rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00178}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00178}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{Wkdaytx}" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="5rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00233}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00233}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{Ltext}" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="5rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00172}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00172}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{Awrsntx}" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="3.8rem" headerSpan="2">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00232}" textAlign="Center" width="100%"/>
+                        <Label text="From" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{ path: 'Scbegtm', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="3.8rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00232}" textAlign="Center" width="100%"/>
+                        <Label text="To" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{ path: 'Scendtm', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="5.9rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00228}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00228}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{ScResult}" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="3.8rem" headerSpan="2">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00227}" textAlign="Center" width="100%"/>
+                        <Label text="From" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{ path: 'Pcbegtm', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="3.8rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00227}" textAlign="Center" width="100%"/>
+                        <Label text="To" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{ path: 'Pcendtm', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="5.8rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00199}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00199}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{PcResult}" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="6rem">
+                    <table:multiLabels>
+                        <Label text="PC미사용시간" textAlign="Center" width="100%" wrapping="true"/>
+                        <Label text="PC미사용시간" textAlign="Center" width="100%" wrapping="true"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <FormattedText htmlText="{Totalidle}" width="100%" textAlign="Center">
+                            <tooltip>
+                                <control:Tooltip>
+                                    <control:content>
+                                        <Text text="{Idlelist}"/>
+                                    </control:content>
+                                </control:Tooltip>
+                            </tooltip>
+                        </FormattedText>
+                    </table:template>
+                </table:Column>
+                <table:Column width="6.7rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00257}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00257}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <MaskInput mask="99시간99분" placeholder="HH시간mm분" showClearIcon="false" value="{Result}" enabled="{= ${Confirmyn} !=='A'}" textAlign="Center" class="pt-7-px">
+                            <rules>
+                                <MaskInputRule maskFormatSymbol="C" regex="[A-Z0-9]"/>
+                            </rules>
+                        </MaskInput>
+                    </table:template>
+                </table:Column>
+                <table:Column width="7.8rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00266}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00266}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <FormattedText htmlText="{Checklist2}" width="100%" textAlign="Center" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="8rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00273}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00273}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <ComboBox items="{ path: '/entry/RatnansTypeList', templateShareable: false }" selectedKey="{Ratnans}" editable="{= (${Confirmyn} !=='X' &amp;&amp; ${Checklist2} !=='' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} !== 'X') || ( ${Checklist2} ==='' &amp;&amp;  ${Totalidle} !== '' &amp;&amp; ( ${Confirmyn} ==='C' || ${Confirmyn} ==='' ))}" width="100%">
+                            <core:Item key="{code}" text="{text}" />
+                        </ComboBox>
+                    </table:template>
+                </table:Column>
+                <table:Column>
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00234}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00234}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Input value="{Ratnrsn}" width="100%" textAlign="Begin" editable="{= (${Confirmyn} !=='X' &amp;&amp; ${Checklist2} !=='' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} !== 'X') || ( ${Checklist2} ==='' &amp;&amp; ${Totalidle} !== '' &amp;&amp; ( ${Confirmyn} ==='C' || ${Confirmyn} ==='' ))}" maxLength="100" />
+                    </table:template>
+                </table:Column>
+            </table:columns>
+        </table:Table>
+    </VBox>
+</core:FragmentDefinition>

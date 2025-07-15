@@ -1,0 +1,56 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:table="sap.ui.table">
+    <!-- <Dialog title="근무 및 근태 등록" contentWidth="1000px" contentHeight="auto" busyIndicatorDelay="0" busy="{/contentsBusy/dialog}" afterClose=".onDialogAfterClose"> -->
+    <Dialog contentWidth="{= ${/Auth} === 'H' ? '850px' : '1200px'}" busyIndicatorDelay="0" busy="{/contentsBusy/dialog}" showHeader="false">
+        <buttons>
+            <Button text="신청" type="Emphasized" press=".onPressSave" visible="{= ${/dialog/data/Prcty} === 'S' }" />
+            <Button text="닫기" type="Emphasized" press=".onPressFormDialogClose"/>
+        </buttons>
+        <content>
+            <VBox class="vCardBox">
+                <HBox class="table-toolbar">
+                    <HBox class="title">
+                        <Title class="SubTitle" text="신규신청 내역"/>
+                    </HBox>
+                </HBox>
+                <HBox alignItems="Center">
+                    <Label text="대상자" class="SubTitle3 pl-4-px" width="200px"/>
+                    <Input width="300px" value="{/dialog/data/Ename}" enabled="{=${/Auth} === 'E' ? false : ${/dialog/data/Prcty} === 'S' ? true : false}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onTargetUserChange" class="conspicuous-disabled" />
+                </HBox>
+
+                <HBox alignItems="Center" class="pt-10-px">
+                    <Label text="적용년월" class="SubTitle3 pl-4-px" width="200px"/>
+                    <DatePicker value="{/dialog/data/Yyyymm}"  enabled ="{= ${/dialog/data/Prcty} === 'S'}" width="150px"  valueFormat = "yyyyMM" displayFormat= "yyyy.MM" change=".onChangeYyyymm" />
+                </HBox>
+
+                <HBox alignItems="Center" class="pt-10-px">
+                    <Label text="근무제도" class="SubTitle3 pl-4-px" width="200px"/>
+                    <RadioButtonGroup columns="2" enabled ="{= ${/dialog/data/Prcty} === 'S'}" selectedIndex="{/dialog/data/Gubun}">
+                        <custom:RadioButton text="" innerSize="25%" class="pr-40-px" visible="false"/>
+                        <custom:RadioButton text="선택적근로시간제도" innerSize="25%" class="pr-40-px" />
+                        <custom:RadioButton text="시차출퇴근제도" innerSize="25%" class="pr-40-px"/>
+                    </RadioButtonGroup>
+                </HBox>
+
+                <HBox alignItems="Center" class="pt-10-px">
+                    <Label text="근무일정" class="SubTitle3 pl-4-px" width="200px"/>
+                    <ComboBox width="500px" class="required sapUiTinyMarginEnd" selectedKey="{/dialog/data/Schkz}" enabled ="{= ${/dialog/data/Prcty} === 'S'}" items="{ path: '/SchkzList', templateShareable: false }">
+                        <core:Item key="{Schkz}" text="{Schkztx}" />
+                    </ComboBox>
+                </HBox>
+
+                <HBox alignItems="Center" class="pt-10-px">
+                    <Label text="사유" class="SubTitle3 pl-4-px" width="200px"/>
+                    <Input width="500px" value="{/dialog/data/Dtrsn}" enabled="{= ${/dialog/data/Prcty} === 'S' ? true : false}" class="required"/>
+                </HBox>
+
+            </VBox>
+            <VBox visible="{= ${/Auth} !== 'H'}">
+                <core:Fragment fragmentName="sap.ui.time.mvc.view.timeAttendance.fragment.ApprovalStatus" type="XML" />
+            </VBox>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

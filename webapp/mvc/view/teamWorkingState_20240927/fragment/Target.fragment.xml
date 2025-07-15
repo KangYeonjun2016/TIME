@@ -1,0 +1,28 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified">
+    <VBox width="300px" class="vCardBox small sapUiMediumMarginEnd" busyIndicatorDelay="0" busy="{/busy/plan}">
+    <!-- <VBox width="30%"> -->
+        <HBox height="100%">
+        <!-- <HBox class="align-right"> -->
+             <Tree id="TargetList" items="{path: '/targetList'}" mode="None" expand="0">
+                <CustomTreeItem>
+                    <FlexBox alignItems="Start" width="100%">
+                        <items>
+                            <CheckBox class="sapUiSmallMarginEnd" 
+                                      visible="{= ${targetVisble} }" 
+                                      selected="{selected}"
+                                      select=".onSearchTeamWorkState" />          
+                            <Text text="{text}">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                            </Text>
+                        </items>
+                    </FlexBox>
+                </CustomTreeItem>
+            </Tree>
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

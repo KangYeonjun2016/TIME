@@ -1,0 +1,62 @@
+<mvc:View controllerName="sap.ui.time.mvc.controller.timeReport.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified">
+    <Page title="HOME" showHeader="false">
+        <VBox class="contents">
+            <HBox class="vCardBox" justifyContent="SpaceBetween" height="80px">
+                <HBox class="form-bar" alignItems="Center">
+                    <Label text="{i18n>LABEL_00220}" />
+                    <ComboBox items="{/PersaList}" selectedKey="{/searchConditions/Werks}" busyIndicatorDelay="0" busy="{/contentsBusy/search}">
+                        <core:Item key="{code}" text="{text}" />
+                    </ComboBox>
+                    <Label text="{i18n>LABEL_00219}" />
+                    <Input width="100%" value="{/searchConditions/Otext}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onSearchOrg" class="conspicuous-disabled" />
+                    <Label text="대상자" />
+                    <Input width="100%" value="{/searchConditions/Ename}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onSearchPernr" class="conspicuous-disabled" />
+                    <Label text="{i18n>LABEL_00122}" />
+                    <DatePicker value="{/searchConditions/YYYYMM}" width="150px"  valueFormat = "yyyyMM" displayFormat= "yyyy.MM"/>
+                    <Button text="{i18n>LABEL_00100}" icon="/sap/public/bc/ui2/zui5_tesnahr/images/icon_search03.png" iconDensityAware="false" press=".onPressSearch" busyIndicatorDelay="0" busy="{/contentsBusy/search}" />
+                </HBox>
+            </HBox>
+            <VBox class="vCardBox">
+                <HBox>
+                    <Label text="팀 근무시간 현황" class="SubTitle2"/>
+                </HBox>
+                <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.TeamTable" type="XML" />
+            </VBox>
+            <VBox class="vCardBox">
+                <HBox>
+                    <Label text="팀원 근무시간 현황" class="SubTitle2"/>
+                </HBox>
+                <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.EmployeeTable" type="XML" />
+            </VBox>
+            <VBox class="vCardBox">
+                <HBox>
+                    <Label text="당월 근태 Monitoring 현황" class="SubTitle2" />
+                </HBox>
+                <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.Monitoring" type="XML" />
+
+                <HBox class="pt-10-px">
+                    <Label text="{/VizFrameLabel}" class="SubTitle3" visible="{/VizFrameLabelVisible}"/>
+                </HBox>
+
+                <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.LineChart" type="XML" />
+
+                <VBox visible="{/MonitoringListInfo1/visible}" class="pt-10-px">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.MonitoringDetail1" type="XML" />
+                </VBox>
+                <VBox visible="{/MonitoringListInfo2/visible}" class="pt-10-px">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.MonitoringDetail2" type="XML" />
+                </VBox>
+                <VBox visible="{/MonitoringListInfo3/visible}" class="pt-10-px">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.MonitoringDetail3" type="XML" />
+                </VBox>
+
+            </VBox>
+        </VBox>
+    </Page>
+</mvc:View>

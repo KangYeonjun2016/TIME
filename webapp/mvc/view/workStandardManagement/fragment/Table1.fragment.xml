@@ -1,0 +1,108 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:table="sap.ui.table"
+    xmlns:core="sap.ui.core">
+    <table:Table id="Table1" selectionMode="None" width="100%" columnHeaderHeight="45" rowHeight="44" rows="{/list1}" visibleRowCount="{/listInfo1/rowCount}" busyIndicatorDelay="0" busy="{/contentsBusy/table}" noData="{i18n>MSG_00001}">
+        <table:columns>
+            <table:Column width="5%" headerSpan="2">
+                <table:multiLabels>
+                    <Label text="일일근무일정" textAlign="Center" width="100%"/>
+                    <Label text="Code" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Tprog}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="15%">
+                <table:multiLabels>
+                    <Label text="일일근무일정" textAlign="Center" width="100%"/>
+                    <Label text="Text" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Ttext}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7%" headerSpan="2">
+                <table:multiLabels>
+                    <Label text="기본근무시간" textAlign="Center" width="100%"/>
+                    <Label text="From" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{ path: 'SobegT', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7%">
+                <table:multiLabels>
+                    <Label text="기본근무시간" textAlign="Center" width="100%"/>
+                    <Label text="To" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{ path: 'SoendT', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7%" headerSpan="2">
+                <table:multiLabels>
+                    <Label text="휴계1" textAlign="Center" width="100%"/>
+                    <Label text="From" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{ path: 'Pbeg1', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7%">
+                <table:multiLabels>
+                    <Label text="휴계1" textAlign="Center" width="100%"/>
+                    <Label text="To" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{ path: 'Pend1', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7%" headerSpan="2">
+                <table:multiLabels>
+                    <Label text="휴계2" textAlign="Center" width="100%"/>
+                    <Label text="From" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{ path: 'Pbeg2', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7%">
+                <table:multiLabels>
+                    <Label text="휴계2" textAlign="Center" width="100%"/>
+                    <Label text="To" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{ path: 'Pend2', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="10%">
+                <table:multiLabels>
+                    <Label text="허용여부" />
+                    <Label text="허용여부" />
+                </table:multiLabels>
+                <table:template>
+                    <!-- <Switch state="{= ${Usgyn} === 'X' ? true : false }" type="AcceptReject"/> -->
+                    <Switch state="{Usgyn}" type="AcceptReject"/>
+                </table:template>
+            </table:Column>
+            <table:Column width="10%">
+                <table:multiLabels>
+                    <Label text="최종변경자" />
+                    <Label text="최종변경자" />
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Lcnam}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="10%">
+                <table:multiLabels>
+                    <Label text="최종변경일시" />
+                    <Label text="최종변경일시" />
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Lctim}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+        </table:columns>
+    </table:Table>
+</core:FragmentDefinition>

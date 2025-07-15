@@ -1,0 +1,61 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:table="sap.ui.table"
+    xmlns:custom="sap.ui.time.control">
+    <Popover contentWidth="700px" placement="Auto" showHeader="false">
+        <VBox class="vCardBox">
+            <table:Table id="PopoverTable" selectionMode="None" width="100%" columnHeaderHeight="45" rowHeight="44" rows="{/Formlist}" visibleRowCount="{/FormlistInfo/rowCount}" busyIndicatorDelay="0" busy="{/contentsBusy/FormTable}" noData="{i18n>MSG_00001}">
+                <table:columns>
+                    <table:Column width="7rem" visible="{= ${/Auth} !== 'E'}">
+                        <table:label>
+                            <Label text="근무유형" textAlign="Center" width="100%"/>
+                        </table:label>
+                        <table:template>
+                            <Text text="{Subty30Ty}" width="100%" textAlign="Center" wrapping="false" />
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="6rem" visible="{= ${/Auth} !== 'E'}">
+                        <table:label>
+                            <Label text="고정OT초과" textAlign="Center" width="100%"/>
+                        </table:label>
+                        <table:template>
+                            <Text text="{Over}" width="100%" textAlign="Center" wrapping="false" />
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="6rem" visible="{= ${/Auth} !== 'E'}">
+                        <table:label>
+                            <Label text="고정OT미만" textAlign="Center" width="100%"/>
+                        </table:label>
+                        <table:template>
+                            <Text text="{Under}" width="100%" textAlign="Center" wrapping="false" />
+                        </table:template>
+                    </table:Column>
+                    <table:Column>
+                        <table:label>
+                            <Label text="시간" textAlign="Center" width="100%"/>
+                        </table:label>
+                        <table:template>
+                            <Text text="{Stdaz}" width="100%" textAlign="Center" wrapping="false" />
+                        </table:template>
+                    </table:Column>
+                    <table:Column>
+                        <table:label>
+                            <Label text="가중치" textAlign="Center" width="100%"/>
+                        </table:label>
+                        <table:template>
+                            <Text text="{Weight}" width="100%" textAlign="Center" wrapping="false" />
+                        </table:template>
+                    </table:Column>
+                    <table:Column>
+                        <table:label>
+                            <Label text="보상휴가" textAlign="Center" width="100%"/>
+                        </table:label>
+                        <table:template>
+                            <Text text="{AdjStdaz}" width="100%" textAlign="Center" wrapping="false" />
+                        </table:template>
+                    </table:Column>
+                </table:columns>
+            </table:Table>
+        </VBox>
+    </Popover>
+</core:FragmentDefinition>

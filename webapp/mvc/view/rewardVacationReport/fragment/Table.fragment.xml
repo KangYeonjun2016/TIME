@@ -1,0 +1,193 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:table="sap.ui.table"
+    xmlns:core="sap.ui.core">
+
+    <table:Table id="Table" selectionMode="None" width="100%" columnHeaderHeight="45" rowHeight="44" rows="{/list}" visibleRowCount="{/listInfo/rowCount}" busyIndicatorDelay="0" busy="{/contentsBusy/table}" noData="{i18n>MSG_00001}">
+        <table:columns>
+            <table:Column width="5rem">
+                <table:multiLabels>
+                    <Label text="사번" textAlign="Center" width="100%"/>
+                    <Label text="사번" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Pernr}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="5rem" sortProperty="Ename">
+                <table:multiLabels>
+                    <Label text="성명" textAlign="Center" width="100%"/>
+                    <Label text="성명" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Ename}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="5rem">
+                <table:multiLabels>
+                    <Label text="직군" textAlign="Center" width="100%"/>
+                    <Label text="직군" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Zzjobgrtx}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="5rem">
+                <table:multiLabels>
+                    <Label text="Title" textAlign="Center" width="100%"/>
+                    <Label text="Title" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Zzcaltltx}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="5rem">
+                <table:multiLabels>
+                    <Label text="직책" textAlign="Center" width="100%"/>
+                    <Label text="직책" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Zzpsgrptx}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column sortProperty="Orgtx">
+                <table:multiLabels>
+                    <Label text="소속" textAlign="Center" width="100%"/>
+                    <Label text="소속" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Orgtx}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column sortProperty="Zschk" width="8rem">
+                <table:multiLabels>
+                    <Label text="근태제도" textAlign="Center" width="100%"/>
+                    <Label text="근태제도" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Zschk}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="6rem">
+                <table:multiLabels>
+                    <Text text="{i18n>LABEL_00275}" textAlign="Center" width="100%" class="text500"/>
+                    <Text text="{i18n>LABEL_00275}" textAlign="Center" width="100%" class="text500"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Balsum}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="6.5rem">
+                <table:multiLabels>
+                    <Label text="근태기간" textAlign="Center" width="100%"/>
+                    <Label text="근태기간" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{TmdatTx}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="3.8rem" headerSpan="4">
+                <table:multiLabels >
+                    <Label text="근무시간" textAlign="Center" width="100%"/>
+                    <Label text="연장" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Addhr}" width="100%" textAlign="Center" wrapping="false" />
+                    <!-- <Link text="{Addhr}" width="100%" textAlign="Center" wrapping="false" press=".onPressAddhr" /> -->
+                </table:template>
+            </table:Column>
+            <table:Column width="3.8rem">
+                <table:multiLabels >
+                    <Label text="근무시간" textAlign="Center" width="100%"/>
+                    <Label text="야간" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Ngthr}" width="100%" textAlign="Center" wrapping="false" />
+                    <!-- <Link text="{Ngthr}" width="100%" textAlign="Center" wrapping="false" press=".onPressNgthr" /> -->
+                </table:template>
+            </table:Column>
+            <table:Column width="3.8rem">
+                <table:multiLabels >
+                    <Label text="근무시간" textAlign="Center" width="100%"/>
+                    <Label text="휴일" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Hwkhr}" width="100%" textAlign="Center" wrapping="false" />
+                    <!-- <Link text="{Hwkhr}" width="100%" textAlign="Center" wrapping="false" press=".onPressHwkhr" /> -->
+                </table:template>
+            </table:Column>
+            <table:Column width="4.5rem">
+                <table:multiLabels >
+                    <Label text="근무시간" textAlign="Center" width="100%"/>
+                    <Label text="휴일연장" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Hwkexhr}" width="100%" textAlign="Center" wrapping="false" />
+                    <!-- <Link text="{Hwkexhr}" width="100%" textAlign="Center" wrapping="false" press=".onPressHwkexhr" /> -->
+                </table:template>
+            </table:Column>
+            <table:Column width="4.5rem" headerSpan="5">
+                <table:multiLabels >
+                    <Label text="보상휴가" textAlign="Center" width="100%"/>
+                    <Label text="발생시간" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Link text="{Crecnt}" width="100%" textAlign="Center" wrapping="false" press=".onPressCrecnt" />
+                </table:template>
+            </table:Column>
+            <table:Column width="4.5rem">
+                <table:multiLabels >
+                    <Label text="보상휴가" textAlign="Center" width="100%"/>
+                    <Label text="사용시간" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Usecnt}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="4.5rem">
+                <table:multiLabels >
+                    <Label text="보상휴가" textAlign="Center" width="100%"/>
+                    <Label text="잔여시간" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Balcnt}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="6rem">
+                <table:multiLabels >
+                    <Label text="보상휴가" textAlign="Center" width="100%"/>
+                    <Label text="공제시작일" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{ path: 'Desta', type: 'sap.ui.time.mvc.model.type.Date' }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="6rem">
+                <table:multiLabels >
+                    <Label text="보상휴가" textAlign="Center" width="100%"/>
+                    <Label text="공제종료일" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{ path: 'Deend', type: 'sap.ui.time.mvc.model.type.Date' }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column headerSpan="2" width="6rem">
+                <table:multiLabels >
+                    <Label text="인사정보" textAlign="Center" width="100%"/>
+                    <Text text="{i18n>LABEL_00276}" textAlign="Center" width="100%" class="text500"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{ path: 'Dat70P', type: 'sap.ui.time.mvc.model.type.Date' }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="6rem">
+                <table:multiLabels >
+                    <Label text="인사정보" textAlign="Center" width="100%"/>
+                    <Label text="퇴직발령일" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{ path: 'Dat70A', type: 'sap.ui.time.mvc.model.type.Date' }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+        </table:columns>
+    </table:Table>
+</core:FragmentDefinition>

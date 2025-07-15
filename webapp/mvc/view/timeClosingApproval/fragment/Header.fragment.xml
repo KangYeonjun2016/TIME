@@ -1,0 +1,36 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control">
+    <VBox width="100%" alignItems="Start" binding="{/entry/MytimeHeader}" busyIndicatorDelay="0" busy="{/busy/plan2}">
+        <!-- class="vCardBox small sapUiMediumMarginEnd" -->
+        <HBox>
+            <Text text="{Ename}" class="ClosingProfileName" />
+            <Text text="{Title}" class="ProfileTeam pl-20-px"/>
+        </HBox>
+        <HBox width="100%" alignItems="Start">
+            <VBox>
+                <Image src="{Photo}" mode="Background" class="member-photo mt-10-px" width="126px" height="126px" error=".loadErrorAvatarImage" />
+            </VBox>
+            <VBox class="appointee-info sapUiSmallMarginBegin" visible="{= ${/entry/MytimeHeader/Ename} !== ''}">
+                <Text text="{i18n>LABEL_00248}" class="SubTitle4"/>
+                <Text text="{i18n>LABEL_00249}" class="SubTitle4"/>
+                <Text text="{i18n>LABEL_00250}" class="SubTitle4"/>
+                <Text text="{i18n>LABEL_00268}" class="SubTitle4"/>
+            </VBox>
+            <VBox width="60%" class="appointee-info sapUiSmallMarginBegin" visible="{= ${/entry/MytimeHeader/Ename} !== ''}">
+                <Text text="{/entry/MyMonthlyStatus/MonwhT}" class="SubTitle4"/>
+                <Text text="{/entry/MyMonthlyStatus/BashrAT}" class="SubTitle4"/>
+                <Text text="{/entry/MyMonthlyStatus/ResultmhT}" class="SubTitle4"/>
+                <Text text="{/entry/MyMonthlyStatus/TotalidlAT}" class="SubTitle4"/>
+            </VBox>
+            <VBox width="15%" class="sapUiSmallMarginBeginEnd ConfirmList">
+                <Text text="{= ${/entry/MytimeHeader/Month} &amp;&amp; ${/entry/MytimeHeader/Month} !== '' ? ${/entry/MytimeHeader/Month} + '월 마감 현황' : ''}" class="bold font-17-px"/>
+                <Label text="{= ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === 'X' ? '확정' : ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === 'M' ? '마감' : ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === 'C' ? '저장' : ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === 'I' ? '마감진행중' : ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === ''  ? '미확정' : '' }" class="ListTitle6">
+                    <customData>
+                        <core:CustomData key="color" value="{= ${/entry/MytimeHeader/Confirmyn} === 'X' ? 'X' : ${/entry/MytimeHeader/Confirmyn} === 'M' ? 'M' : ${/entry/MytimeHeader/Confirmyn} === 'C' ? 'C' : ${/entry/MytimeHeader/Confirmyn} === 'I' ? 'I' :'Z'}" writeToDom="true" />
+                    </customData>
+                </Label>
+            </VBox>
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

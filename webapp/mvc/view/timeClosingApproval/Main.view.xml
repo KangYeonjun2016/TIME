@@ -1,0 +1,15 @@
+<mvc:View controllerName="sap.ui.time.mvc.controller.timeClosingApproval.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control">
+    <Page title="HOME" showHeader="false" class="timeClosingPage" enableScrolling="false">
+        <VBox class="contents">
+            <HBox class="vCardBox">
+                <VBox class="width100p">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.timeClosingApproval.fragment.Detail" type="XML"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </Page>
+</mvc:View>

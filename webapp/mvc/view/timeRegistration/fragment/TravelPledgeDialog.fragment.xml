@@ -1,0 +1,116 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control">
+    <Dialog contentWidth="1250px" busyIndicatorDelay="0" busy="{/contentsBusy/dialog}" title="출장자 안전 Check list 및 서약서">
+        <buttons>
+            <Button text="확인" type="Emphasized" press=".onPressConfirmTravelPledgeDialog" enabled="{/Checklist/dialog/Checked}"/>
+            <Button text="닫기" type="Emphasized" press=".onPressCloseTravelPledgeDialog"/>
+        </buttons>
+        <content>
+            <HBox width="100%">
+                <VBox width="50%" class="verticalAlignMiddle">
+                    <VBox width="100%" class="pb-20-px">
+                        <Label text="출장자 안전 Check list" textAlign='Center' class="SubTitle2 pl-4-px"/>
+                    </VBox>
+                    <VBox width="100%" alignItems='Center' class="vCardBox">
+                        <VBox width="100%">
+                            <Text text="출장지에서 발생할 수 있는 안전사고 예방을 위해 본 팝업창을 꼭 읽고 숙지하여 주시기 바랍니다."/>
+                            <Text text="출장자 안전수칙은 BG별 특성에 맞춰 안내하고 있습니다."/>
+                            <Text text="출장 신청자께서는 반드시 하기의 QR코드를 스캔하시어 설문을 완료하여 주시기 바랍니다."/>
+                        </VBox>
+                        <HBox width="100%" class="pt-10-px">
+                            <VBox width="70%" alignItems='Start'>
+                                <Text text="출장 시 현장에 방문할 예정이십니까?"/>
+                                <Text text="(창원본관, 분당두산타워 등 사무실만 방문 시 아니오 체크)"/>
+                            </VBox>
+                            <VBox width="30%" alignItems='Start'>
+                                <RadioButtonGroup selectedIndex="{/Checklist/dialog/Placeyn}">
+                                    <RadioButton text="예" class="pb-5-px"/>
+                                    <RadioButton text="아니요" />
+                                </RadioButtonGroup>
+                            </VBox>
+                        </HBox>
+                        <VBox width="100%" class="pt-5-px">
+                            <Text text="출장 시 사무실만 방문하실 경우 QR코드를 통한 체크리스트 작성을 하지 않으셔도 됩니다."/>
+                            <Text text="(ex 분당두산타워 출장)"/>
+                            <Text text="출장자 안전 관련 문의사항은 QR코드에 접속해 나오는 각 BG별 담당자에게 문의 바랍니다."/>
+                        </VBox>
+                        <HBox width="100%" class="pt-10-px table-box2">
+                            <VBox width="25%" alignItems='Center'>
+                                <Label text='원자력BG' width='100%' textAlign='Center' />
+                                <Image width='118px' src= '/sap/public/bc/ui2/zui5_tesnahr/images/qr001.png'>
+                                    <detailBox>
+                                        <LightBox>
+                                            <LightBoxItem imageSrc= '/sap/public/bc/ui2/zui5_tesnahr/images/qr001.png' />
+                                        </LightBox>
+                                    </detailBox>
+                                </Image>
+                                <Link text='Link' width='100%' textAlign='Center' target= '_blank' href= "https://forms.office.com/Pages/ResponsePage.aspx?id=EDYbnbCa1UKTqkYVDXI9h0IT88rOc-pGhDyhTyu1WfNURDRZUDlSUEoyTTJWVzhKTDhXRDdFTEdURS4u&amp;qrcode=true" />
+                            </VBox>
+                            <VBox width="25%" alignItems='Center'>
+                                <Label text='파워서비스BG' width='100%' textAlign='Center' />
+                                <Image width='118px' src= '/sap/public/bc/ui2/zui5_tesnahr/images/qr002.png' >
+                                    <detailBox>
+                                        <LightBox>
+                                            <LightBoxItem imageSrc= '/sap/public/bc/ui2/zui5_tesnahr/images/qr002.png' />
+                                        </LightBox>
+                                    </detailBox>
+                                </Image>
+                                <Link text='Link' width='100%' textAlign='Center' target= '_blank' href= "https://forms.office.com/Pages/ResponsePage.aspx?id=EDYbnbCa1UKTqkYVDXI9h_2Y3hHLwS1KoerIna-%20KYoZUOUpVVkJINDhLUUU4MVBMOFNQWEdLVDczRy4u" />
+                            </VBox>
+                            <VBox width="25%" alignItems='Center'>
+                                <Label text='Plan EPC BG' width='100%' textAlign='Center' />
+                                <Image width='118px' src= '/sap/public/bc/ui2/zui5_tesnahr/images/qr003.png'>
+                                    <detailBox>
+                                        <LightBox>
+                                            <LightBoxItem imageSrc= '/sap/public/bc/ui2/zui5_tesnahr/images/qr003.png' />
+                                        </LightBox>
+                                    </detailBox>
+                                </Image>
+                                <Link text='Link' width='100%' textAlign='Center' target= '_blank' href= "https://forms.office.com/Pages/ResponsePage.aspx?id=EDYbnbCa1UKTqkYVDXI9h-WFU20cdBpJp7KbGj9dJGJUNFhMMUQ5TUtIMzlZTklRUjBLUDdQOFBOVyQlQCN0PWcu&amp;qrcode=true" />
+                            </VBox>
+                            <VBox width="25%" alignItems='Center'>
+                                <Label text='그 외(부문 등)' width='100%' textAlign='Center' />
+                                <Image width='118px' src= '/sap/public/bc/ui2/zui5_tesnahr/images/qr004.png' >
+                                    <detailBox>
+                                        <LightBox>
+                                            <LightBoxItem imageSrc= '/sap/public/bc/ui2/zui5_tesnahr/images/qr004.png' />
+                                        </LightBox>
+                                    </detailBox>
+                                </Image>
+                                <Link text='Link' width='100%' textAlign='Center' target= '_blank' href= "https://forms.office.com/r/ZWKeswxVNb" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </VBox>
+                <VBox width="50%" class="verticalAlignMiddle pl-10-px">
+                    <VBox width="100%" class="pb-20-px">
+                        <Label text="출장자 안전수칙 준수 서약" textAlign='Center' class="SubTitle2 pl-4-px"/>
+                    </VBox>
+                    <VBox width="100%" alignItems='Start' class="vCardBox">
+                        <Text text="본인은 아래의 출장자 안전수칙을 확인하고 엄격히 준수할 것을 서약합니다." class="pb-10-px"/>
+                        <Text text="1. 출장 전 현장소장과 관련 조직에 출장 계획 공유"/>
+                        <Text text="2. 출장 전 출장지의 위험성 확인 및 사전 안전교육 이수"/>
+                        <Text text="3. 출장 전 출장 목적에 적합한 복장 및 안전보호구 사전 준비"/>
+                        <Text text="4. 이동 시 교통법규 준수 및 안전운전 실시"/>
+                        <Text text="5. 발주처 및 서비스/건설 현장의 EHS 규정과 절차 준수"/>
+                        <Text text="6. 출장지 도착 후 현장소장에게 출장목적과 수행 업무 공유"/>
+                        <Text text="7. 현장 관리감독자, 안전관리자가 실시하는 교육 이수"/>
+                        <Text text="8. 현장 안전보호구 착용, 안전통로 이용 등 안전수칙 준수"/>
+                        <Text text="9. 용무 외 다른 설비 및 장비 등 임의 출입/접근 금지"/>
+                        <Text text="10. 현장 비상연락처 숙지 및 EHS 문제 발생 시 즉시 연락"/>
+                    </VBox>
+                    <HBox width="100%" height="100%" justifyContent='SpaceBetween' alignItems='End'>
+                        <CheckBox selected="{/Checklist/dialog/Checked}" text= '위 사항에 동의합니다.' />
+                        <VBox width="100%" alignItems='End'>
+                            <Text text="{/entry/TimePersProfileInfo/ProfileName}"/>
+                            <Text text="소속(부서) {/entry/TimePersProfileInfo/ProfilePb}"/>
+                            <Text text="서약 서약함"/>
+                            <Text text="서약일자 {/Checklist/dialog/Begda}"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </HBox>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control">
+    <HBox width="350px" alignItems="Center" class="vCardBox small sapUiMediumMarginEnd" binding="{/entry/TimePersProfileInfo}" busyIndicatorDelay="0" busy="{/busy/plan2}">
+        <!-- <HBox renderType="Bare"> -->
+        <VBox>
+            <Image src="{Photo}" mode="Background" class="member-photo mt-10-px" width="100px" height="100px" error=".loadErrorAvatarImage" />
+        </VBox>
+        <VBox justifyContent="Center" class="appointee-info sapUiSmallMarginBegin" width="200px">
+            <!-- <Text text="{= ${appointeeModel>/Pernm} + '  '+ ${appointeeModel>/Zzpsgrptx}" class="name" /> -->
+            <HBox class="justifyEnd">
+                <Button icon="sap-icon://employee-lookup" type="Emphasized" class="standard mr-10-px" width="60px" press=".onTargetUserChange" visible="{= ( ${/auth} === 'H' || ${/auth} === 'M' )  &amp;&amp; ${/ViewType} !== 'ApprovalBox' }"/>
+            </HBox>
+            <Text text="{ProfileName}" class="ProfileName" />
+            <Text text="{ProfilePb}" class="ProfileTeam"/>
+            <Text text="{ProfileTeam}" class="ProfileTeam" />
+        </VBox>
+        <!-- <Button text="test" press=".onEmployeeSearchOpen" /> -->
+        <!-- </HBox> -->
+    </HBox>
+</core:FragmentDefinition>

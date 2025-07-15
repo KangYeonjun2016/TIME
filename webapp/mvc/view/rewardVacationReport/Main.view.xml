@@ -1,0 +1,46 @@
+<mvc:View controllerName="sap.ui.time.mvc.controller.rewardVacationReport.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified">
+    <Page title="HOME" showHeader="false" class="timeRegistrationPage">
+        <VBox class="contents-header">
+            <HBox justifyContent="SpaceBetween" class="breadcrumbs">
+                <custom:Breadcrumbs />
+                <HBox class="button-group">
+                </HBox>
+            </HBox>
+        </VBox>
+        <VBox class="contents">
+            <HBox class="vCardBox" justifyContent="SpaceBetween" height="80px">
+                <HBox class="form-bar" alignItems="Center">
+                    <Label text="{i18n>LABEL_00220}" />
+                    <ComboBox items="{/PersaList}" selectedKey="{/searchConditions/Werks}" busyIndicatorDelay="0" busy="{/contentsBusy/search}" enabled="{=${/Auth} === 'E' ? false : true}" change=".onAfterRenderingPopOver">
+                        <core:Item key="{code}" text="{text}" />
+                    </ComboBox>
+                    <Label text="{i18n>LABEL_00219}" />
+                    <Input width="100%" value="{/searchConditions/Otext}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onSearchOrg" class="conspicuous-disabled" enabled="{=${/Auth} === 'H' ? true : false}" />
+
+                    <Label text="대상자" />
+                    <Input width="100%" value="{/searchConditions/Ename}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onTargetUserChange" class="conspicuous-disabled" enabled="{=${/Auth} === 'E' ? false : true}" />
+
+                    <Label text="조회기간" />
+                    <DatePicker value="{/searchConditions/Begda}" width="150px"  valueFormat = "yyyyMMdd" displayFormat= "yyyy.MM.dd"/>
+                    <DatePicker value="{/searchConditions/Endda}" width="150px"  valueFormat = "yyyyMMdd" displayFormat= "yyyy.MM.dd" change=".onChangeEndda"/>
+                    <Button text="{i18n>LABEL_00100}" icon="/sap/public/bc/ui2/zui5_tesnahr/images/icon_search03.png" iconDensityAware="false" press=".onPressSearch" busyIndicatorDelay="0" busy="{/contentsBusy/search}" />
+                </HBox>
+            </HBox>
+            <VBox class="vCardBox">
+                <HBox class="mb-10-px">
+                    <Label text="" class="SubTitle mt-10-px" />
+                    <VBox width="100%" class="FlexEnd">
+                        <Button icon="sap-icon://excel-attachment" text="Excel" press=".onPressExcelDownload" />
+                    </VBox>
+                </HBox>
+                <core:Fragment fragmentName="sap.ui.time.mvc.view.rewardVacationReport.fragment.Table" type="XML" />
+            </VBox>
+        </VBox>
+    </Page>
+</mvc:View>

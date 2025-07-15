@@ -1,0 +1,108 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:table="sap.ui.table">
+    <Dialog contentWidth="1000px" busyIndicatorDelay="0" busy="{/contentsBusy/dialog}" showHeader="false">
+        <buttons>
+            <Button text="{i18n>LABEL_00116}" type="Emphasized" press=".onPressApplyAll" visible="{= ${/Allform/dialog/SelectReflection} > 0 }"/>
+            <Button text="{i18n>LABEL_00115}" type="Emphasized" press=".onPressAllFormDialogClose"/>
+        </buttons>
+        <content>
+            <HBox width="100%">
+                <VBox width="40%" class="verticalAlignMiddle">
+                    <VBox height="40px">
+                        <Label text="{i18n>MSG_10006}" class="SubTitle3 pl-4-px"/>
+                    </VBox>
+                    <VBox height="40px">
+                        <Label text="{i18n>MSG_10007}" class="SubTitle3 pl-4-px"/>
+                    </VBox>
+                    <HBox renderType="Bare" alignItems="Center">
+                        <RadioButtonGroup selectedIndex="{/Allform/dialog/Gubun}" select=".selectedAllformGubun">
+                            <custom:RadioButton text="{i18n>LABEL_00120}" innerSize="50%" class="pb-5-px"/>
+                            <custom:RadioButton text="{i18n>LABEL_00119}" innerSize="50%" />
+                        </RadioButtonGroup>
+                    </HBox>
+                    <VBox>
+                        <table:Table class="sapUiSmallMarginTop" selectionMode="None" width="100%" columnHeaderHeight="45" rowHeight="44" rows="{/Allform/dialog/dayOfTheWeek}" visibleRowCount="1" busyIndicatorDelay="0" busy="{/contentsBusy/table}" noData="">
+                            <table:columns>
+                                <table:Column hAlign="Center">
+                                    <Label text="{i18n>LABEL_MON}"/>
+                                    <table:template>
+                                        <CheckBox width="40px" selected="{select1}" editable="{= ${/Allform/dialog/Gubun} === 1 }"/>
+                                    </table:template>
+                                </table:Column>
+                                <table:Column hAlign="Center">
+                                    <Label text="{i18n>LABEL_TUE}"/>
+                                    <table:template>
+                                        <CheckBox width="40px" selected="{select2}" editable="{= ${/Allform/dialog/Gubun} === 1 }"/>
+                                    </table:template>
+                                </table:Column>
+                                <table:Column hAlign="Center">
+                                    <Label text="{i18n>LABEL_WED}"/>
+                                    <table:template>
+                                        <CheckBox width="40px" selected="{select3}" editable="{= ${/Allform/dialog/Gubun} === 1 }" />
+                                    </table:template>
+                                </table:Column>
+                                <table:Column hAlign="Center">
+                                    <Label text="{i18n>LABEL_THU}"/>
+                                    <table:template>
+                                        <CheckBox width="40px" selected="{select4}" editable="{= ${/Allform/dialog/Gubun} === 1 }"/>
+                                    </table:template>
+                                </table:Column>
+                                <table:Column hAlign="Center">
+                                    <Label text="{i18n>LABEL_FRI}"/>
+                                    <table:template >
+                                        <CheckBox width="40px" selected="{select5}" editable="{= ${/Allform/dialog/Gubun} === 1 }"/>
+                                    </table:template>
+                                </table:Column>
+                            </table:columns>
+                        </table:Table>
+                    </VBox>
+                    <VBox alignItems="End" class="pt-5-px justifyEnd" width="100%" visible="{= ${/Allform/dialog/Gubun} === 1 }">
+                        <Button text="{i18n>LABEL_00215}" type="Emphasized" press=".onPressDayOfTheWeek"/>
+                    </VBox>
+                </VBox>
+                <VBox width="60%">
+                    <VBox alignItems="End" class="pb-5-px justifyEnd">
+                        <Button text="{i18n>LABEL_00202}" type="Emphasized" press=".clearAllForm"/>
+                    </VBox>
+                    <table:Table class="sapUiSmallMarginBegin" selectionMode="None" width="100%" columnHeaderHeight="45" rowHeight="44" rows="{/Allform/dialog/MyCoreTimeAllApply}" visibleRowCount="10" busyIndicatorDelay="0" busy="{/contentsBusy/table}" noData="{i18n>MSG_00001}">
+                        <table:columns>
+                            <table:Column width="50px">
+                                <Label class="justifyCenter" text="{i18n>LABEL_00112}"/>
+                                <table:template>
+                                    <CheckBox width="40px" textAlign="Center" selected="{Selected1}" select=".SelectCopyOriginData" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="50px">
+                                <Label textAlign="Center" text="{i18n>LABEL_00224}"/>
+                                <table:template>
+                                    <CheckBox width="40px" textAlign="Center" selected="{Selected2}" select=".SelectReflection"/>
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="40%">
+                                <Label textAlign="Center" text="{i18n>LABEL_00170}"/>
+                                <table:template>
+                                    <Text text="{Tmdatx}" width="100%" textAlign="Center" wrapping="false" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="20%">
+                                <Label class="justifyCenter" text="{i18n>LABEL_00178}"/>
+                                <table:template>
+                                    <Text text="{DayOfTheWeek}" width="100%" textAlign="Center" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="20%">
+                                <Label class="justifyCenter" text="{i18n>LABEL_00173}"/>
+                                <table:template>
+                                    <Text text="{Bigo}" width="100%" textAlign="Center" />
+                                </table:template>
+                            </table:Column>
+                        </table:columns>
+                    </table:Table>
+                </VBox>
+            </HBox>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

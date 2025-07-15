@@ -67,10 +67,7 @@ sap.ui.define(
 
           this.oApprovalStatusBox.setModel(oBoxModel);
 
-          Promise.all([
-            this.readApprovalData(), //
-            this.readEmployees(),
-          ]);
+          this.readApprovalData();
         }
       },
 
@@ -109,9 +106,9 @@ sap.ui.define(
           const aRowData = oBoxModel.getProperty('/list') || [];
           const sAppty = oBoxModel.getProperty('/settings/Appty');
 
-          await Client.deep(oModel, 'ApproverHeader2', {
+          await Client.deep(oModel, 'ApproverHeader', {
             Appno: sAppno,
-            ApproverList2Nav: [
+            ApproverListNav: [
               ..._.chain(aRowData)
                 .filter((o) => !_.isEmpty(o.Pernr))
                 .map((o) => ({ ...o, Appno: sAppno }))
@@ -189,11 +186,17 @@ sap.ui.define(
           const mSettings = oBoxModel.getProperty('/settings');
 
           const oModel = this.oController.getModel(ServiceNames.APPROVAL);
-          const aRowData = await Client.getEntitySet(oModel, 'ApproverList2', {
-            Prcty: mSettings.Mode,
-            Austy: mSettings.Austy,
-            ..._.pick(mSettings, ['Pernr', 'Appno', 'Appty', 'Orgeh']),
+          // const aRowData = await Client.getEntitySet(oModel, 'ApproverList', {
+          //   Prcty: mSettings.Mode,
+          //   Austy: mSettings.Austy,
+          //   ..._.pick(mSettings, ['Pernr', 'Appno', 'Appty', 'Orgeh']),
+          // });
+
+          const aRowData = await Client.getEntitySet(oModel, 'ApproverList', {
+            Pernr: mSettings.Pernr,
+            Appty: mSettings.Appty
           });
+          
 
           let bActiveInput = false;
 

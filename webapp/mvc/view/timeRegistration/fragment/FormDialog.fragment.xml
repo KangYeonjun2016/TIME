@@ -1,0 +1,212 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:table="sap.ui.table">
+    <!-- <Dialog title="근무 및 근태 등록" contentWidth="1000px" contentHeight="auto" busyIndicatorDelay="0" busy="{/contentsBusy/dialog}" afterClose=".onDialogAfterClose"> -->
+    <Dialog contentWidth="1500px" busyIndicatorDelay="0" busy="{/contentsBusy/dialog}" showHeader="false">
+        <buttons>
+            <!-- <Button text="저장" type="Emphasized" /> -->
+            <Button text="{i18n>LABEL_00158}" type="Emphasized" class="standard" press=".onPressApplyCancel" visible="{/form/dialog/data/InfoOtherAppno}"/>
+            <Button text="{i18n>LABEL_00117}" type="Emphasized" press=".onPressFormDialogClose"/>
+            <Button text="{i18n>LABEL_00118}" width="130px" press=".onPressFormDialogClose"/>
+            <!-- <Button text="{i18n>LABEL_00118}" width="130px" press=".onPressFormDialogCloseWithoutAction"/> -->
+        </buttons>
+        <content>
+            <HBox renderType="Bare" width="100%">
+                <grid:CSSGrid gridTemplateColumns="1fr 3fr 1fr 3fr" gridGap="6px 0">
+                    <Button text="{i18n>LABEL_00161}" class="px-4-px" width="95%" type="{/form/dialog/data/WorkButtonType}" press=".onPressWorkButton" enabled ="{= ${/form/dialog/data/OrderType} === '' &amp;&amp; ${/form/dialog/data/Holyn} === ''}">
+                        <layoutData>
+                            <grid:GridItemLayoutData gridColumn="span 2" />
+                        </layoutData>
+                    </Button>
+                    <Button text="{i18n>LABEL_00155}" class="px-4-px" width="95%" type="{/form/dialog/data/NoWorkButtonType}" press=".onPressNoWorkButton" enabled ="{= ${/form/dialog/data/OrderType} === '' &amp;&amp; ${/form/dialog/data/Holyn} === ''}">
+                        <layoutData>
+                            <grid:GridItemLayoutData gridColumn="span 2" />
+                        </layoutData>
+                    </Button>
+                    <Label text="{i18n>LABEL_00170}" class="SubTitle3 pl-4-px"/>
+                    <HBox renderType="Bare" alignItems="Center">
+                        <layoutData>
+                            <grid:GridItemLayoutData gridColumn="span 3" />
+                        </layoutData>
+                        <!-- <custom:DatePicker class="sapIcon_Date" width="230px" dateValue="{ path: '/form/dialog/data/DialogTmdat', type: 'sap.ui.time.mvc.model.type.Date' }" enabled ="{= ${/form/dialog/data/OrderType} === ''}" change=".onChangeTmdatFromPopup" /> -->
+                        <DatePicker width="230px" displayFormat="yyyy.MM.dd" valueFormat="yyyyMMdd" value="{/form/dialog/data/DialogTmdat}" enabled ="{= ${/form/dialog/data/OrderType} === ''}" change=".onChangeTmdatFromPopup" />
+                    </HBox>
+                    <Label text="{i18n>LABEL_00143}" class="SubTitle3 pl-4-px"/>
+                    <HBox renderType="Bare" alignItems="Center">
+                        <ComboBox width="230px" class="required sapUiTinyMarginEnd" selectedKey="{/form/dialog/data/Awart}" enabled ="{= ${/form/dialog/data/OrderType} === '' &amp;&amp; ${/form/dialog/data/Holyn} === ''}" items="{ path: '/entry/TimeTypesFilter', templateShareable: false }" change=".onChangeAwartCombo">
+                            <core:Item key="{Awart}" text="{Atext}" />
+                        </ComboBox>
+                    </HBox>
+                    <Label text="{i18n>LABEL_00154}" class="SubTitle3 pl-14-px"/>
+                    <HBox renderType="Bare" alignItems="Center">
+                        <ComboBox width="213px" class="required sapUiTinyMarginEnd" selectedKey="{/form/dialog/data/Awrsn}" enabled ="{= ${/form/dialog/data/OrderType} === '' &amp;&amp; ${/form/dialog/data/Holyn} === ''}" items="{ path: '/entry/TimeReasons', templateShareable: false }" change=".onChangeAwrsnCombo">
+                            <core:Item key="{Awrsn}" text="{Awrsntx}" />
+                        </ComboBox>
+                    </HBox>
+                    <Label text="근무 사유" class="SubTitle3 pl-4-px" visible="{= ${/form/dialog/data/PreasVisible} &amp;&amp; ${/form/dialog/data/Holyn} === 'X'}" />
+                    <HBox renderType="Bare" alignItems="Center" visible="{= ${/form/dialog/data/PreasVisible} &amp;&amp; ${/form/dialog/data/Holyn} === 'X'}">
+                        <layoutData>
+                            <grid:GridItemLayoutData gridColumn="span 3" />
+                        </layoutData>
+                        <ComboBox width="230px" class="sapUiTinyMarginEnd" selectedKey="{/form/dialog/data/Preas}" items="{ path: '/entry/Preas', templateShareable: false }"  enabled ="{= ${/form/dialog/data/OrderType} === '' || ${/form/dialog/data/OrderType} === 'DeletedSusda'}" change=".onChangePreas">
+                            <core:Item key="{Preas}" text="{Rtext}" />
+                        </ComboBox>
+                    </HBox>
+                    <Label text="{i18n>LABEL_00133}" class="SubTitle3 pl-4-px"/>
+                    <HBox renderType="Bare" alignItems="Center" class="TimeRegistrationBoxLayout" width="96%">
+                        <layoutData>
+                            <grid:GridItemLayoutData gridColumn="span 3" />
+                        </layoutData>
+                        <!-- 일 근태를 선택 시 Disabled 처리  RadioControl-->
+                        <RadioButtonGroup columns="5" selectedIndex="{/form/dialog/data/Gubun}" select=".onSelectGubunRadion" editable="{= ${/form/dialog/data/RadioControl} === 'X' &amp;&amp; ${/form/dialog/data/OrderType} === ''}">
+                            <!-- &amp;&amp; ${/form/dialog/data/Preas} !== '12'}">  -->
+                            <custom:RadioButton text="{i18n>LABEL_00125}" innerSize="25%" class="pr-40-px" enabled="{= ${/form/dialog/data/Awrsn} !== 'A1KR0110' &amp;&amp;  ${/form/dialog/data/Awrsn} !== 'A1KR0120' &amp;&amp;  ${/form/dialog/data/Awrsn} !== 'A1KR0140' &amp;&amp;  ${/form/dialog/data/Awrsn} !== 'A1KR0150' }" />
+                            <custom:RadioButton text="{i18n>LABEL_00126}" innerSize="25%" class="pr-40-px"/>
+                            <custom:RadioButton text="{i18n>LABEL_00127}" innerSize="25%" class="pr-40-px" visible="{= ${/form/dialog/data/Awrsn} === 'A1KR0110' || ${/form/dialog/data/Awrsn} === 'A1KR0140' || ${/form/dialog/data/Awrsn} === 'C2XXXX50' }" />
+                            <custom:RadioButton text="코어타임 전반" innerSize="25%" class="pr-40-px" visible="{= ${/form/dialog/data/Awrsn} === 'A1KR0120' || ${/form/dialog/data/Awrsn} === 'A1KR0150' }" />
+                            <custom:RadioButton text="코어타임 후반" innerSize="25%" class="pr-40-px" visible="{= ${/form/dialog/data/Awrsn} === 'A1KR0120' || ${/form/dialog/data/Awrsn} === 'A1KR0150' }" />
+                        </RadioButtonGroup>
+                    </HBox>
+                    <Label text="{i18n>LABEL_00180}" class="SubTitle3 pl-4-px"/>
+                    <HBox renderType="Bare" alignItems="Center">
+                        <layoutData>
+                            <grid:GridItemLayoutData gridColumn="span 3" />
+                        </layoutData>
+                        <TimePicker id="oBeguz" dateValue="{ path: '/form/dialog/data/Beguz', type: 'sap.ui.time.mvc.model.type.InputTime' }" minutesStep="{/dialog/minutesStep}" initialFocusedDateValue="{/form/dialog/initBeguz}" change= ".checkPBBox" placeholder="HH:mm" valueFormat="HH:mm" displayFormat="HH:mm" class="sapIcon_Time" enabled ="{/form/dialog/data/TimeEditable}"/>
+                        <Text text="-" class="sapUiTinyMarginBeginEnd lh-40-px TextAlignCenter" width="3rem" />
+                        <TimePicker id="oEnduz" dateValue="{ path: '/form/dialog/data/Enduz', type: 'sap.ui.time.mvc.model.type.InputTime' }" minutesStep="{/dialog/minutesStep}" initialFocusedDateValue="{/form/dialog/initEnduz}" change= ".onTimePickerChange" placeholder="HH:mm" valueFormat="HH:mm" displayFormat="HH:mm" class="sapIcon_Time" enabled ="{/form/dialog/data/TimeEditable}"/>
+                        <!-- <TimePicker id="oEnduz" dateValue="{/form/dialog/data/Enduz}" minutesStep="{/dialog/minutesStep}" initialFocusedDateValue="{/form/dialog/initEnduz}" change= ".onTimePickerChange" placeholder="HH:mm" valueFormat="HH:mm" displayFormat="HH:mm" class="sapIcon_Time" enabled ="{/form/dialog/data/TimeEditable}"/> -->
+                    </HBox>
+                    <Label text="{i18n>LABEL_00222}" class="SubTitle3 pl-4-px"/>
+                    <!-- visible="{/form/dialog/data/PbBoxVisible}" -->
+                    <HBox renderType="Bare" alignItems="Center">
+                        <!-- visible="{/form/dialog/data/PbBoxVisible}" -->
+                        <layoutData>
+                            <grid:GridItemLayoutData gridColumn="span 3" />
+                        </layoutData>
+                        <TimePicker dateValue="{ path: '/form/dialog/data/Pbeg1', type: 'sap.ui.time.mvc.model.type.InputTime' }" enabled="{/form/dialog/data/PbBoxVisible}" minutesStep="{/dialog/minutesStep}" placeholder="HH:mm" valueFormat="HH:mm" displayFormat="HH:mm" class="sapIcon_Time" change=".changeTimes" />
+                        <!-- enabled ="{= ${/form/dialog/data/OrderType} === '' &amp;&amp; ${/form/dialog/data/Awrsn} === 'B3KR0120'}" -->
+                        <Text text="-" class="sapUiTinyMarginBeginEnd lh-40-px TextAlignCenter" width="3rem" />
+                        <TimePicker dateValue="{ path: '/form/dialog/data/Pend1', type: 'sap.ui.time.mvc.model.type.InputTime' }" enabled="{/form/dialog/data/PbBoxVisible}" minutesStep="{/dialog/minutesStep}" placeholder="HH:mm" valueFormat="HH:mm" displayFormat="HH:mm" class="sapIcon_Time" change=".changeTimes"/>
+                    </HBox>
+                    <Label text="{i18n>LABEL_00223}" class="SubTitle3 pl-4-px" />
+                    <!-- visible="{/form/dialog/data/PbBoxVisible}" -->
+                    <HBox renderType="Bare" alignItems="Center">
+                        <!-- visible="{/form/dialog/data/PbBoxVisible}" -->
+                        <layoutData>
+                            <grid:GridItemLayoutData gridColumn="span 3" />
+                        </layoutData>
+                        <TimePicker dateValue="{ path: '/form/dialog/data/Pbeg2', type: 'sap.ui.time.mvc.model.type.InputTime' }" enabled="{/form/dialog/data/PbBoxVisible}" minutesStep="{/dialog/minutesStep}" placeholder="HH:mm" valueFormat="HH:mm" displayFormat="HH:mm" class="sapIcon_Time" change=".changeTimes"/>
+                        <Text text="-" class="sapUiTinyMarginBeginEnd lh-40-px TextAlignCenter" width="3rem" />
+                        <TimePicker dateValue="{ path: '/form/dialog/data/Pend2', type: 'sap.ui.time.mvc.model.type.InputTime' }" enabled="{/form/dialog/data/PbBoxVisible}" minutesStep="{/dialog/minutesStep}" placeholder="HH:mm" valueFormat="HH:mm" displayFormat="HH:mm" class="sapIcon_Time" change=".changeTimes"/>
+                    </HBox>
+                    <Label text="{i18n>LABEL_00154}" class="SubTitle3 pl-4-px" visible="{= ${/form/dialog/data/PreasVisible} &amp;&amp; ${/form/dialog/data/Holyn} !== 'X'}" />
+                    <HBox renderType="Bare" alignItems="Center" visible="{= ${/form/dialog/data/PreasVisible} &amp;&amp; ${/form/dialog/data/Holyn} !== 'X'}">
+                        <layoutData>
+                            <grid:GridItemLayoutData gridColumn="span 3" />
+                        </layoutData>
+                        <ComboBox width="230px" class="sapUiTinyMarginEnd" selectedKey="{/form/dialog/data/Preas}" items="{ path: '/entry/Preas', templateShareable: false }"  enabled ="{= ${/form/dialog/data/OrderType} === ''}" change=".onChangePreas">
+                            <core:Item key="{Preas}" text="{Rtext}" />
+                        </ComboBox>
+                    </HBox>
+                    <Label text="휴일대체" class="SubTitle3 pl-4-px" visible="{= ( ${/Werks} === '0802' &amp;&amp; ${/form/dialog/data/Preas} === '12' ) || ( ${/Werks} !== '0802' &amp;&amp; ${/Werks} !== 'EP00'  &amp;&amp; ${/form/dialog/data/Preas} === '12' ) || ( ${/Werks} !== '0802' &amp;&amp; ${/Werks} !== 'EP00' &amp;&amp; ${/form/dialog/data/Holyn} === 'X' ) || ( ${/form/dialog/data/OrderType} !== '' &amp;&amp; ${/form/dialog/data/Susda} !== ''  &amp;&amp;  ${/form/dialog/data/Susda} !== null) }" />
+                    <HBox renderType="Bare" alignItems="Center" visible="{= ( ${/Werks} === '0802' &amp;&amp; ${/form/dialog/data/Preas} === '12' ) || ( ${/Werks} !== '0802'  &amp;&amp; ${/Werks} !== 'EP00' &amp;&amp; ${/form/dialog/data/Preas} === '12' ) || ( ${/Werks} !== '0802' &amp;&amp; ${/Werks} !== 'EP00'  &amp;&amp; ${/form/dialog/data/Holyn} === 'X' ) || ( ${/form/dialog/data/OrderType} !== '' &amp;&amp; ${/form/dialog/data/Susda} !== ''   &amp;&amp;  ${/form/dialog/data/Susda} !== null) }">
+                        <layoutData>
+                            <grid:GridItemLayoutData gridColumn="span 3" />
+                        </layoutData>
+                        <DatePicker width="230px" displayFormat="yyyy.MM.dd" valueFormat="yyyyMMdd" value="{/form/dialog/data/Susda}" enabled ="{= ${/form/dialog/data/OrderType} === '' || ${/form/dialog/data/OrderType} === 'DeletedSusda'}" change=".onChangeSusda" />
+                    </HBox>
+                    <Label text="{i18n>LABEL_00234}" class="SubTitle3 pl-4-px" />
+                    <HBox renderType="Bare" alignItems="Center">
+                        <layoutData>
+                            <grid:GridItemLayoutData gridColumn="span 3" />
+                        </layoutData>
+                        <Input value="{path: '/form/dialog/data/Dtrsn'}" width="96%"  enabled ="{= ${/form/dialog/data/OrderType} === '' || ${/form/dialog/data/OrderType} === 'DeletedSusda'}"/>
+                    </HBox>
+                    <HBox renderType="Bare" alignItems="Center" width="96%" visible="{= ${/form/dialog/data/Atcyn} === 'X'}">
+                        <layoutData>
+                            <grid:GridItemLayoutData gridColumn="span 4" />
+                        </layoutData>
+                        <core:Fragment fragmentName="sap.ui.time.fragment.FileAttachmentBox" type="XML" />
+                    </HBox>
+                    <VBox renderType="Bare" alignItems="Center" class="vCardBox small" width="96%">
+                        <layoutData>
+                            <grid:GridItemLayoutData gridColumn="span 4" />
+                        </layoutData>
+                        <Text text="{i18n>MSG_10002}" width="100%" textAlign="Left"/>
+                        <Text text="{i18n>MSG_10003}" width="100%" textAlign="Left" class="pt-5-px"/>
+                        <Text text="{i18n>MSG_10004}" width="100%" textAlign="Left" class="pt-5-px"/>
+                        <Text text="{i18n>MSG_10005}" width="100%" textAlign="Left" class="pt-5-px" />
+                    </VBox>
+                    <HBox renderType="Bare" alignItems="Center" justifyContent="End">
+                        <layoutData>
+                            <grid:GridItemLayoutData gridColumn="span 4" />
+                        </layoutData>
+                        <Button text="{i18n>LABEL_00224}" type="Emphasized" class="workingApproval pr-26-px" visible="{/dialog/addButtonAct}" press=".onPressAddButton"/>
+                    </HBox>
+                </grid:CSSGrid>
+                <VBox width="130%">
+                    <HBox class="sapUiSmallMarginBottom" width="100%" justifyContent="End">
+                        <Button text="{i18n>LABEL_00269}" type="Emphasized" class="workingApproval" press=".ClearFormData" visible="{/dialog/newButtonAct}" />
+                    </HBox>
+                    <table:Table id="Table1" class="sapUiSmallMarginBegin" selectionMode="None" width="100%" columnHeaderHeight="45" rowHeight="44" rows="{/form/dialog/MyDailyWorkTimeList}" visibleRowCount="{/form/dialog/rowCount}" busyIndicatorDelay="0" busy="{/contentsBusy/table}" noData="{i18n>MSG_00001}">
+                        <table:columns>
+                            <table:Column width="50px">
+                                <Label text="{i18n>LABEL_00112}"/>
+                                <table:template>
+                                    <CheckBox width="40px" textAlign="Center" selected="{Selected}" select=".SelectMyDailyWorkTime" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="15%">
+                                <Label text="{i18n>LABEL_00134}"/>
+                                <table:template>
+                                    <Text text="{Tmatx}" width="100%" textAlign="Center" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="30%">
+                                <Label text="{i18n>LABEL_00156}"/>
+                                <table:template>
+                                    <Text text="{TmdatTx}" width="100%" textAlign="Center" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="15%">
+                                <Label text="{i18n>LABEL_00178}"/>
+                                <table:template>
+                                    <Text text="{Weekt}" width="100%" textAlign="Center" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="25%">
+                                <Label text="{i18n>LABEL_00180}"/>
+                                <table:template>
+                                    <Text text="{WorkTime}" width="100%" textAlign="Center" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="20%">
+                                <Label text="{i18n>LABEL_00171}"/>
+                                <table:template>
+                                    <Text text="{Atext}" width="100%" textAlign="Center" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="20%">
+                                <Label text="{i18n>LABEL_00172}"/>
+                                <table:template>
+                                    <Text text="{Awrsntx}" width="100%" textAlign="Center" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="20%" visible="{= !${/form/dialog/data/InfoOtherAppno} }">
+                                <Label text="{i18n>LABEL_00110}"/>
+                                <table:template>
+                                    <HBox justifyContent="SpaceAround">
+                                        <Button class="standard" icon="sap-icon://decline" type="Reject" visible="{DeclineVisible}" press=".onPressDeleteButton"/>
+                                    </HBox>
+                                </table:template>
+                            </table:Column>
+                        </table:columns>
+                    </table:Table>
+                </VBox>
+            </HBox>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

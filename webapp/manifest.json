@@ -76,7 +76,8 @@
         { "uri": "asset/css/util/padding.css" },
         { "uri": "asset/css/util/border.css" },
         { "uri": "asset/css/util/size.css" },
-        { "uri": "asset/css/util/align.css" }
+        { "uri": "asset/css/util/align.css" },
+        { "uri": "asset/css/util/position.css" }
       ]
     },
 		"routing": {
@@ -93,11 +94,55 @@
 			},
 			"routes": [
         { "pattern": "", "name": "timeHome", "target": "home" },
-        { "pattern": "test", "name": "test", "target": "test" }
+        { "pattern": "teamWorkingState", "name": "teamWorkingState", "target": "teamWorkingState" },
+        { "pattern": "workStandardManagement", "name": "workStandardManagement", "target": "workStandardManagement" },
+        { "pattern": "timeStandardManagement", "name": "timeStandardManagement", "target": "timeStandardManagement" },
+        { "pattern": "timeRegistration", "name": "timeRegistration", "target": "timeRegistration" },
+        { "pattern": "h/timeRegistration", "name": "h/timeRegistration", "target": "h/timeRegistration" },
+        { "pattern": "m/timeRegistration", "name": "m/timeRegistration", "target": "m/timeRegistration" },
+        { "pattern": "teamWorkStatus", "name": "teamWorkStatus", "target": "teamWorkStatus" },
+        { "pattern": "h/teamWorkStatus", "name": "h/teamWorkStatus", "target": "teamWorkStatus" },
+        { "pattern": "timeClosing", "name": "timeClosing", "target": "timeClosing" },
+        { "pattern": "h/timeClosing", "name": "h/timeClosing", "target": "timeClosing" },
+        { "pattern": "m/timeClosing", "name": "m/timeClosing", "target": "timeClosing" },
+        { "pattern": "timeClosingApproval", "name": "timeClosingApproval", "target": "timeClosingApproval" },
+        { "pattern": "timeReport", "name": "timeReport", "target": "timeReport" },
+        { "pattern": "h/timeReport", "name": "h/timeReport", "target": "timeReport" },
+        { "pattern": "m/timeReport", "name": "m/timeReport", "target": "timeReport" },
+        { "pattern": "h/timeAttendance", "name": "h/timeAttendance", "target": "timeAttendance" },
+        { "pattern": "m/timeAttendance", "name": "m/timeAttendance", "target": "timeAttendance" },
+        { "pattern": "timeAttendance", "name": "timeAttendance", "target": "timeAttendance" },
+        { "pattern": "h/rewardVacationReport", "name": "h/rewardVacationReport", "target": "rewardVacationReport" },
+        { "pattern": "m/rewardVacationReport", "name": "m/rewardVacationReport", "target": "rewardVacationReport" },
+        { "pattern": "rewardVacationReport", "name": "rewardVacationReport", "target": "rewardVacationReport" },
+        { "pattern": "h/flexibleTimeReport", "name": "h/flexibleTimeReport", "target": "flexibleTimeReport" },
+        { "pattern": "flexibleTimeReport", "name": "flexibleTimeReport", "target": "flexibleTimeReport" }
 			],
 			"targets": {
         "home": { "viewId": "home", "viewPath": "sap.ui.time.mvc.view.home", "viewName": "App" },
-        "test": { "viewId": "test", "viewPath": "sap.ui.time.mvc.view.home", "viewName": "Test" }
+        "teamWorkingState": { "viewId": "teamWorkingState", "viewPath": "sap.ui.time.mvc.view.teamWorkingState", "viewName": "Main" },
+        "workStandardManagement": { "viewId": "workStandardManagement", "viewPath": "sap.ui.time.mvc.view.workStandardManagement", "viewName": "Main" },
+        "timeStandardManagement": { "viewId": "timeStandardManagement", "viewPath": "sap.ui.time.mvc.view.timeStandardManagement", "viewName": "Main" },
+        "timeRegistration": { "viewId": "timeRegistration", "viewPath": "sap.ui.time.mvc.view.timeRegistration", "viewName": "Main" },
+        "h/timeRegistration": { "viewId": "h_timeRegistration", "viewPath": "sap.ui.time.mvc.view.timeRegistration", "viewName": "Main" },
+        "m/timeRegistration": { "viewId": "m_timeRegistration", "viewPath": "sap.ui.time.mvc.view.timeRegistration", "viewName": "Main" },
+        "teamWorkStatus": { "viewId": "teamWorkStatus", "viewPath": "sap.ui.time.mvc.view.teamWorkStatus", "viewName": "Main" },
+        "h/teamWorkStatus": { "viewId": "h_teamWorkStatus", "viewPath": "sap.ui.time.mvc.view.teamWorkStatus", "viewName": "Main" },
+        "timeClosing": { "viewId": "timeClosing", "viewPath": "sap.ui.time.mvc.view.timeClosing", "viewName": "Main" },
+        "h/timeClosing": { "viewId": "h_timeClosing", "viewPath": "sap.ui.time.mvc.view.timeClosing", "viewName": "MainH" },
+        "m/timeClosing": { "viewId": "m_timeClosing", "viewPath": "sap.ui.time.mvc.view.timeClosing", "viewName": "MainM" },
+        "timeClosingApproval": { "viewId": "timeClosingApproval", "viewPath": "sap.ui.time.mvc.view.timeClosingApproval", "viewName": "Main" },
+        "timeReport": { "viewId": "timeReport", "viewPath": "sap.ui.time.mvc.view.timeReport", "viewName": "Main" },
+        "h/timeReport": { "viewId": "h_timeReport", "viewPath": "sap.ui.time.mvc.view.timeReport", "viewName": "MainH" },
+        "m/timeReport": { "viewId": "m_timeReport", "viewPath": "sap.ui.time.mvc.view.timeReport", "viewName": "MainM" },
+        "h/timeAttendance": { "viewId": "timeAttendance", "viewPath": "sap.ui.time.mvc.view.timeAttendance", "viewName": "Main" },
+        "m/timeAttendance": { "viewId": "timeAttendance", "viewPath": "sap.ui.time.mvc.view.timeAttendance", "viewName": "Main" },
+        "timeAttendance": { "viewId": "timeAttendance", "viewPath": "sap.ui.time.mvc.view.timeAttendance", "viewName": "Main" },
+        "rewardVacationReport": { "viewId": "rewardVacationReport", "viewPath": "sap.ui.time.mvc.view.rewardVacationReport", "viewName": "Main" },
+        "h/rewardVacationReport": { "viewId": "rewardVacationReport", "viewPath": "sap.ui.time.mvc.view.rewardVacationReport", "viewName": "Main" },
+        "m/rewardVacationReport": { "viewId": "rewardVacationReport", "viewPath": "sap.ui.time.mvc.view.rewardVacationReport", "viewName": "Main" },
+        "h/flexibleTimeReport": { "viewId": "flexibleTimeReport", "viewPath": "sap.ui.time.mvc.view.flexibleTimeReport", "viewName": "Main" },
+        "flexibleTimeReport": { "viewId": "flexibleTimeReport", "viewPath": "sap.ui.time.mvc.view.flexibleTimeReport", "viewName": "Main" }
 			}
 		}
 	}

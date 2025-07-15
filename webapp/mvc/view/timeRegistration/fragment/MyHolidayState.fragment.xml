@@ -1,0 +1,66 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control">
+    <HBox id="vacationStatus" width="100%" alignItems="Center" class="vCardBox" binding="{/entry/TimePersInfo}" busyIndicatorDelay="0" busy="{/busy/plan2}">
+        <HBox renderType="Bare">
+            <VBox>
+                <Image src="{appointeeModel>/Photo}" mode="Background" class="member-photo" width="126px" height="126px" error=".loadErrorAvatarImage" />
+            </VBox>
+            <VBox justifyContent="Center" class="appointee-info sapUiSmallMarginBegin">
+                <Text text="홍길동 수석" class="name" />
+                <Text text="XXXXXX팀" />
+            </VBox>
+        </HBox>
+        <VBox class="sapUiLargeMarginBegin" renderType="Bare">
+            <Label text="나의 휴가현황" class="SubTitle"/>
+            <Label text="현재일 기준, 발생/사용/잔여" class="sapUiTinyMarginTop fontColor666666"/>
+        </VBox>
+        <VBox class="sapUiSmallMarginBegin" renderType="Bare">
+            <layoutData>
+                <FlexItemData minWidth="13%" />
+            </layoutData>
+            <Label text="연차쿼터" class="SubTitle3"/>
+            <custom:VacationIndicator width="100%" total="{Crcnt1}" used="{Uscnt1}" class="sapUiSmallMarginTop" />
+            <!-- <Text width="100%" class="mt-20-px" text="{Crcnt1Tx} / {Uscnt1Tx} / {Blcnt1Tx}" /> -->
+            <HBox>
+                <Text class="mt-20-px" text="{Crcnt1Tx}" />
+                <Text text=" / " />
+                <Text text="{Uscnt1Tx}" />
+                <Text text=" / " />
+                <Text text="{Blcnt1Tx}" />
+            </HBox>
+        </VBox>
+        <VBox class="sapUiSmallMarginBegin" renderType="Bare" visible="{Crcnt5Visible}">
+            <layoutData>
+                <FlexItemData minWidth="13%" />
+            </layoutData>
+            <Label text="1년 미만 연차쿼터" class="SubTitle3"/>
+            <custom:VacationIndicator width="100%" total="{Crcnt5}" used="{Uscnt5}" class="sapUiSmallMarginTop" />
+            <Text width="100%" class="mt-20-px" text="{Crcnt5Tx} / {Uscnt5Tx} / {Blcnt5Tx}" />
+        </VBox>
+        <VBox class="sapUiSmallMarginBegin" renderType="Bare">
+            <layoutData>
+                <FlexItemData minWidth="13%" />
+            </layoutData>
+            <Label text="하기휴가쿼터" class="SubTitle3"/>
+            <custom:VacationIndicator width="100%" total="{Crcnt2}" used="{Uscnt2}" class="sapUiSmallMarginTop" />
+            <Text width="100%" class="mt-20-px" text="{Crcnt2Tx} / {Uscnt2Tx} / {Blcnt2Tx}" />
+        </VBox>
+        <VBox class="sapUiSmallMarginBegin" renderType="Bare" visible="{Crcnt3Visible}">
+            <layoutData>
+                <FlexItemData minWidth="13%" />
+            </layoutData>
+            <Label text="보상휴가" class="SubTitle3"/>
+            <custom:VacationIndicator width="100%" total="{Crcnt3}" used="{Uscnt3}" class="sapUiSmallMarginTop" />
+            <Text width="100%" class="mt-20-px" text="{Crcnt3Tx} / {Uscnt3Tx} / {Blcnt3Tx}" />
+        </VBox>
+        <VBox class="sapUiSmallMarginBegin" renderType="Bare" visible="{Crcnt4Visible}">
+            <layoutData>
+                <FlexItemData minWidth="13%" />
+            </layoutData>
+            <Label text="적치연차" class="SubTitle3"/>
+            <custom:VacationIndicator width="100%" total="{Crcnt4}" used="{Uscnt4}" class="sapUiSmallMarginTop" />
+            <Text width="100%" class="mt-20-px" text="{Crcnt4Tx} / {Uscnt4Tx} / {Blcnt4Tx}" />
+        </VBox>
+    </HBox>
+</core:FragmentDefinition>

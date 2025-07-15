@@ -14,7 +14,7 @@
                     <layoutData>
                         <FlexItemData minHeight="400px" />
                     </layoutData>
-                    <Title text="Hello world" level="H2" />
+                    <Title text="Hello world333" level="H2" />
                 </HBox>
             </VBox>
         </VBox>

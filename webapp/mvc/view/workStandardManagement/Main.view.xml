@@ -1,0 +1,53 @@
+<mvc:View controllerName="sap.ui.time.mvc.controller.workStandardManagement.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified">
+    <Page title="HOME" showHeader="false">
+        <VBox class="contents-header">
+            <HBox justifyContent="SpaceBetween" class="breadcrumbs">
+                <custom:Breadcrumbs />
+                <HBox class="button-group">
+                    <Button icon="sap-icon://excel-attachment" text="Excel" press=".onPressExcelDownload" busyIndicatorDelay="0" busy="{/contentsBusy/table}" />
+                    <Button text="저장" type="Emphasized" busyIndicatorDelay="0" busy="{/contentsBusy/button}" press=".onPressSave"/>
+                </HBox>
+            </HBox>
+        </VBox>
+        <VBox class="contents">
+            <HBox class="vCardBox" justifyContent="SpaceBetween" height="80px">
+                <HBox class="form-bar" alignItems="Center">
+                    <Label text="{i18n>LABEL_00220}" />
+                    <ComboBox items="{/PersaList}" selectedKey="{/searchConditions/Werks}" busyIndicatorDelay="0" busy="{/contentsBusy/search}">
+                        <core:Item key="{code}" text="{text}" />
+                    </ComboBox>
+                    <Button text="{i18n>LABEL_00100}" icon="/sap/public/bc/ui2/zui5_tesnahr/images/icon_search03.png" iconDensityAware="false" press=".onPressSearch" busyIndicatorDelay="0" busy="{/contentsBusy/search}" />
+                </HBox>
+            </HBox>
+            <VBox class="vCardBox">
+                <IconTabBar id="WorkICBar" class="WorkICBar" selectedKey="{/selectedICBar}" select=".handleIconTabBarSelect">
+                    <items>
+                        <IconTabFilter text="시차출퇴근제 허용근무일정" key="1">
+                            <content>
+                                <core:Fragment fragmentName="sap.ui.time.mvc.view.workStandardManagement.fragment.Table1" type="XML" />
+                            </content>
+                        </IconTabFilter>
+                        <IconTabFilter text="선택적시간제 적용대상" key="2">
+                            <content>
+                                <core:Fragment fragmentName="sap.ui.time.mvc.view.workStandardManagement.fragment.Table2" type="XML" />
+                            </content>
+                        </IconTabFilter>
+                        <IconTabFilter text="선택적시간제 기준설정" key="3">
+                            <content>
+                                <core:Fragment fragmentName="sap.ui.time.mvc.view.workStandardManagement.fragment.Table3" type="XML" />
+                            </content>
+                        </IconTabFilter>
+                    </items>
+                </IconTabBar>
+
+                <!-- <core:Fragment fragmentName="sap.ui.tesna.mvc.view.commuteCheck.fragment.OverviewTable" type="XML" /> -->
+            </VBox>
+        </VBox>
+    </Page>
+</mvc:View>

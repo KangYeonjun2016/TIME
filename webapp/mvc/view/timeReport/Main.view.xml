@@ -1,0 +1,95 @@
+<mvc:View controllerName="sap.ui.time.mvc.controller.timeReport.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified">
+    <Page title="HOME" showHeader="false">
+        <VBox class="contents-header">
+            <HBox justifyContent="SpaceBetween" class="breadcrumbs">
+                <custom:Breadcrumbs />
+            </HBox>
+        </VBox>
+        <VBox class="contents">
+            <HBox class="vCardBox" justifyContent="SpaceBetween" height="80px">
+                <HBox class="form-bar" alignItems="Center">
+                    <Label text="{i18n>LABEL_00220}" />
+                    <ComboBox items="{/PersaList}" selectedKey="{/searchConditions/Werks}" busyIndicatorDelay="0" busy="{/contentsBusy/search}" enabled="{= ${/Auth} === 'M' || ${/Auth} === 'H' }">
+                        <core:Item key="{code}" text="{text}" />
+                    </ComboBox>
+                    <Label text="{i18n>LABEL_00219}" />
+                    <Input width="100%" value="{/searchConditions/Otext}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onSearchOrg" class="conspicuous-disabled" enabled="{= ${/Auth} === 'M' || ${/Auth} === 'H' }" />
+                    <Label text="대상자" />
+                    <Input width="100%" value="{/searchConditions/Ename}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onSearchPernr" class="conspicuous-disabled" enabled="{= ${/Auth} === 'M' || ${/Auth} === 'H' }"/>
+                    <Label text="{i18n>LABEL_00122}" />
+                    <DatePicker value="{/searchConditions/YYYYMM}" width="150px"  valueFormat = "yyyyMM" displayFormat= "yyyy.MM"/>
+                    <Button text="{i18n>LABEL_00100}" icon="/sap/public/bc/ui2/zui5_tesnahr/images/icon_search03.png" iconDensityAware="false" press=".onPressSearch" busyIndicatorDelay="0" busy="{/contentsBusy/search}" />
+                </HBox>
+            </HBox>
+            <VBox class="vCardBox" visible="{= ${/Auth} === 'M' || ${/Auth} === 'H' }">
+                <HBox class="pb-5-px">
+                    <Label text="팀 근무시간 현황" class="SubTitle2 mt-10-px"/>
+                    <VBox width="100%" class="FlexEnd">
+                        <Button icon="sap-icon://excel-attachment" text="Excel" press=".onPressExcelDownloadForTeam" />
+                        <!-- busyIndicatorDelay="0" busy="{/busy}"  -->
+                    </VBox>
+                </HBox>
+                <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.TeamTable" type="XML" />
+            </VBox>
+            <VBox class="vCardBox">
+                <HBox class="pb-5-px">
+                    <Label text="팀원 근무시간 현황" class="SubTitle2 mt-10-px"/>
+                    <VBox width="100%" class="FlexEnd">
+                        <Button icon="sap-icon://excel-attachment" text="Excel" press=".onPressExcelDownloadForEmployee" />
+                        <!-- busyIndicatorDelay="0" busy="{/busy}"  -->
+                    </VBox>
+                </HBox>
+                <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.EmployeeTable" type="XML" />
+            </VBox>
+            <VBox class="vCardBox">
+                <HBox>
+                    <Label text="당월 근태 Monitoring 현황" class="SubTitle2" />
+                </HBox>
+                <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.Monitoring" type="XML" />
+
+                <HBox class="pt-10-px">
+                    <Label text="{/VizFrameLabel}" class="SubTitle3" visible="{/VizFrameLabelVisible}"/>
+                </HBox>
+                <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.LineChart" type="XML" />
+
+                <HBox visible="{= ${/MonitoringListInfo1/visible} || ${/MonitoringListInfo2/visible} || ${/MonitoringListInfo3/visible} }">
+                    <VBox width="100%" class="FlexEnd">
+                        <Button icon="sap-icon://excel-attachment" text="Excel" press=".onPressExcelDownloadForMonitoring" />
+                        <!-- busyIndicatorDelay="0" busy="{/busy}"  -->
+                    </VBox>
+                </HBox>
+                <VBox visible="{/MonitoringListInfoA1/visible}" class="pt-10-px">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.MonitoringDetailA1" type="XML" />
+                </VBox>
+                <VBox visible="{/MonitoringListInfoA2/visible}" class="pt-10-px">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.MonitoringDetailA2" type="XML" />
+                </VBox>
+                <VBox visible="{/MonitoringListInfoA3/visible}" class="pt-10-px">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.MonitoringDetailA3" type="XML" />
+                </VBox>
+                <VBox visible="{/MonitoringListInfoB1/visible}" class="pt-10-px">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.MonitoringDetailB1" type="XML" />
+                </VBox>
+                <VBox visible="{/MonitoringListInfo2/visible}" class="pt-10-px">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.MonitoringDetail2" type="XML" />
+                </VBox>
+                <VBox visible="{/MonitoringListInfoC1/visible}" class="pt-10-px">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.MonitoringDetailC1" type="XML" />
+                </VBox>
+                <VBox visible="{/MonitoringListInfoC2/visible}" class="pt-10-px">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.MonitoringDetailC2" type="XML" />
+                </VBox>
+                <VBox visible="{/MonitoringListInfoC3/visible}" class="pt-10-px">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.timeReport.fragment.MonitoringDetailC3" type="XML" />
+                </VBox>
+
+            </VBox>
+        </VBox>
+    </Page>
+</mvc:View>

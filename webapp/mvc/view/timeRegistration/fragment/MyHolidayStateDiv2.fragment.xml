@@ -1,0 +1,93 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control">
+    <VBox id="vacationStatus" width="100%" class="vCardBox" binding="{/entry/TimePersInfo}" busyIndicatorDelay="0" busy="{/busy/plan2}">
+        <HBox>
+            <VBox width="20%" class="sapUiSmallMarginBegin" renderType="Bare">
+                <!-- <layoutData>
+                    <FlexItemData minWidth="15%" />
+                </layoutData> -->
+                <Text width="100%" text="연차" class="SubTitle3 TextAlignCenter"/>
+                <Text width="100%" text="(%)" class="SubTitle3 TextAlignRight"/>
+                <custom:VacationIndicator width="100%" total="{Crcnt1N}" used="{Rate1}" />
+                <HBox width="100%" class="mt-20-px justifyCenter">
+                    <Text text="{i18n>LABEL_00162} {Crcnt1tx}" class="crtFontColor" />
+                    <Text text=" / " />
+                    <Text text="{i18n>LABEL_00163} {Uscnt1tx}" class="useFontColor"/>
+                    <Text text=" / " />
+                    <Text text="{i18n>LABEL_00164} {Blcnt1tx}" class="balFontColor"/>
+                </HBox>
+                <!-- <tooltip>
+                    <custom:Tooltip>
+                        <custom:content>
+                            <Text text="21312312"/>
+                        </custom:content>
+                    </custom:Tooltip>
+                </tooltip> -->
+                <!-- <tooltip>
+                    <Text text="21312312"/>
+                </tooltip> -->
+            </VBox>
+            <VBox width="20%" class="sapUiSmallMarginBegin" renderType="Bare" visible="{Crcnt5Visible}">
+                <!-- <layoutData>
+                    <FlexItemData minWidth="15%" />
+                </layoutData> -->
+                <Text width="100%" text="1년 미만 연차" class="SubTitle3 TextAlignCenter"/>
+                <Text width="100%" text="(%)" class="SubTitle3 TextAlignRight"/>
+                <custom:VacationIndicator width="100%" total="{Crcnt5N}" used="{Rate5}" />
+                <HBox width="100%" class="mt-20-px justifyCenter">
+                    <Text text="{i18n>LABEL_00162} {Crcnt5tx}" class="crtFontColor" />
+                    <Text text=" / " />
+                    <Text text="{i18n>LABEL_00163} {Uscnt5tx}" class="useFontColor"/>
+                    <Text text=" / " />
+                    <Text text="{i18n>LABEL_00164} {Blcnt5tx}" class="balFontColor"/>
+                </HBox>
+            </VBox>
+            <VBox width="20%" class="sapUiSmallMarginBegin" renderType="Bare">
+                <!-- <layoutData>
+                    <FlexItemData minWidth="15%" />
+                </layoutData> -->
+                <Text width="100%" text="하기휴가" class="SubTitle3 TextAlignCenter"/>
+                <Text width="100%" text="(%)" class="SubTitle3 TextAlignRight"/>
+                <custom:VacationIndicator width="100%" total="{Crcnt2N}" used="{Rate2}" />
+                <HBox width="100%" class="mt-20-px justifyCenter">
+                    <Text text="{i18n>LABEL_00162} {Crcnt2tx}" class="crtFontColor" />
+                    <Text text=" / " />
+                    <Text text="{i18n>LABEL_00163} {Uscnt2tx}" class="useFontColor"/>
+                    <Text text=" / " />
+                    <Text text="{i18n>LABEL_00164} {Blcnt2tx}" class="balFontColor"/>
+                </HBox>
+            </VBox>
+            <VBox width="20%" class="sapUiSmallMarginBegin" renderType="Bare" visible="{Crcnt3Visible}" tooltip="{Recal}">
+                <!-- <layoutData>
+                    <FlexItemData minWidth="15%" />
+                </layoutData> -->
+                <Text width="100%" text="보상휴가" class="SubTitle3 TextAlignCenter"/>
+                <Text width="100%" text="(%)" class="SubTitle3 TextAlignRight"/>
+                <custom:VacationIndicator width="100%" total="{Crcnt3N}" used="{Rate3}" />
+                <HBox width="100%" class="mt-20-px justifyCenter">
+                    <Text text="{Crcnt3tx}" class="crtFontColor" />
+                    <Text text=" / " />
+                    <Text text="{Uscnt3tx}" class="useFontColor"/>
+                    <Text text=" / " />
+                    <Text text="{Blcnt3tx}" class="balFontColor"/>
+                </HBox>
+            </VBox>
+            <VBox width="20%" class="sapUiSmallMarginBegin" renderType="Bare" visible="{Crcnt4Visible}">
+                <!-- <layoutData>
+                    <FlexItemData minWidth="15%" />
+                </layoutData> -->
+                <Text width="100%" text="적치연차" class="SubTitle3 TextAlignCenter"/>
+                <Text width="100%" text="(%)" class="SubTitle3 TextAlignRight"/>
+                <custom:VacationIndicator width="100%" total="{Crcnt4N}" used="{Rate4}" />
+                <HBox width="100%" class="mt-20-px justifyCenter">
+                    <Text text="{i18n>LABEL_00162} {Crcnt4tx}" class="crtFontColor" />
+                    <Text text=" / " />
+                    <Text text="{i18n>LABEL_00163} {Uscnt4tx}" class="useFontColor"/>
+                    <Text text=" / " />
+                    <Text text="{i18n>LABEL_00164} {Blcnt4tx}" class="balFontColor"/>
+                </HBox>
+            </VBox>
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

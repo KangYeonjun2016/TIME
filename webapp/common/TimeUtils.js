@@ -80,7 +80,7 @@ sap.ui.define(
           } else if (_.has(vValue, 'ms')) {
             return this.toString(vValue, sTimeFormat);
           }
-        },
+        }
       };
 
       return TimeUtils;

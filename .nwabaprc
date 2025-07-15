@@ -11,12 +11,12 @@
     "conn_usestricssl": false,
     "conn_server": "http://dsghrerpd01.corp.doosan.com:8000/",
     "conn_client": "300",
-    "conn_user": "ps08",
+    "conn_user": "PS08",
     "conn_password": "init1234@",
     "abap_bsp": "ZHRXX_TIME",
     "abap_bsp_text": "두산 - 근태",
     "abap_package": "ZHR_RNXX",
-    "abap_transport": "GHDK954358",
+    "abap_transport": "GHDK958647",
     "calcappindex": true,
     "preserve_unselected": false
 }

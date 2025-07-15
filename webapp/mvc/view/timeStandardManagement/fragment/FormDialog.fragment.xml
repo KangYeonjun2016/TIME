@@ -1,0 +1,68 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog contentWidth="400px" busyIndicatorDelay="0" busy="{/contentsBusy/dialog}" showHeader="false">
+        <buttons>
+            <Button text="저장" type="Emphasized" press=".onPressSave"/>
+            <Button text="닫기" type="Emphasized" press=".onPressFormDialogClose"/>
+        </buttons>
+        <content>
+            <VBox>
+                <Label text="기준 항목" class="SubTitle3 py-10-px"/>
+                <HBox renderType="Bare" alignItems="Center">
+                    <ComboBox width="100%" class="required" selectedKey="{/dialog/data/Stitm}" enabled ="{/dialog/newButtonAct}" items="{ path: '/dialog/StitmTypeList', templateShareable: false }">
+                        <core:Item key="{Stitm}" text="{Stitmtx}" />
+                    </ComboBox>
+                </HBox>
+            </VBox>
+            <VBox>
+                <Label text="적용대상구분" class="SubTitle3 py-10-px"/>
+                <HBox renderType="Bare" alignItems="Center">
+                    <ComboBox width="100%" class="required" selectedKey="{/dialog/data/Otype}" enabled ="{/dialog/newButtonAct}" items="{ path: '/dialog/OtypeList', templateShareable: false }" change=".onChangeOtype">
+                        <core:Item key="{Otype}" text="{Otext}" />
+                    </ComboBox>
+                </HBox>
+            </VBox>
+            <VBox>
+                <Label text="부서/직원" class="SubTitle3 py-10-px"/>
+                <HBox renderType="Bare" alignItems="Center">
+                    <Input width="100%" value="{/dialog/data/Otext}" enabled ="{= ${/dialog/newButtonAct} &amp;&amp; ${/dialog/data/Otype} !== 'C'}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onSearchOType" class="conspicuous-disabled" />
+                </HBox>
+            </VBox>
+            <VBox>
+                <Label text="적용여부" class="SubTitle3 py-10-px"/>
+                <HBox renderType="Bare" alignItems="Center">
+                    <ComboBox width="100%" class="required" selectedKey="{/dialog/data/Styn}" items="{ path: '/dialog/StynList', templateShareable: false }">
+                        <core:Item key="{Code}" text="{Text}" />
+                    </ComboBox>
+                </HBox>
+            </VBox>
+            <HBox>
+                <VBox width="70%">
+                    <Label text="시간" class="SubTitle3 py-10-px"/>
+                    <HBox renderType="Bare" alignItems="Center">
+                        <TimePicker dateValue="{ path: '/dialog/data/Stval1', type: 'sap.ui.time.mvc.model.type.InputTime' }" minutesStep="{/dialog/minutesStep}" initialFocusedDateValue="{/dialog/initBeguz}" placeholder="HH:mm" valueFormat="HH:mm" displayFormat="HH:mm" class="sapIcon_Time"/>
+                        <Text text="-" class="sapUiTinyMarginBeginEnd lh-40-px" />
+                        <TimePicker dateValue="{ path: '/dialog/data/Stval2', type: 'sap.ui.time.mvc.model.type.InputTime' }" minutesStep="{/dialog/minutesStep}" initialFocusedDateValue="{/dialog/initEnduz}" placeholder="HH:mm" valueFormat="HH:mm" displayFormat="HH:mm" class="sapIcon_Time"/>
+                    </HBox>
+                </VBox>
+                <VBox width="30%" class="pl-3-px">
+                    <Label text="기준값" class="SubTitle3 py-10-px"/>
+                    <HBox renderType="Bare" alignItems="Center">
+                        <Input value="{/dialog/data/Stval3}" width="160px"/>
+                    </HBox>
+                </VBox>
+            </HBox>
+            <VBox>
+                <Label text="적용기간" class="SubTitle3 py-10-px"/>
+                <HBox renderType="Bare" alignItems="Center">
+                    <DatePicker width="90%" class="required" displayFormat="yyyy.MM.dd" valueFormat="yyyyMMdd" value="{/dialog/data/Begda}" />
+                    <Text text="-" class="sapUiTinyMarginBeginEnd lh-40-px" />
+                    <DatePicker width="90%" class="required" displayFormat="yyyy.MM.dd" valueFormat="yyyyMMdd" value="{/dialog/data/Endda}" />
+                </HBox>
+            </VBox>
+
+
+
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

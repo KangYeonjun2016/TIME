@@ -1,0 +1,134 @@
+<core:FragmentDefinition
+		height="100%"
+		xmlns="sap.gantt.simple"
+		xmlns:axistime="sap.gantt.axistime"
+		xmlns:config="sap.gantt.config"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns:shapes="sap.gantt.simple.shapes"
+		xmlns:table="sap.ui.table"
+		xmlns:m="sap.m"
+		xmlns:core="sap.ui.core"
+		xmlns:rm="sap.ui.table.rowmodes"
+		xmlns:control="sap.ui.time.control"
+		xmlns:GanttLibrary="sap/gantt/library"
+		>
+	<GanttChartContainer width="100%">
+		<toolbar>
+			<ContainerToolbar height="50px">
+				<m:HBox class="GanttToolbarBox">
+						<m:Label text="{/startDateText}" class="pr-5-px"/>
+						<m:Button icon="sap-icon://slim-arrow-left" class="pr-5-px" tooltip="1일 전" press=".handleSelectYesterday"/>
+						<m:Button icon="sap-icon://slim-arrow-right" class="pr-5-px" tooltip="1일 후" press=".handleSelectTomorrow"/>
+						<m:Button text="오늘" press=".handleSelectToday"/>
+						<!-- <m:Button icon="sap-icon://slim-arrow-down" tooltip="오늘" type="Accept" press=".handleSelectToday"/> -->
+				</m:HBox>
+			</ContainerToolbar>
+		</toolbar>
+		<!-- id="gantt"  -->
+		<GanttChartWithTable id="gantt"
+							 shapeSelectionMode="Single"  
+							 selectionPanelSize="20%" 
+							 nowLineInUTC="false" 
+							 enableNowLine="false"
+							 >
+			<axisTimeStrategy> 
+
+			<!-- timeLineOption=
+					"innerInterval:{
+						unit: 'GanttLibrary.config.TimeUnit.minute',
+						span: 1,
+						range: 90,
+						selector: function (diff) {
+							return diff >= 90;
+						}
+					},
+					largeInterval: {
+						unit: 'GanttLibrary.config.TimeUnit.hour',
+						span: 1,
+						pattern: 'ha / HH'
+					},
+					smallInterval: {
+						unit: 'GanttLibrary.config.TimeUnit.minute,
+						span: 1,
+						pattern: 'mm'
+					}" -->
+
+				<axistime:ProportionZoomStrategy zoomLevel="4" 
+					id="proportion"	
+					> 
+					<axistime:totalHorizon>
+						<!-- <config:TimeHorizon
+								startTime="{/startNumber}"
+								endTime="{/endNumber}"/> -->
+						<!-- <config:TimeHorizon
+								startTime="20240826060000"
+								endTime="20240827060000"/> -->
+					</axistime:totalHorizon>
+					<axistime:visibleHorizon>
+						<!-- <config:TimeHorizon
+								startTime="{/startNumber}"
+								endTime="{/endNumber}"/> -->
+						<!-- <config:TimeHorizon
+								startTime="20240826060000"
+								endTime="20240827060000"/> -->
+					</axistime:visibleHorizon>
+				</axistime:ProportionZoomStrategy>
+			</axisTimeStrategy>
+			<table>
+			<!-- minAutoRowCount="20"
+						fixedRowCount="20" -->
+						<!-- id="ganttTable" -->
+						<!-- visibleRowCountMode="Auto" -->
+				<table:TreeTable
+						id="ganttTable"
+						selectionMode="Single"
+						enableColumnReordering="true"
+						selectionBehavior="RowSelector"
+						
+						
+						rows="{
+						path: '/root',
+						parameters: {
+							arrayNames: ['children'],
+							numberOfExpandedLevels: 1
+						}
+					}">
+					<table:columns>
+						<table:Column width="200px">
+							<m:Text text="대상자"/>
+							<table:template>
+								<m:Label text="{text}"/>
+							</table:template>
+						</table:Column>
+					</table:columns>
+					<table:rowSettingsTemplate>
+						<GanttRowSettings rowId="{id}" shapes1="{path: 'subtask', templateShareable:false}">
+							<shapes1>
+								<BaseRectangle
+									time="{path: 'startTime', formatter: '.fnTimeConverter'}"
+									endTime="{path: 'endTime', formatter: '.fnTimeConverter'}"
+									showTitle="false"
+									fill="{fillColor}"
+									tooltip="{title}"
+									strokeWidth="3"
+									selectable="true">
+									<!-- tooltip="{path: 'title', formatter: '.formatTooltip'}" > -->
+									<!-- tooltip="{title}" -->
+									<!-- <tooltip>
+										<control:Tooltip
+											text="title"
+											openDelay="100"
+											offset="10 -5"
+											closeDuration="0"
+										/>
+									</tooltip> -->
+
+								</BaseRectangle>
+							</shapes1>
+						</GanttRowSettings>
+					</table:rowSettingsTemplate>
+				</table:TreeTable>
+			</table>
+		</GanttChartWithTable>
+	</GanttChartContainer>
+</core:FragmentDefinition>

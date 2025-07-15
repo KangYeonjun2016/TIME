@@ -1,0 +1,42 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control">
+    <VBox width="100%" alignItems="Start" binding="{/entry/MytimeHeader}" busyIndicatorDelay="0" busy="{/busy/plan2}">
+        <!-- class="vCardBox small sapUiMediumMarginEnd" -->
+        <HBox class="pb-10-px">
+            <Text text="{Ename}" class="ClosingProfileName pl-20-px" />
+            <Text text="{Title}" class="ProfileTeam pl-20-px"/>
+        </HBox>
+        <HBox width="100%" alignItems="Start">
+            <VBox>
+                <Image src="{Photo}" mode="Background" class="member-photo mt-10-px ml-10-px" width="100px" height="100px" error=".loadErrorAvatarImage" />
+            </VBox>
+            <VBox class="appointee-info sapUiSmallMarginBegin  pl-15-px" visible="{= ${/entry/MytimeHeader/Ename} !== ''}">
+                <Text text="{i18n>LABEL_00248}" class="SubTitle5"/>
+                <Text text="{i18n>LABEL_00249}" class="SubTitle5"/>
+                <Text text="{i18n>LABEL_00250}" class="SubTitle5"/>
+                <Text text="월PC미사용시간 총계:" class="SubTitle5"/>
+            </VBox>
+            <VBox width="20%" class="appointee-info sapUiSmallMarginBegin" visible="{= ${/entry/MytimeHeader/Ename} !== ''}">
+                <Text text="{/entry/MyMonthlyStatus/MonwhT}" class="SubTitle5"/>
+                <Text text="{/entry/MyMonthlyStatus/BashrAT}" class="SubTitle5"/>
+                <Text text="{/entry/MyMonthlyStatus/ResultmhT}" class="SubTitle5"/>
+                <Text text="{/entry/MyMonthlyStatus/TotalidlAT}" class="SubTitle5"/>
+            </VBox>
+            <VBox width="40%" class="appointee-info sapUiSmallMarginBegin" visible="{= ${/entry/MytimeHeader/Ename} !== ''}">
+                <Text text=" " class="SubTitle5"/>
+                <Text text="전날 PC 사용 실적은 다음날 오후 1시 이후 시스템에서 확인 가능합니다." class="SubTitle5 desc-txt"/>
+                <Text text="근무시간 내 근무시작/근무종료 버튼을 클릭한 경우에만 실적이 정상 집계 됩니다." class="SubTitle5 desc-txt"/>
+                <Text text="월 근무 계획 미수립 혹은 미승인 상태에서는 실적 정보 조회 및 입력이 제한됩니다." class="SubTitle5 desc-txt"/>
+            </VBox>
+            <VBox width="15%" class="sapUiSmallMarginBeginEnd ConfirmList">
+                <Text text="{= ${/entry/MytimeHeader/Month} &amp;&amp; ${/entry/MytimeHeader/Month} !== '' ? ${/entry/MytimeHeader/Month} + '월 마감 현황' : ''}" class="bold font-17-px"/>
+                <Label text="{= ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === 'X' ? '확정' : ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === 'M' ? '마감' : ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === 'C' ? '저장' : ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === 'I' ? '마감진행중' : ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === ''  ? '미확정' : '' }" class="ListTitle6">
+                    <customData>
+                        <core:CustomData key="color" value="{= ${/entry/MytimeHeader/Confirmyn} === 'X' ? 'X' : ${/entry/MytimeHeader/Confirmyn} === 'M' ? 'M' : ${/entry/MytimeHeader/Confirmyn} === 'C' ? 'C' : ${/entry/MytimeHeader/Confirmyn} === 'I' ? 'I' :'Z'}" writeToDom="true" />
+                    </customData>
+                </Label>
+            </VBox>
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

@@ -1,0 +1,85 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control"
+    xmlns:table="sap.ui.table">
+    <!-- <Dialog title="근무 및 근태 등록" contentWidth="1000px" contentHeight="auto" busyIndicatorDelay="0" busy="{/contentsBusy/dialog}" afterClose=".onDialogAfterClose"> -->
+    <Dialog contentWidth="1600px" busyIndicatorDelay="0" busy="{/contentsBusy/dialog}" showHeader="false">
+        <buttons>
+            <Button text="{i18n>LABEL_00152}" type="Emphasized" press=".onPressApplyRequestDailog"/>
+            <Button text="{i18n>LABEL_00115}" type="Emphasized" press=".onPressApplyFormDialogClose"/>
+        </buttons>
+        <content>
+            <VBox class="vCardBox">
+                <HBox class="table-toolbar">
+                    <HBox class="title">
+                        <Title level="H2" text="{i18n>LABEL_00129}"/>
+                    </HBox>
+                </HBox>
+
+                <VBox width="100%">
+                    <table:Table id="ApplyTable" selectionMode="None" width="100%" columnHeaderHeight="45" rowHeight="44" rows="{/apply/MyCoreTimeApplyList}" visibleRowCount="{/form/dialog/rowCount}" busyIndicatorDelay="0" busy="{/contentsBusy/table}" noData="{i18n>MSG_00001}">
+                        <table:columns>
+                            <table:Column width="15%">
+                                <Label text="{i18n>LABEL_00147}"/>
+                                <table:template>
+                                    <Text text="{Tmatytx}" width="100%" textAlign="Center" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="30%">
+                                <Label text="{i18n>LABEL_00170}"/>
+                                <table:template>
+                                    <Text text="{ path: 'Tmdat', type: 'sap.ui.time.mvc.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" width="100%" textAlign="Center" wrapping="false" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="20%">
+                                <Label text="{i18n>LABEL_00178}"/>
+                                <table:template>
+                                    <Text text="{Weekday}" width="100%" textAlign="Center" wrapping="false" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="20%">
+                                <Label text="{i18n>LABEL_00146}"/>
+                                <table:template>
+                                    <Text text="{ path: 'Beguz', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="20%">
+                                <Label text="{i18n>LABEL_00153}"/>
+                                <table:template>
+                                    <Text text="{ path: 'Enduz', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="20%">
+                                <Label text="{i18n>LABEL_00180}"/>
+                                <table:template>
+                                    <Text text="{Stdaz}" width="100%" textAlign="Center">
+                                        <customData>
+                                            <core:CustomData key="style" value="{CellCheck}" writeToDom="true" />
+                                        </customData>
+                                    </Text>
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="20%">
+                                <Label text="{i18n>LABEL_00157}"/>
+                                <table:template>
+                                    <Text text="{Awrsntx}" width="100%" textAlign="Center">
+                                        <customData>
+                                            <core:CustomData key="style" value="{CellCheck}" writeToDom="true" />
+                                        </customData>
+                                    </Text>
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="20%">
+                                <Label text="{i18n>LABEL_00154}"/>
+                                <table:template>
+                                    <Text text="{Dtrsn}" width="100%" textAlign="Center" />
+                                </table:template>
+                            </table:Column>
+                        </table:columns>
+                    </table:Table>
+                </VBox>
+            </VBox>
+            <core:Fragment fragmentName="sap.ui.time.mvc.view.timeRegistration.fragment.ApprovalStatus" type="XML" />
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,32 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:custom="sap.ui.time.control">
+    <!-- <VBox class="contents"> -->
+        <VBox width="100%" class="vCardBox small sapUiMediumMarginEnd" busyIndicatorDelay="0" busy="{/busy/plan2}">
+            <HBox height ="50px" alignItems = "Start">
+                <VBox>
+                    <Label text="연차쿼터" class="pr-10-px pl-10-px SubTitle3"/>
+                    <custom:VacationIndicator width="8rem" total="{/entry/TimePersInfo/Crcnt1}" used="{/entry/TimePersInfo/Uscnt1}" class="sapUiSmallMarginTop" />
+                    <Label text="발생 xx 일 / 사용 xx 일 / 잔여 xx 일" class="pr-10-px pl-10-px"/>
+                </VBox>
+                <VBox>
+                    <Label text="연차쿼터" class="pr-10-px pl-10-px SubTitle3"/>
+                    <custom:VacationIndicator width="8rem" total="{/entry/TimePersInfo/Crcnt1}" used="{/entry/TimePersInfo/Uscnt1}" class="sapUiSmallMarginTop" />
+                    <Label text="발생 xx 일 / 사용 xx 일 / 잔여 xx 일" class="pr-10-px pl-10-px"/>
+                </VBox>
+                <VBox>
+                    <Label text="연차쿼터" class="pr-10-px pl-10-px SubTitle3"/>
+                    <custom:VacationIndicator width="8rem" total="{/entry/TimePersInfo/Crcnt1}" used="{/entry/TimePersInfo/Uscnt1}" class="sapUiSmallMarginTop" />
+                    <Label text="발생 xx 일 / 사용 xx 일 / 잔여 xx 일" class="pr-10-px pl-10-px"/>
+                </VBox>
+                <VBox>
+                    <Label text="연차쿼터" class="pr-10-px pl-10-px SubTitle3"/>
+                    <custom:VacationIndicator width="8rem" total="{/entry/TimePersInfo/Crcnt1}" used="{/entry/TimePersInfo/Uscnt1}" class="sapUiSmallMarginTop" />
+                    <Label text="발생 xx 일 / 사용 xx 일 / 잔여 xx 일" class="pr-10-px pl-10-px"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    <!-- </VBox> -->
+</core:FragmentDefinition>

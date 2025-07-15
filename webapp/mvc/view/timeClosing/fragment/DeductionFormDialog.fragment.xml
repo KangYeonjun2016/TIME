@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog contentWidth="800px" busyIndicatorDelay="0" busy="{/contentsBusy/dialog}" showHeader="false">
+        <buttons>
+            <!-- <Button text="저장" type="Emphasized" /> -->
+            <Button text="월 마감 승인 요청" type="Emphasized" press=".onPressCloseRequestFromDialog"/>
+            <Button text="{i18n>LABEL_00115}" width="130px" press=".onPressDeductionFormDialogClose"/>
+        </buttons>
+        <content>
+            <VBox renderType="Bare" alignItems="Center" class="vCardBox small" width="100%">
+                <Text text="{/Deduction/Month} 월 필요 근무시간 대비 부족한 근무 실적시간 {/Deduction/Shortage} 만큼 {/Deduction/NextMonth} 월 급여지급일에 급여에서 차감하는 것에 동의하시면" width="100%" textAlign="Left" />
+                <!-- <Text text="{/Deduction/NextMonth} 월 급여지급일에 급여에서 차감하는 것에 동의하시면" width="100%" textAlign="Left" /> -->
+                <Text text="체크박스 선택 후 월 마감 승인 요청해 주시기 바랍니다." width="100%" textAlign="Left" class="pb-20-px"/>
+
+                <HBox>
+                    <CheckBox width="100%" textAlign="Center" selected="{/Agree}"/>
+                    <Text text="부족한 근무 실적시간 만큼 익월 급여에서 차감하는 것에 동의합니다." width="100%" textAlign="Center" class="pt-5-px pl-10-px"/>
+                </HBox>
+            </VBox>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

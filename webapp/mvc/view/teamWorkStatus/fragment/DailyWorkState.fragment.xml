@@ -1,0 +1,44 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:unified="sap.ui.unified"
+	xmlns="sap.m">
+	<VBox class="vCardBox small sapUiMediumMarginEnd" busyIndicatorDelay="0" busy="{/busy/plan}" visible="{= ${/viewType} === 'Daily'}">
+		<PlanningCalendar id="PC1" viewKey="View1" startDate="{path: '/startDailyDate'}" rows="{path: '/MyNewTeamCalItem'}" 
+			showIntervalHeaders = "false"
+			showEmptyIntervalHeaders = "false"
+			appointmentsVisualization = "Filled" appointmentSelect=".handleAppointmentSelect"
+			startDateChange = '.changeDailyStartDate'>
+			<toolbarContent>
+				<Title text="{i18n>LABEL_00259}"/>
+				<VBox width="500px" class="holidayTextLayout">
+					<Text text="{/holidayText}" class="HolTitle hol-desc-txt"/>
+				</VBox>
+				<Button text="Monthly" type="Emphasized" press=".onPressChangeViewTypeToMonthly"/>
+			</toolbarContent>
+			<rows>
+				<!-- <PlanningCalendarRow icon="{Photo}" title="{Ename}" text="{Jikwi}" appointments="{path : 'appointments', templateShareable: false}" intervalHeaders="{path: 'headers', templateShareable: false}"> -->
+
+				<PlanningCalendarRow icon="{Photo}" title="{Ename}" text="{Jikwi}" appointments="{path : 'MyNewTeamItem', templateShareable: false}">
+					<customData>
+						<core:CustomData key="emp-name" value="{Ename}" writeToDom="true"/>
+					</customData>
+					<appointments>
+						<unified:CalendarAppointment startDate="{Start}" endDate="{End}" title="{Awrsntx}" type="{Type}" tentative="{tentative}">
+							<!-- text="{Time}" -->
+						</unified:CalendarAppointment>
+					</appointments>
+				</PlanningCalendarRow>
+			</rows>
+			<views>
+				<PlanningCalendarView
+					intervalsL = "24"
+					intervalsM = "24"
+					intervalsS = "24"
+					key = "View1"
+					showSubIntervals = "false"
+					description = "">
+				</PlanningCalendarView>
+			</views>
+		</PlanningCalendar>
+	</VBox>
+</core:FragmentDefinition>

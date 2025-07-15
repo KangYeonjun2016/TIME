@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control">
+    <Popover contentMinWidth="250px" placement="Auto" showHeader="false">
+        <footer>
+            <HBox class="justifyEnd py-10-px">
+                <Button text="{i18n>LABEL_00100}" press=".onPressChangeDate"/>
+            </HBox>
+        </footer>
+        <HBox class="py-15-px px-15-px">
+            <Label text="{i18n>LABEL_00122}" class="pl-10-px pr-25-px pt-15-px"/>
+
+            <DatePicker value="{/inputDate}" width="150px"  valueFormat = "yyyyMM" displayFormat= "yyyy.MM"/>
+        </HBox>
+    </Popover>
+</core:FragmentDefinition>

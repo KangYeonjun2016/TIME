@@ -56,6 +56,64 @@ sap.ui.define(
         }
         throw new ParseException(`Don't know how to parse Date from ${vValue}`);
       },
+
+      formatDateToYYYYMMDD(date) {
+        // 연도, 월, 일을 추출
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+        const day = String(date.getDate()).padStart(2, '0');
+
+        // yyyyMMdd 형식으로 포맷
+        return `${year}${month}${day}`;
+      },
+
+      toDate(vValue) {
+        const year = vValue.substring(0, 4);
+        const month = '' + (_.toNumber(vValue.substring(4, 6)) - 1);
+        const day = vValue.substring(6, 8);
+        const time = vValue.substring(8, 10);
+        const minute = vValue.substring(10, 12);
+        return new Date(year, month, day, time, minute);
+      },
+
+      toConvertKoreaDate(oValue) {
+        var vTmp1 = new Date(oValue);
+
+        if (vTmp1.getTimezoneOffset() < 0) {
+          vTmp1.setTime(vTmp1.getTime() - vTmp1.getTimezoneOffset() * 60000);
+        } else {
+          vTmp1.setTime(vTmp1.getTime() + vTmp1.getTimezoneOffset() * 60000);
+        }
+
+        return vTmp1;
+      },
+
+      toConvertKoreaDate2(oValue) {
+        // var vTmp1 = new Date(oValue);
+
+        // const seoulTime = vTmp1.toLocaleString('en-US', {
+        //   timeZone: 'Asia/Seoul',
+        //   hour12: false,
+        // });
+
+        // return seoulTime;
+
+        const nyDate = new Date(oValue);
+
+        // 서울 시간으로 변환해서 문자열 출력
+        const seoulTime = nyDate.toLocaleString('ko-KR', {
+          timeZone: 'Asia/Seoul',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+        });
+
+        console.log(seoulTime);
+      },
     };
 
     return DateUtils;

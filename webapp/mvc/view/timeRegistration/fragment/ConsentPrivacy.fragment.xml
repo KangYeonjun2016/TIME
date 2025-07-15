@@ -1,0 +1,47 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:table="sap.ui.table">
+    <Dialog contentWidth="700px" busyIndicatorDelay="0" busy="{/contentsBusy/dialog}" title="개인정보 및 민감정보 수집 이용 동의">
+        <buttons>
+            <Button text="저장" type="Emphasized" class="standard" press=".onWorkHistoryProcess" enabled="{= ${/ConsentPrivacy/check1} === true &amp;&amp; ${/ConsentPrivacy/check2} === true }"/>
+            <Button text="닫기" width="130px" press=".onWorkHistoryProcessClose"/>
+        </buttons>
+        <content>
+            <VBox alignItems="Left" class="vCardBox small">
+                <Text text="{i18n>MSG_10009}" class="SubTitle3" />
+                <Text text="[필수] 개인정보 수집 이용 동의" class="SubTitle3 mt-40-px" />
+                <Text text="1. 수집 항목 : 이름, 성별, 생년월일, 연령, 주소" class="mt-20-px" />
+                <Text text="2. 수집 목적 : 독감 확진에 따른 유급휴가 부여 목적"/>
+                <HBox justifyContent='Start'>
+                    <Text text="3. 보유기간 :"/>
+                    <Text text=" 수집일 기준 3년까지" class="ml-4-px underBlueLine" />
+                </HBox>
+
+                <Text text="{i18n>MSG_10010}" class="mt-20-px" />
+                <HBox justifyContent='End'>
+                    <CheckBox text='동의' selected="{/ConsentPrivacy/check1}" class="mt-5-px" />
+                </HBox>
+
+
+                <Text text="[필수] 민감정보 수집 이용 동의" class="SubTitle3 mt-40-px" />
+                <HBox justifyContent='Start'>
+                    <Text text="1. 수집 항목 :"/>
+                    <Text text=" 병명, 독감 확진 여부, 질병분류번호, 발병일, 진단일, 치료 및 의사소견" class="ml-4-px underBlueLine" />
+                </HBox>
+                <Text text="2. 수집 목적 :  독감 확진에 따른 유급휴가 부여 목적"/>
+                <HBox justifyContent='Start'>
+                    <Text text="3. 보유기간 : "/>
+                    <Text text=" 수집일 기준 3년까지" class="ml-4-px underBlueLine" />
+                </HBox>
+
+                <Text text="{i18n>MSG_10011}" class="mt-20-px" />
+                <HBox justifyContent='End'>
+                    <CheckBox text='동의' selected="{/ConsentPrivacy/check2}" class="mt-5-px" />
+                </HBox>
+
+            </VBox>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

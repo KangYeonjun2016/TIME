@@ -1,0 +1,80 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:table="sap.ui.table"
+    xmlns:core="sap.ui.core">
+    <table:Table id="MonitoringTable2" selectionMode="None" width="100%" columnHeaderHeight="45" rowHeight="44" rows="{/MonitoringList2}" visibleRowCount="{/MonitoringListInfo2/rowCount}" busyIndicatorDelay="0" busy="{/contentsBusy/table}" noData="{i18n>MSG_00001}" sort=".onSortAndFilter" filter=".onSortAndFilter">
+        <table:columns>
+            <table:Column width="10%" sortProperty="Ename" filterProperty="Ename">
+                <Label text="이름" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Ename}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="5%">
+                <Label text="직군" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Zzjobgrtx}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column >
+                <Label text="Title" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Zzcaltltx}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column >
+                <Label text="직책" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Zzpsgrptx}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column >
+                <Label text="소속" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Orgtx}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <!-- <table:Column >
+                <Label text="일자" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{ path: 'Tmdat', type: 'sap.ui.time.mvc.model.type.Date' }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column> -->
+            <table:Column >
+                <Label text="일자" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Tmdat}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column >
+                <Label text="근무계획 시작" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Scbegtm}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column >
+                <Label text="근무계획 종료" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Scendtm}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column >
+                <Label text="PC시작시간" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Pcbegtm}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column >
+                <Label text="PC종료시간" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Pcendtm}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column >
+                <Label text="이석발생시간" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Idlehrs}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+        </table:columns>
+    </table:Table>
+</core:FragmentDefinition>

@@ -5,13 +5,15 @@ sap.ui.define(
     'sap/ui/model/FilterOperator',
     'sap/ui/time/common/AppUtils',
     'sap/ui/time/common/odata/ServiceNames',
+    'sap/ui/time/common/DateUtils',
   ],
   (
     // prettier 방지용 주석
     Filter,
     FilterOperator,
     AppUtils,
-    ServiceNames
+    ServiceNames,
+    DateUtils
   ) => {
     'use strict';
 
@@ -26,8 +28,8 @@ sap.ui.define(
         return mFile;
       },
 
-      async readListData(sAppno, sAppty) {
-        const aFiles = await this.read(sAppno, sAppty);
+      async readListData(sAppno, sAppty, sTmdat) {
+        const aFiles = await this.read(sAppno, sAppty, '', sTmdat);
 
         aFiles.forEach((mFile) => {
           mFile.New = false;
@@ -37,7 +39,7 @@ sap.ui.define(
         return aFiles;
       },
 
-      async read(sAppno, sAppty, iFnumr) {
+      async read(sAppno, sAppty, iFnumr, sTmdat) {
         return new Promise((resolve, reject) => {
           const oServiceModel = AppUtils.getAppComponent().getModel(ServiceNames.COMMON);
           const sUrl = '/FileListSet';
@@ -48,6 +50,10 @@ sap.ui.define(
 
           if (typeof iFnumr !== 'undefined') {
             aFilters.push(new Filter('Fnumr', FilterOperator.EQ, iFnumr));
+          }
+
+          if (typeof sTmdat !== 'undefined') {
+            aFilters.push(new Filter('Tmdat', FilterOperator.EQ, DateUtils.parse(sTmdat)));
           }
 
           oServiceModel.read(sUrl, {

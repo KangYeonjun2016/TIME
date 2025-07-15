@@ -2,7 +2,7 @@
   xmlns:core="sap.ui.core"
   xmlns:grid="sap.ui.layout.cssgrid"
   xmlns:table="sap.ui.table">
-  <Dialog title="{i18n>LABEL_00205}" contentWidth="1600px" contentHeight="665px" busyIndicatorDelay="0" busy="{/busy}">
+  <Dialog title="{i18n>LABEL_00205}" contentWidth="1600px" busyIndicatorDelay="0" busy="{/busy}">
     <beginButton>
       <Button text="{i18n>LABEL_00112}" press=".onConfirm" type="Emphasized" enabled="{= ${/results/list}.length > 0 }" />
     </beginButton>
@@ -14,7 +14,7 @@
         <VBox width="20%" class="hCardBox sapUiSmallMarginEnd">
           <HBox justifyContent="SpaceBetween" alignItems="Center" class="search-head pb-10-px">
             <Label text="{i18n>LABEL_00203}" />
-            <Button press=".onSearch" class="icon-button search" />
+            <Button press=".onSearch" class="icon-button search standard" />
           </HBox>
           <grid:CSSGrid gridTemplateRows="1fr 2fr" gridGap="6px 0px" class="form-grid type-d form-search">
             <Label text="{i18n>LABEL_00206}" />
@@ -29,29 +29,39 @@
             </VBox>
             <Label text="{i18n>LABEL_00218}" />
             <VBox>
-              <Input value="{/settings/searchConditions/Orgtx}" enabled="{/settings/fieldEnabled/Orgeh}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onGroupOpen" class="conspicuous-disabled" />
+              <MultiInput tokens="{/settings/searchConditions/Orgeh}" enabled="{/settings/fieldEnabled/Orgeh}" tokenUpdate=".onMultiInputTokenUpdate" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onGroupOpen" class="conspicuous-disabled">
+                <tokens>
+                  <Token key="{Orgeh}" text="{Orgtx}" />
+                </tokens>
+              </MultiInput>
             </VBox>
             <Label text="{i18n>LABEL_00197}" />
             <VBox>
               <ComboBox items="{/entry/workType}" selectedKey="{/settings/searchConditions/Stat2}" width="100%" enabled="{/settings/fieldEnabled/Stat2}" class="conspicuous-disabled">
-                <core:Item text="{Ztext}" key="{Zcode}" />
+                <core:Item text="{Etext}" key="{Ecode}" />
               </ComboBox>
             </VBox>
-            <Label text="{i18n>LABEL_00199}" />
+            <Label text="직군" />
             <VBox>
-              <ComboBox items="{/entry/empGroup}" selectedKey="{/settings/searchConditions/Persg}" enabled="{/settings/fieldEnabled/Persg}" change=".onChangeEmpGroup" width="100%" class="conspicuous-disabled">
-                <core:Item text="{Ztext}" key="{Zcode}" />
+              <ComboBox items="{/entry/Zzjobgr}" selectedKey="{/settings/searchConditions/Zzjobgr}" enabled="{/settings/fieldEnabled/Zzjobgr}" width="100%" class="conspicuous-disabled">
+                <core:Item text="{Etext}" key="{Ecode}" />
               </ComboBox>
             </VBox>
-            <Label text="{i18n>LABEL_00182}" />
+            <Label text="사원그룹" />
             <VBox>
-              <ComboBox items="{/entry/subEmpGroup}" selectedKey="{/settings/searchConditions/Persk}" enabled="{= ${/settings/fieldEnabled/Persk} &amp;&amp; ${/settings/searchConditions/Persg} !== 'ALL' }" busyIndicatorDelay="0" busy="{/settings/fieldBusy/Persk}" width="100%" class="conspicuous-disabled">
-                <core:Item text="{Ztext}" key="{Zcode}" />
+              <ComboBox items="{/entry/Persg}" selectedKey="{/settings/searchConditions/Persg}" enabled="{/settings/fieldEnabled/Persg}" change=".onChangeEmpGroup" width="100%" class="conspicuous-disabled">
+                <core:Item text="{Etext}" key="{Ecode}" />
               </ComboBox>
             </VBox>
+            <!-- <Label text="급여유형" />
+            <VBox>
+              <ComboBox items="{/entry/subEmpGroup}" selectedKey="{/settings/searchConditions/Persk}" enabled="{= ${/settings/fieldEnabled/Persk} &amp;&amp; ${/settings/searchConditions/Zzjobgr} !== 'ALL' }" busyIndicatorDelay="0" busy="{/settings/fieldBusy/Persk}" width="100%" class="conspicuous-disabled">
+                <core:Item text="{Etext}" key="{Ecode}" />
+              </ComboBox>
+            </VBox> -->
           </grid:CSSGrid>
         </VBox>
-        <VBox width="80%" height="635px" class="hCardBox">
+        <VBox width="80%" height="650px" class="hCardBox">
           <HBox height="46px" justifyContent="SpaceBetween" class="table-toolbar">
             <Title level="H3" text="{i18n>LABEL_00204}" class="title pb-15-px" />
           </HBox>
@@ -69,28 +79,28 @@
                   <Text text="{Ename}" textAlign="Center" width="100%" wrapping="false" class="tableRow_Text" />
                 </table:template>
               </table:Column>
-              <table:Column width="25%" sortProperty="Fulln" filterProperty="Fulln" visible="{/settings/fieldVisible/Fulln}">
+              <table:Column width="20%" sortProperty="Fulln" filterProperty="Fulln" visible="{/settings/fieldVisible/Fulln}">
                 <Label text="{i18n>LABEL_00216}" />
                 <table:template>
                   <Text text="{Fulln}" textAlign="Center" wrapping="false" width="100%" class="tableRow_Text" />
                 </table:template>
               </table:Column>
-              <table:Column width="auto" sortProperty="Zzjikgbt" filterProperty="Zzjikgbt" visible="{/settings/fieldVisible/Zzjikgbt}">
-                <Label text="{i18n>LABEL_00215}" />
+              <table:Column width="auto" sortProperty="Zzjobgrtx" filterProperty="Zzjobgrtx" visible="{/settings/fieldVisible/Zzjobgrtx}">
+                <Label text="직군" />
                 <table:template>
-                  <Text text="{Zzjikgbt}" textAlign="Center" width="100%" wrapping="false" class="tableRow_Text" />
+                  <Text text="{Zzjobgrtx}" textAlign="Center" width="100%" wrapping="false" class="tableRow_Text" />
                 </table:template>
               </table:Column>
-              <table:Column width="auto" sortProperty="Zzjikcht" filterProperty="Zzjikcht" visible="{/settings/fieldVisible/Zzjikcht}">
-                <Label text="{i18n>LABEL_00217}" />
+              <table:Column width="auto" sortProperty="Zzcaltltx" filterProperty="Zzcaltltx" visible="{/settings/fieldVisible/Zzcaltltx}">
+                <Label text="Title" />
                 <table:template>
-                  <Text text="{Zzjikcht}" textAlign="Center" width="100%" wrapping="false" class="tableRow_Text" />
+                  <Text text="{Zzcaltltx}" textAlign="Center" width="100%" wrapping="false" class="tableRow_Text" />
                 </table:template>
               </table:Column>
-              <table:Column width="auto" sortProperty="Stat2tx" filterProperty="Stat2tx" visible="{/settings/fieldVisible/Stat2tx}">
+              <table:Column width="auto" sortProperty="Statx" filterProperty="Statx" visible="{/settings/fieldVisible/Statx}">
                 <Label text="{i18n>LABEL_00197}" />
                 <table:template>
-                  <Text text="{Stat2tx}" textAlign="Center" width="100%" wrapping="false" class="tableRow_Text" />
+                  <Text text="{Statx}" textAlign="Center" width="100%" wrapping="false" class="tableRow_Text" />
                 </table:template>
               </table:Column>
               <table:Column width="auto" sortProperty="Entda" filterProperty="Entda" visible="{/settings/fieldVisible/Entda}">

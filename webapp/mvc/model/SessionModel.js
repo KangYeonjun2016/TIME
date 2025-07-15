@@ -66,11 +66,27 @@ sap.ui.define(
         mSessionData.DTFMTYYYYMM = mSessionData.DTFMT.replace(/([a-zA-Z]{4})([^a-zA-Z]?)([a-zA-Z]{2}).*/, '$1$2$3');
         mSessionData.DTFMTYYYY = mSessionData.DTFMT.replace(/([a-zA-Z]{4}).*/, '$1');
         mSessionData.Photo = mSessionData.Photo || AppUtils.getUnknownAvatarImageURL();
-        mSessionData.Persa = 'II00';
-        mSessionData.Pbtxt = '두산테스나';
-        mSessionData.Werks = 'II00';
+
+        mSessionData.LastLoginInfo = 'Last Login : ' + mSessionData.Adid + ' ( ' + mSessionData.Ipadd + ' ) ' + this.formatTimestamp(mSessionData.Datlo);
+        // mSessionData.Persa = 'II00';
+        // mSessionData.Pbtxt = '두산테스나';
+        // mSessionData.Werks = 'II00';
 
         return mSessionData;
+      },
+
+      formatTimestamp(timestamp) {
+        const date = new Date(timestamp);
+
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 0~11이므로 +1 필요
+        const day = String(date.getDate()).padStart(2, '0');
+
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+
+        return `${year}.${month}.${day} ${hours}:${minutes}:${seconds}`;
       },
     });
   }

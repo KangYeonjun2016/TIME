@@ -1,0 +1,97 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:control="sap.ui.time.control">
+    <VBox width="350px" class="vCardBox small sapUiMediumMarginEnd" binding="{/entry/MyMonthlyStatus}" busyIndicatorDelay="0" busy="{/contentsBusy/plan}">
+        <VBox>
+            <HBox class="GanttToolbarBox"  justifyContent = "Center">
+                <Button icon="sap-icon://slim-arrow-left" tooltip="{i18n>LABEL_00196}" press=".handleSelectLastMonth" visible="{= ${/ViewType} !== 'ApprovalBox'}"/>
+                <Label id='selectMonth' text="{/selectMonth}" class="pr-10-px pl-10-px SelectYearMonth cursorPointer" />
+                <Button icon="sap-icon://slim-arrow-right" tooltip="{i18n>LABEL_00198}" press=".handleSelectNextMonth" visible="{= ${/ViewType} !== 'ApprovalBox'}"/>
+            </HBox>
+            <core:HTML content='&lt;div class="h-0k-rem borderBottom2px" &gt;&lt;/div&gt;' />
+            <HBox height ="50px" alignItems = "End">
+                <Label text="{i18n>LABEL_00177}" class="pr-10-px pl-10-px SubTitle"/>
+                <Label text="{i18n>LABEL_00151}" class="pr-10-px pl-10-px fontColor666666"/>
+            </HBox>
+            <core:HTML content='&lt;div id="chart-weekWork-app-dial-container"&gt;&lt;/div&gt;' />
+            <VBox width="100%">
+                <HBox class="sapUiMediumMarginTop" width="100%" renderType="Bare" justifyContent="SpaceBetween" alignItems="Center">
+                    <tooltip>
+                        <control:Tooltip>
+                            <control:content>
+                                <Text text="{i18n>LABEL_00235}"/>
+                            </control:content>
+                        </control:Tooltip>
+                    </tooltip>
+                    <Label text="{i18n>LABEL_00239}" class="SubTitle2"/>
+                    <Label text="{MonwhT}" textAlign="Right" class="SubTitle" />
+                </HBox>
+                <HBox class="sapUiMediumMarginTop" width="100%" renderType="Bare" justifyContent="SpaceBetween" alignItems="Center">
+                    <tooltip>
+                        <control:Tooltip>
+                            <control:content>
+                                <Text text="{i18n>LABEL_00237}"/>
+                            </control:content>
+                        </control:Tooltip>
+                    </tooltip>
+                    <Label text="{i18n>LABEL_00240}" class="SubTitle2"/>
+                    <Label text="{BashrAT}" textAlign="Right" class="SubTitle" />
+                </HBox>
+                <HBox class="sapUiMediumMarginTop" width="100%" renderType="Bare" justifyContent="SpaceBetween" alignItems="Center">
+                    <tooltip>
+                        <control:Tooltip>
+                            <control:content>
+                                <Text text="{i18n>LABEL_00236}"/>
+                            </control:content>
+                        </control:Tooltip>
+                    </tooltip>
+                    <Label text="{i18n>LABEL_00241}" class="SubTitle2"/>
+                    <Label text="{ResultmhT}" textAlign="Right" class="SubTitle" />
+                </HBox>
+                <!-- <HBox class="sapUiMediumMarginTop" width="100%" renderType="Bare" justifyContent="SpaceBetween" alignItems="Center">
+                    <tooltip>
+                        <control:Tooltip>
+                            <control:content>
+                                <Text text="{i18n>LABEL_00238}"/>
+                            </control:content>
+                        </control:Tooltip>
+                    </tooltip>
+                    <Label text="{i18n>LABEL_00242}" class="SubTitle2"/>
+                    <Label text="{MonmhT}" textAlign="Right" class="SubTitle" />
+                </HBox> -->
+                <VBox class="mt-10-px justifyCenter">
+                    <Link press=".onClickConfigureViewMore" text="{/viewMoreText}" width="100%" textAlign="Center" class="SubTitle2" />
+                </VBox>
+                <HBox class="sapUiMediumMarginTop" width="100%" renderType="Bare" justifyContent="SpaceBetween" alignItems="Center" visible="{= ${/viewMore}}">
+                    <tooltip>
+                        <control:Tooltip>
+                            <control:content>
+                                <Text text="{i18n>LABEL_00270}"/>
+                            </control:content>
+                        </control:Tooltip>
+                    </tooltip>
+                    <Label text="{i18n>LABEL_00243}" class="SubTitle3"/>
+                    <Label text="{RemhrcT}" textAlign="Right" class="SubTitle3" />
+                </HBox>
+                <HBox class="sapUiMediumMarginTop" width="100%" renderType="Bare" justifyContent="SpaceBetween" alignItems="Center" visible="{= ${/viewMore}}">
+                    <tooltip>
+                        <control:Tooltip>
+                            <control:content>
+                                <Text text="{i18n>LABEL_00271}"/>
+                            </control:content>
+                        </control:Tooltip>
+                    </tooltip>
+                    <Label text="{i18n>LABEL_00244}" class="SubTitle3"/>
+                    <Label text="{RemhreT}" textAlign="Right" class="SubTitle3" />
+                </HBox>
+            </VBox>
+            <MessageStrip class="mt-10-px summary-field-group message-strip" enableFormattedText="true" text="{i18n>LABEL_00245} {AddhrAT}  {i18n>LABEL_00246} {NgthrAT}  {i18n>LABEL_00247} {HwkhrAT}" />
+        </VBox>
+        <!-- <VBox class="pt-10-px">
+            <Label text="{/loginInfo}" class="logText"/>
+        </VBox> -->
+
+    </VBox>
+</core:FragmentDefinition>

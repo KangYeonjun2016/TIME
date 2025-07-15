@@ -1,0 +1,74 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:table="sap.ui.table"
+    xmlns:core="sap.ui.core">
+    <!-- <HBox alignItems="End" class="ButtonJustifyEnd pb-5-px">
+        <Button icon="sap-icon://add" class="ProcessingClass minWidth32" type="Accept" press=".onPressEtcNew" />
+    </HBox> -->
+    <table:Table id="Table3" selectionMode="None" width="100%" columnHeaderHeight="45" rowHeight="44" rows="{/list3}" visibleRowCount="{/listInfo3/rowCount}" busyIndicatorDelay="0" busy="{/contentsBusy/table}" noData="{i18n>MSG_00001}">
+        <table:columns>
+            <table:Column width="7%">
+                <Label text="구분" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Otext}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="12%">
+                <Label text="기준항목" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Stitmtx}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7%">
+                <Label text="시작시간" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{ path: 'Stval1', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7%">
+                <Label text="종료시간" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{ path: 'Stval2', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="5%">
+                <Label text="Y/N" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Prcty}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7%">
+                <Label text="적용대상구분" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Otext}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7%">
+                <Label text="적용대상Code" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Objid}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7%">
+                <Label text="처리구분" textAlign="Center" width="100%"/>
+                <table:template>
+                    <HBox alignItems="Center" class="justifyCenter">
+                        <Button icon="sap-icon://edit" class="ProcessingClass minWidth32 pr-5-px" type="Accept" press=".onPressEtcDelete" />
+                        <Button icon="sap-icon://decline" class="ProcessingClass minWidth32" type="Reject" press=".onPressEtcDelete" />
+                    </HBox>
+                </table:template>
+            </table:Column>
+            <table:Column width="10%">
+                <Label text="최종변경자" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Lcnam}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="10%">
+                <Label text="최종변경일시" />
+                <table:template>
+                    <Text text="{Lctim}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+        </table:columns>
+    </table:Table>
+</core:FragmentDefinition>

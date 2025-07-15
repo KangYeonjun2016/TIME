@@ -46,6 +46,12 @@ sap.ui.define(
         const oAppModel = oUIComponent.getAppModel();
         oAppModel.setProperty('/languageVisible', oUriHandler.getParameter('language-test') === 'true');
         oAppModel.setProperty('/language', oUriHandler.getParameter('sap-language') || 'KO');
+        /* 결재를 위한 Parameter */
+        oAppModel.setProperty('/Appno', oUriHandler.getParameter('Appno') || '');
+        oAppModel.setProperty('/Pernr', oUriHandler.getParameter('Pernr') || '');
+        oAppModel.setProperty('/Werks', oUriHandler.getParameter('Werks') || '');
+        oAppModel.setProperty('/NMonth', oUriHandler.getParameter('NMonth') || '');
+        oAppModel.setProperty('/Option', oUriHandler.getParameter('Option') || '');
       },
 
       getAppMenu() {

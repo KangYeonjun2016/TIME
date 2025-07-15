@@ -1,0 +1,35 @@
+<mvc:View controllerName="sap.ui.time.mvc.controller.teamWorkStatus.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified">
+    <Page title="HOME" showHeader="false">
+        <VBox class="contents-header">
+            <HBox justifyContent="SpaceBetween" class="breadcrumbs">
+                <custom:Breadcrumbs />
+            </HBox>
+        </VBox>
+        <VBox class="contents" busy="{/contentsBusy/all}">
+            <HBox>
+                <VBox>
+                    <!-- <core:Fragment fragmentName="sap.ui.time.mvc.view.teamWorkStatus.fragment.Calendar" type="XML" />
+                    <core:HTML content='&lt;div class="h-1-rem " &gt;&lt;/div&gt;' /> -->
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.teamWorkStatus.fragment.Target" type="XML" />
+                </VBox>
+                <VBox class="width100p">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.teamWorkStatus.fragment.DailyWorkState" type="XML" />
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.teamWorkStatus.fragment.MonthlyWorkState" type="XML" />
+                    <HBox class="box style-02 status-wrap work-time sapUiTinyMarginTop" items="{/TimeTypes}">
+                        <Text text="{Coltytx}" width="{Width}" class="pr-10-px">
+                            <customData>
+                                <core:CustomData key="style" value="{Colty}" writeToDom="true" />
+                            </customData>
+                        </Text>
+                    </HBox>
+                </VBox>
+            </HBox>
+        </VBox>
+    </Page>
+</mvc:View>

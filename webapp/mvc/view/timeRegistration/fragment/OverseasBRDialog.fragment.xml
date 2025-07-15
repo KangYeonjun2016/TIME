@@ -1,0 +1,34 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog contentWidth="900px" busyIndicatorDelay="0" busy="{/contentsBusy/dialog}" title='지주부문 임직원 해외출장 EHS 가이드'>
+        <buttons>
+            <Button text="파일 다운로드" type="Emphasized" press=".onPressDownloadOverseasManual"/>
+            <Button text="저장" type="Emphasized" press=".onPressAddOverseasBR" />
+            <Button text="닫기" type="Emphasized" press=".onPressOverseasBRDialogClose"/>
+        </buttons>
+        <content>
+            <VBox width="100%">
+                <VBox width="100%" alignItems="Center" class="TextAlignCenter">
+                    <Text text = '최근 자주 발생하는 해외 정세불안, 자연재난 및 사건·사고 등에 대비하여'/>
+                    <Text text = '해외 출장 임직원의 안전·건강 확보, 심리적 불안감 해소를 위하여 아래와 같이'/>
+                    <Text text = '해외출장 EHS 가이드를 안내 드리오니 반드시 확인하시어'/>
+                    <Text text = '해외출장 시 발생하는 긴급·위급상황에 대비하시기 바랍니다.'/>
+                </VBox>
+                <Image src="/sap/public/bc/ui2/zui5_tesnahr/images/OverseasBRNotice.png" width='800px' class="mt-10-px" />
+                <VBox width="100%" class="mt-10-px">
+                    <Text text = '[해외 출장 전 이것 만은 꼭!]' class="bold font-1-rem"/>
+                    <Text text = '1. I-SOS 24시간 전화/카카오톡 상담' class="ml-5-px font-1-rem"/>
+                    <Text text = '- 두산그룹 임직원 전용 상담 센터 : +82-2-3140-1723 (요청 시 Call Back 가능)' class="ml-10-px"/>
+                    <Text text = '- 카카오톡 "인터내셔날SOS코리아" 검색 및 친구 추가 후 24시간 1:1 상담 가능' class="ml-10-px"/>
+                    <Text text = '- 상담 내용 : 의료/보안/심리상담 가능' class="ml-10-px"/>
+                    <Text text = '- 출장 전, 중, 후 모두 상담 가능' class="ml-10-px"/>
+                    <Text text = '2. 여행자보험 가입 : 일등여행사 발권 시 자동가입, 개인(법인)카드 결제 시 별도 가입 필수' class="ml-5-px font-1-rem"/>
+                </VBox>
+            </VBox>
+            <HBox justifyContent="End">
+                <Text text = '위 내용을 모두 확인하고 이해하였습니다' class='bold mt-5-px' />
+                <CheckBox selected='{/OverseasBR/check}' />
+            </HBox>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

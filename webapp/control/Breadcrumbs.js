@@ -5,13 +5,17 @@ sap.ui.define(
     'sap/m/FlexItemData',
     'sap/m/Link',
     'sap/ui/time/common/AppUtils',
+    'sap/m/HBox',
+    'sap/m/VBox',
   ],
   (
     // prettier 방지용 주석
     Breadcrumbs,
     FlexItemData,
     Link,
-    AppUtils
+    AppUtils,
+    HBox,
+    VBox
   ) => {
     'use strict';
 

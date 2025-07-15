@@ -1,0 +1,202 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:table="sap.ui.table"
+    xmlns:control="sap.ui.time.control">
+
+    <VBox width="100%" alignItems="Start" binding="{/entry/MytimeHeader}" busyIndicatorDelay="0" busy="{/busy/plan2}">
+        <!-- class="vCardBox small sapUiMediumMarginEnd" -->
+        <HBox>
+            <Text text="{Ename}" class="ClosingProfileName" />
+            <Text text="{Title}" class="ProfileTeam pl-20-px"/>
+        </HBox>
+        <HBox width="100%" alignItems="Start">
+            <VBox>
+                <Image src="{Photo}" mode="Background" class="member-photo mt-10-px" width="126px" height="126px" error=".loadErrorAvatarImage" />
+            </VBox>
+            <VBox class="appointee-info sapUiSmallMarginBegin" visible="{= ${/entry/MytimeHeader/Ename} !== ''}">
+                <Text text="{i18n>LABEL_00248}" class="SubTitle4"/>
+                <Text text="{i18n>LABEL_00249}" class="SubTitle4"/>
+                <Text text="{i18n>LABEL_00250}" class="SubTitle4"/>
+                <Text text="{i18n>LABEL_00268}" class="SubTitle4"/>
+            </VBox>
+            <VBox width="60%" class="appointee-info sapUiSmallMarginBegin" visible="{= ${/entry/MytimeHeader/Ename} !== ''}">
+                <Text text="{/entry/MyMonthlyStatus/MonwhT}" class="SubTitle4"/>
+                <Text text="{/entry/MyMonthlyStatus/BashrAT}" class="SubTitle4"/>
+                <Text text="{/entry/MyMonthlyStatus/ResultmhT}" class="SubTitle4"/>
+                <Text text="{/entry/MyMonthlyStatus/TotalidlAT}" class="SubTitle4"/>
+            </VBox>
+            <VBox width="15%" class="sapUiSmallMarginBeginEnd ConfirmList">
+                <Text text="{= ${/entry/MytimeHeader/Month} &amp;&amp; ${/entry/MytimeHeader/Month} !== '' ? ${/entry/MytimeHeader/Month} + '월 마감 현황' : ''}" class="bold font-17-px"/>
+                <Label text="{= ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === 'X' ? '확정' : ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === 'M' ? '마감' : ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === 'C' ? '저장' : ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === 'I' ? '마감진행중' : ${/entry/MytimeHeader/Ename} !== '' &amp;&amp; ${/entry/MytimeHeader/Confirmyn} === ''  ? '미확정' : '' }" class="ListTitle6">
+                    <customData>
+                        <core:CustomData key="color" value="{= ${/entry/MytimeHeader/Confirmyn} === 'X' ? 'X' : ${/entry/MytimeHeader/Confirmyn} === 'M' ? 'M' : ${/entry/MytimeHeader/Confirmyn} === 'C' ? 'C' : ${/entry/MytimeHeader/Confirmyn} === 'I' ? 'I' :'Z'}" writeToDom="true" />
+                    </customData>
+                </Label>
+            </VBox>
+        </HBox>
+    </VBox>
+
+    <VBox width="100%" class="mt-10-px">
+        <table:Table id="MainTable" selectionMode="{= ${/entry/MytimeHeader/Pernr} === ${/Pernr} ? 'MultiToggle' : ${/Auth} === 'H' ? 'MultiToggle' : 'None'  }" width="100%" columnHeaderHeight="45" rowHeight="44" rows="{ path: '/entry/MytimeMonthlyPerson', templateShareable: false }" visibleRowCount="{/entry/MytimeMonthlyPersonRowCount}" busyIndicatorDelay="0">
+            <table:rowSettingsTemplate>
+                <table:RowSettings highlight="{=${Confirmyn} ==='X' ? 'Indication05' : ${Confirmyn} ==='C' ? 'Indication04' : ${Confirmyn} ==='A' ? 'Indication03' : 'None'}"/>
+            </table:rowSettingsTemplate>
+            <table:columns>
+                <table:Column width="3.8rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00134}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00134}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{=${Confirmyn} ==='X' ? '확정' : ${Confirmyn} ==='C' ? '저장' : ${Confirmyn} ==='A' ? '휴무' : '미확정'}" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="7rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00156}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00156}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{ path: 'Tmdat', type: 'sap.ui.time.mvc.model.type.Date' }" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="3.8rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00178}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00178}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{Wkdaytx}" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="7rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00233}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00233}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{Ltext}" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="7rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00172}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00172}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{Awrsntx}" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="3.8rem" headerSpan="2">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00232}" textAlign="Center" width="100%"/>
+                        <Label text="From" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{ path: 'Scbegtm', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="3.8rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00232}" textAlign="Center" width="100%"/>
+                        <Label text="To" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{ path: 'Scendtm', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="5.9rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00228}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00228}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{ScResult}" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="3.8rem" headerSpan="2">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00227}" textAlign="Center" width="100%"/>
+                        <Label text="From" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{ path: 'Pcbegtm', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="3.8rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00227}" textAlign="Center" width="100%"/>
+                        <Label text="To" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{ path: 'Pcendtm', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="5.8rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00199}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00199}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{PcResult}" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="5.2rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00256}" textAlign="Center" width="100%" wrapping="true"/>
+                        <Label text="{i18n>LABEL_00256}" textAlign="Center" width="100%" wrapping="true"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{Totalidle}" width="100%" textAlign="Center" wrapping="false">
+                            <tooltip>
+                                <control:Tooltip>
+                                    <control:content>
+                                        <Text text="{Idlelist}"/>
+                                    </control:content>
+                                </control:Tooltip>
+                            </tooltip>
+                        </Text>
+                    </table:template>
+                </table:Column>
+                <table:Column width="6.7rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00257}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00257}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{Result}" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="8rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00266}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00266}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{Checklist2}" width="100%" textAlign="Center" wrapping="false" />
+                    </table:template>
+                </table:Column>
+                <table:Column width="10rem">
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00273}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00273}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <ComboBox items="{ path: '/entry/RatnansTypeList', templateShareable: false }" selectedKey="{Ratnans}" editable="false" width="100%">
+                            <core:Item key="{code}" text="{text}" />
+                        </ComboBox>
+                    </table:template>
+                </table:Column>
+                <table:Column>
+                    <table:multiLabels>
+                        <Label text="{i18n>LABEL_00234}" textAlign="Center" width="100%"/>
+                        <Label text="{i18n>LABEL_00234}" textAlign="Center" width="100%"/>
+                    </table:multiLabels>
+                    <table:template>
+                        <Text text="{Ratnrsn}" width="100%"/>
+                    </table:template>
+                </table:Column>
+            </table:columns>
+        </table:Table>
+    </VBox>
+</core:FragmentDefinition>

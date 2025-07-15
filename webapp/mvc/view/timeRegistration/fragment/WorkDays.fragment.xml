@@ -1,0 +1,188 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:custom="sap.ui.time.control"
+    xmlns:table="sap.ui.table"
+    xmlns:control="sap.ui.time.control">
+    <VBox id="ScrollContainerBox" width="100%" class="vCardBox small" busyIndicatorDelay="0" busy="{/contentsBusy/calendar}" visible="{= ${/ViewType} !== 'ApprovalBox'}">
+        <!-- visible="{= ${/ViewType} != 'ApprovalBox'}" -->
+        <!-- "{= ${/form/dialog/data/RadioControl} === 'X' &amp;&amp; ${/dialog/newButtonAct}}" -->
+        <HBox class="mr-0l-rem pb-5-px">
+            <Button width="122px" text="{i18n>LABEL_00144}" class="standard workingChange pr-5-px pb-3-px" type="Emphasized" press=".onPressBulkApply"/>
+            <VBox width="100%">
+                <grid:CSSGrid id="yearPlanGrid" class="year-plan-grid diagonal" gridTemplateColumns="repeat(24, 1fr)" gridGap="1px" items="{path: '/plansHeader'}">
+                    <custom:DayBox width="100%">
+                        <custom:customData>
+                            <core:CustomData key="day" value="{day}" />
+                            <core:CustomData key="style" value="{classNames}" writeToDom="true" />
+                            <core:CustomData key="border" value="{borderNames}" writeToDom="true" />
+                            <core:CustomData key="shift" value="{dayOrNight}" writeToDom="true" />
+                        </custom:customData>
+                        <Text width="100%" textAlign="Center" text="{label}">
+                            <layoutData>
+                                <FlexItemData growFactor="2" />
+                            </layoutData>
+                            <customData>
+                                <core:CustomData key="day" value="{day}" />
+                                <core:CustomData key="stripes" value="{stripes}" writeToDom="true" />
+                                <core:CustomData key="holiday" value="{holiday}" writeToDom="true" />
+                            </customData>
+                        </Text>
+                    </custom:DayBox>
+                </grid:CSSGrid>
+            </VBox>
+        </HBox>
+        <ScrollContainer id="ScrollContainer" width="100%" vertical="true">
+            <HBox>
+                <!-- 좌측 기준-->
+                <VBox width="133px">
+                    <grid:CSSGrid id="yearPlanGrid2" class="year-plan-grid diagonal" gridTemplateColumns="repeat(1, 1fr)" gridGap="1px" items="{path: '/planDays'}">
+                        <!-- <custom:DayBox width="100%" press=".onClickSusda"> -->
+                        <custom:DayBox width="100%">
+                            <custom:customData>
+                                <core:CustomData key="day" value="{day}" />
+                                <core:CustomData key="style" value="{classNames}" writeToDom="true" />
+                                <core:CustomData key="border" value="{borderNames}" writeToDom="true" />
+                                <core:CustomData key="shift" value="{dayOrNight}" writeToDom="true" />
+                            </custom:customData>
+                            <!-- <tooltip>
+                                <control:Tooltip width='100px'>
+                                    <control:content>
+                                        <Text text="{Ltext}"/>
+                                    </control:content>
+                                </control:Tooltip>
+                            </tooltip> -->
+                            <VBox width="10px">
+                                <customData>
+                                    <core:CustomData key="cfmyn" value="{= ${Cfmyn} === 'X' ? 'X' : 'Z' }" writeToDom="true"/>
+                                    <!-- <core:CustomData key="cfmyn" value="{Cfmyn}" writeToDom="true"/> -->
+                                </customData>
+
+                            </VBox>
+                            <Text width="50px" text="{label}" class="SelectYearMonth pl-5-px" tooltip="{Ltext}">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                                <customData>
+                                    <core:CustomData key="day" value="{day}" />
+                                    <core:CustomData key="stripes" value="{stripes}" writeToDom="true" />
+                                    <core:CustomData key="holiday" value="{holiday}" writeToDom="true" />
+                                </customData>
+                            </Text>
+                            <Text width="100%" text="{time}" textAlign="Center" class="desc-time ml-0">
+                                <layoutData>
+                                    <FlexItemData growFactor="2" />
+                                </layoutData>
+                                <customData>
+                                    <core:CustomData key="day" value="{day}" />
+                                    <core:CustomData key="displayTime" value="{displayTime}" writeToDom="true" />
+                                </customData>
+                            </Text>
+                        </custom:DayBox>
+                    </grid:CSSGrid>
+                </VBox>
+                <VBox id="myCalendarBox" width="100%" class="container">
+                    <grid:CSSGrid id="yearPlanGrid3" class="year-plan-grid diagonal" gridTemplateColumns="repeat(24, 1fr)" gridGap="1px" items="{path: '/plans'}">
+                        <custom:DayBox width="100%" press=".onClickDay" class="myVBox">
+                            <custom:customData>
+                                <core:CustomData key="day" value="{day}" />
+                                <core:CustomData key="style" value="{classNames}" writeToDom="true" />
+                                <core:CustomData key="fullDate" value="{fullDate}" writeToDom="true" />
+                                <core:CustomData key="time" value="{time}" />
+                                <!-- <core:CustomData key="Appno" value="{Appno}" writeToDom="true" />
+                                <core:CustomData key="Appnos" value="{Appnos}" writeToDom="true" /> -->
+                            </custom:customData>
+                        </custom:DayBox>
+                    </grid:CSSGrid>
+                </VBox>
+            </HBox>
+        </ScrollContainer>
+        <HBox class="box style-02">
+            <HBox class="status-wrap work-time sapUiTinyMarginTop" items="{/TimeTypes}">
+                <Text text="{Coltytx}" width="{Width}">
+                    <customData>
+                        <core:CustomData key="style" value="{Colty}" writeToDom="true" />
+                    </customData>
+                </Text>
+            </HBox>
+            <VBox width="100%" class="FlexEnd">
+                <Button width="120px" text="{i18n>LABEL_00145}" press=".onPressApplyButton" class="workingApproval pr-5-px" type="Emphasized"/>
+            </VBox>
+        </HBox>
+    </VBox>
+
+    <VBox width="100%" class="vCardBox small" busyIndicatorDelay="0" busy="{/contentsBusy/calendar}" visible="{= ${/ViewType} === 'ApprovalBox'}">
+        <HBox class="table-toolbar">
+            <HBox class="title">
+                <Title level="H2" text="{i18n>LABEL_00129}" />
+            </HBox>
+        </HBox>
+
+        <VBox width="100%">
+            <table:Table id='ApplyListForApprovalBox' selectionMode="None" width="100%" columnHeaderHeight="45" rowHeight="44" rows="{/apply/MyCoreTimeApplyList}" busyIndicatorDelay="0" busy="{/contentsBusy/table}" noData="{i18n>MSG_00001}">
+                <!-- visibleRowCount="{/form/dialog/rowCount}" -->
+                <table:columns >
+                    <table:Column width="15%">
+                        <Label text="{i18n>LABEL_00147}"/>
+                        <table:template>
+                            <Text text="{Tmatytx}" width="100%" textAlign="Center" />
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="40%">
+                        <Label text="{i18n>LABEL_00170}"/>
+                        <table:template>
+                            <Text text="{ path: 'Tmdat', type: 'sap.ui.time.mvc.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" width="100%" textAlign="Center" wrapping="false" />
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="15%">
+                        <Label text="{i18n>LABEL_00178}"/>
+                        <table:template>
+                            <Text text="{Weekday}" width="100%" textAlign="Center" />
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="20%">
+                        <Label text="{i18n>LABEL_00146}"/>
+                        <table:template>
+                            <Text text="{ path: 'Beguz', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" />
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="20%">
+                        <Label text="{i18n>LABEL_00153}"/>
+                        <table:template>
+                            <Text text="{ path: 'Enduz', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" />
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="20%">
+                        <Label text="{i18n>LABEL_00180}"/>
+                        <table:template>
+                            <Text text="{Stdaz}" width="100%" textAlign="Center">
+                                <customData>
+                                    <core:CustomData key="style" value="{CellCheck}" writeToDom="true" />
+                                </customData>
+                            </Text>
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="20%">
+                        <table:customData>
+                            <core:CustomData key="style" value="{CellCheck}" writeToDom="true" />
+                        </table:customData>
+                        <Label text="{i18n>LABEL_00157}"/>
+                        <table:template>
+                            <Text text="{Awrsntx}" width="100%" textAlign="Center">
+                                <customData>
+                                    <core:CustomData key="style" value="{CellCheck}" writeToDom="true" />
+                                </customData>
+                            </Text>
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="20%">
+                        <Label text="{i18n>LABEL_00154}"/>
+                        <table:template>
+                            <Text text="{Dtrsn}" width="100%" textAlign="Center" />
+                        </table:template>
+                    </table:Column>
+                </table:columns>
+            </table:Table>
+        </VBox>
+    </VBox>
+</core:FragmentDefinition>

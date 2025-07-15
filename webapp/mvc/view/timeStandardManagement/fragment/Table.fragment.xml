@@ -1,0 +1,95 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:table="sap.ui.table"
+    xmlns:core="sap.ui.core">
+    <table:Table id="Table" selectionMode="None" width="100%" columnHeaderHeight="45" rowHeight="44" rows="{/list}" visibleRowCount="{/listInfo/rowCount}" busyIndicatorDelay="0" busy="{/contentsBusy/table}" noData="{i18n>MSG_00001}">
+        <table:columns>
+            <table:Column width="4%">
+                <Label text="구분" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Stitm}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="20%">
+                <Label text="기준항목" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Stitmtx}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="5%">
+                <Label text="시작시간" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{ path: 'Stval1', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="5%">
+                <Label text="종료시간" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{ path: 'Stval2', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="4%">
+                <Label text="기준값" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Stval3}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="3%">
+                <Label text="적용여부" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Styn}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="6%">
+                <Label text="적용대상구분" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{OtypeText}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7%">
+                <Label text="적용대상Code" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Objid}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7%">
+                <Label text="적용대상Text" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Otext}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7%">
+                <Label text="{i18n>LABEL_00261}"/>
+                <table:template>
+                    <Text text="{ path: 'Begda', type: 'sap.ui.time.mvc.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7%">
+                <Label text="{i18n>LABEL_00262}"/>
+                <table:template>
+                    <Text text="{ path: 'Endda', type: 'sap.ui.time.mvc.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7%">
+                <Label text="처리구분" textAlign="Center" width="100%"/>
+                <table:template>
+                    <HBox alignItems="Center" class="justifyCenter">
+                        <Button icon="sap-icon://edit" class="standard ProcessingClass pr-5-px minWidth32" type="Emphasized" press=".onPressModify" />
+                        <Button icon="sap-icon://decline" class="standard ProcessingClass minWidth32" type="Reject" press=".onPressDelete" />
+                    </HBox>
+                </table:template>
+            </table:Column>
+            <table:Column width="6%">
+                <Label text="최종변경자" textAlign="Center" width="100%"/>
+                <table:template>
+                    <Text text="{Lcnam}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="10%">
+                <Label text="최종변경일시" />
+                <table:template>
+                    <Text text="{Lctim}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+        </table:columns>
+    </table:Table>
+</core:FragmentDefinition>

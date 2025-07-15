@@ -1,0 +1,53 @@
+sap.ui.define(
+  [
+    //
+    'sap/ui/time/common/AppUtils',
+    'sap/ui/time/mvc/controller/BaseController',
+  ],
+  (
+    //
+    AppUtils,
+    BaseController
+  ) => {
+    'use strict';
+
+    return BaseController.extend('sap.ui.time.mvc.controller.home.Test', {
+      initializeModel() {
+        return {
+          busy: false,
+          summary: {
+            Bet05: '1000000',
+            Bet06: '1000000',
+            Bet07: '1000000',
+          },
+          search: {
+            year: moment().format('YYYY'),
+          },
+          listInfo: {
+            rowCount: 1,
+          },
+          list: [],
+        };
+      },
+
+      async onObjectMatched() {
+        const oViewModel = this.getViewModel();
+
+        try {
+          oViewModel.setData(this.initializeModel());
+          oViewModel.setProperty('/busy', true);
+        } catch (oError) {
+          this.debug('Controller > home > onObjectMatched Error', oError);
+
+          AppUtils.handleError(oError);
+        } finally {
+          oViewModel.setProperty('/busy', false);
+        }
+      },
+
+      onPressSearch() {},
+
+      onPressExcelDownload() {},
+    });
+  }
+);

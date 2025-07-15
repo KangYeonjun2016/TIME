@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog contentWidth="800px" busyIndicatorDelay="0" busy="{/contentsBusy/dialog}" showHeader="false">
+        <buttons>
+            <Button text="{i18n>LABEL_00115}" width="130px" press=".onPressFormDialogClose"/>
+        </buttons>
+        <content>
+            <VBox renderType="Bare" alignItems="Center" class="vCardBox small" width="100%">
+                <Text text="월 근무 실적시간이 월 필요 근무시간 대비 부족합니다." width="100%" textAlign="Left" />
+                <Text text="아래 방법 중 한가지를 선택하시어 월 마감을 진행해 주시기 바랍니다." width="100%" textAlign="Left" class="pb-20-px" />
+                <Text text="1. 연차 또는 보상휴가 사용" width="100%" textAlign="Left"/>
+                <Text text="연차 또는 보상휴가를 사용하여 월 근무 실적시간을 조정합니다." width="100%" textAlign="Left" class="pl-40-px" />
+                <Text text="2. 급여 공제" width="100%" textAlign="Left"/>
+                <Text text="월 필요 근무시간 부족분만큼의 급여를 익월에 차감합니다." width="100%" textAlign="Left" class="pl-40-px pb-20-px" />
+                <HBox class="pl-40-px">
+                    <Button text="연차 또는 보상휴가 사용" type="Emphasized" press=".onPressMoveToTimeRegistration"/>
+                    <Button text="급여 공제" type="Emphasized" press=".onPressCloseRequestDeductionDialog" class="pl-20-px"/>
+                </HBox>
+            </VBox>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

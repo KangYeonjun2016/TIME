@@ -51,6 +51,7 @@ sap.ui.define(
           maxFileCount: 3,
           maxFileSize: 10,
           fileTypes: ['ppt', 'pptx', 'doc', 'docx', 'xls', 'xlsx', 'jpg', 'jpeg', 'bmp', 'gif', 'png', 'txt', 'pdf'],
+          tmdat: '',
           ...opt,
         };
 
@@ -65,7 +66,7 @@ sap.ui.define(
         const oBoxModel = new JSONModel({
           settings: options,
           files: null,
-          fileCount: 1,
+          fileCount: 0,
           fileSelectionMode: options.editable ? SelectionMode.MultiToggle : SelectionMode.None,
           deleteTargetFiles: [],
         });
@@ -85,10 +86,33 @@ sap.ui.define(
           const oBoxModel = this.oFileAttachmentBox.getModel();
           const mSettings = oBoxModel.getProperty('/settings');
 
-          const aFiles = await FileDataProvider.readListData(mSettings.appno, mSettings.appty);
+          const aFiles = await FileDataProvider.readListData(mSettings.appno, mSettings.appty, mSettings.tmdat);
 
           oBoxModel.setProperty('/files', aFiles);
           oBoxModel.setProperty('/fileCount', aFiles.length);
+        } catch (oError) {
+          AppUtils.handleError(oError);
+        } finally {
+          this.oFileAttachmentBox.setBusy(false);
+        }
+      },
+
+      /**
+       * 첨부 파일 목록 조회
+       */
+      async readFileListWithAppnoEdit(sAppno, sTmdat, sEditable = false) {
+        try {
+          this.oFileUploader.clear();
+          this.oFileUploader.setValue('');
+
+          const oBoxModel = this.oFileAttachmentBox.getModel();
+          const mSettings = oBoxModel.getProperty('/settings');
+
+          const aFiles = await FileDataProvider.readListData(sAppno, mSettings.appty, sTmdat);
+
+          oBoxModel.setProperty('/files', aFiles);
+          oBoxModel.setProperty('/fileCount', aFiles.length);
+          oBoxModel.setProperty('/fileSelectionMode', sEditable ? SelectionMode.MultiToggle : SelectionMode.None);
         } catch (oError) {
           AppUtils.handleError(oError);
         } finally {
@@ -143,7 +167,6 @@ sap.ui.define(
           file.Zbinkey = String(parseInt(Math.random() * 100000000000000));
           file.Numbr = iPrevFilesLength + i + 1;
           file.Fnumr = iPrevFilesLength === 0 ? 1 : _.toNumber(aPrevFiles[aPrevFiles.length - 1].Fnumr) + 1;
-
           aPrevFiles.push(file);
         });
 
@@ -206,7 +229,7 @@ sap.ui.define(
       /**
        * 첨부파일 Upload
        */
-      async upload(sAppno) {
+      async upload(sAppno, sTmdat = '') {
         return new Promise(async (resolve, reject) => {
           const oBoxModel = this.oFileAttachmentBox.getModel();
           let aFiles = oBoxModel.getProperty('/files') || [];
@@ -233,6 +256,7 @@ sap.ui.define(
 
           if (!aFiles.length) {
             oBoxModel.setProperty('/settings/appno', sAppno);
+            oBoxModel.setProperty('/settings/tmdat', sTmdat);
             this.readFileList();
             resolve();
           }
@@ -245,7 +269,7 @@ sap.ui.define(
           // 파일 업로드
           try {
             while (aFiles.length) {
-              const oError = await this.uploadFile({ sAppno, sAppty, oUploadModel, sUploadUrl, mFile: aFiles.shift() });
+              const oError = await this.uploadFile({ sAppno, sAppty, oUploadModel, sUploadUrl, mFile: aFiles.shift(), sTmdat });
               if (oError && oError.code === 'E') {
                 reject(oError);
               }
@@ -273,9 +297,9 @@ sap.ui.define(
         });
       },
 
-      async removeFile(oRemoveModel, { Appno, Appty, Fnumr = 1, Fname }) {
+      async removeFile(oRemoveModel, { Appno, Appty, Fnumr = 1, Fname, Tmdat = '' }) {
         return new Promise((resolve, reject) => {
-          const sUrl = oRemoveModel.createKey('/FileListSet', { Appno, Appty, Fnumr });
+          const sUrl = oRemoveModel.createKey('/FileListSet', { Appno, Appty, Fnumr, Tmdat });
 
           oRemoveModel.remove(sUrl, {
             success: resolve,
@@ -289,11 +313,11 @@ sap.ui.define(
         });
       },
 
-      async uploadFile({ sAppno, sAppty, oUploadModel, sUploadUrl, mFile }) {
+      async uploadFile({ sAppno, sAppty, oUploadModel, sUploadUrl, mFile, sTmdat }) {
         return new Promise((resolve, reject) => {
           const mHeaders = {
             'x-csrf-token': this.getCsrfToken(oUploadModel),
-            slug: [sAppno, sAppty, encodeURI(mFile.Fname)].join('|'),
+            slug: [sAppno, sAppty, encodeURI(mFile.Fname), sTmdat].join('|'),
           };
 
           $.ajax({

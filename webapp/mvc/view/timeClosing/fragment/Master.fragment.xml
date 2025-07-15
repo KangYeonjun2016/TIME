@@ -1,0 +1,54 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <!-- <List width="350px" items="{path:'/entry/MytimeMonthlyOrgeh', 
+                                filters: [{path: 'Ename', operator: 'StartsWith', value1: '{/entry/MytimeMonthlyOrgehSearchEname}'},
+                                          {path: 'Titletx', operator: 'StartsWith', value1: '{/entry/MytimeMonthlyOrgehSearchTitletx}'}]}" mode="SingleSelectMaster" growing="true" growingScrollToLoad="true" selectionChange=".onSelectionChange"> -->
+    <ScrollContainer id="ScrollContainer" width="100%" horizontal="true" vertical="true" class="CloseMasterOverall">
+        <HBox>
+            <List id="masterList" width="250px" items="{/entry/MytimeMonthlyOrgeh}" mode="SingleSelectMaster" selectionChange=".onSelectionMaster">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <SearchField id="searchField" showRefreshButton="false" width="100%" search=".onSearchMaster">
+                            <layoutData>
+                                <OverflowToolbarLayoutData minWidth="150px" maxWidth="240px" shrinkable="true" priority="NeverOverflow"/>
+                            </layoutData>
+                        </SearchField>
+                        <ToolbarSpacer/>
+                        <!-- <Button id="filterButton" press=".onOpenViewSettings" icon="sap-icon://filter" type="Transparent"/>
+                        <Button id="groupButton" press=".onOpenViewSettings" icon="sap-icon://group-2" type="Transparent"/> -->
+                    </OverflowToolbar>
+                </headerToolbar>
+                <items>
+                    <CustomListItem>
+                        <HBox class="ConfirmList" height="100%">
+                            <VBox width="100%">
+                                <HBox>
+                                    <VBox width="70%">
+                                        <Label text="{Ename}" class="ListTitle1"/>
+                                    </VBox>
+                                    <VBox width="30%" height="100%" alignItems="Center" justifyContent="Center">
+                                        <Label text="{=${Confirmyn} === 'X' ? '확정' : ${Confirmyn} === 'M' ? '마감' : ${Confirmyn} === 'I' ? '마감진행중' :'미확정' }" class="ListTitle7">
+                                            <customData>
+                                                <core:CustomData key="color" value="{= ${Confirmyn} ==='X' ? 'X' : ${Confirmyn} ==='M' ? 'M' : ${Confirmyn} ==='I' ? 'I' : 'Z'}" writeToDom="true" />
+                                            </customData>
+                                        </Label>
+                                    </VBox>
+                                </HBox>
+
+                                <Label text="{Orgtx} {Titletx}" class="ListTitle2"/>
+                                <Label text="{i18n>LABEL_00258} {Resultmh}" class="ListTitle3"/>
+                            </VBox>
+                            <!-- <VBox width="20%" height="100%" alignItems="Center" justifyContent="Center">
+                                <Label text="{=${Confirmyn} === 'X' ? '확정' : ${Confirmyn} === 'M' ? '마감' : ${Confirmyn} === 'I' ? '마감진행중' :'미확정' }" class="ListTitle4">
+                                    <customData>
+                                        <core:CustomData key="color" value="{= ${Confirmyn} ==='X' ? 'X' : ${Confirmyn} ==='M' ? 'M' : ${Confirmyn} ==='I' ? 'I' : 'Z'}" writeToDom="true" />
+                                    </customData>
+                                </Label>
+                            </VBox> -->
+                        </HBox>
+                    </CustomListItem>
+                </items>
+            </List>
+        </HBox>
+    </ScrollContainer>
+</core:FragmentDefinition>

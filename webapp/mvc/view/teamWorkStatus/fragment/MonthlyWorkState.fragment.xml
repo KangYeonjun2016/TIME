@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:unified="sap.ui.unified"
+	xmlns="sap.m">
+	<VBox class="vCardBox small sapUiMediumMarginEnd" busyIndicatorDelay="0" visible="{= ${/viewType} === 'Monthly'}">
+		<SinglePlanningCalendar id="SPC1" title= "{i18n>LABEL_00263}" appointmentSelect=".handleAppointmentSelect" startDateChange=".changeMonthlyStartDate" moreLinkPress=".handleMoreLinkPress" appointments="{path: '/MonthlyAppointments'}">
+			<actions>
+				<Button text="Daily" type="Emphasized" press=".onPressChangeViewTypeToDaily"/>
+			</actions>
+			<views>
+				<SinglePlanningCalendarMonthView key="MonthView" title="Month" />
+			</views>
+			<appointments>
+				<unified:CalendarAppointment title= "{Title}" text= "{text}" type= "{Type}" icon= "{icon}" startDate= "{Start}" endDate= "{End}" tooltip="{Time}">
+				</unified:CalendarAppointment>
+			</appointments>
+		</SinglePlanningCalendar>
+	</VBox>
+</core:FragmentDefinition>

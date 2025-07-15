@@ -1,0 +1,39 @@
+<mvc:View controllerName="sap.ui.time.mvc.controller.timeClosing.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="sap.ui.time.control">
+    <Page title="HOME" showHeader="false">
+        <VBox class="contents-header">
+            <HBox justifyContent="SpaceBetween" class="breadcrumbs">
+                <custom:Breadcrumbs />
+            </HBox>
+        </VBox>
+        <VBox class="contents">
+            <HBox class="vCardBox" justifyContent="SpaceBetween" height="80px">
+                <HBox class="form-bar" alignItems="Center">
+                    <Label text="{i18n>LABEL_00220}" />
+                    <ComboBox items="{/PersaList}" selectedKey="{/searchDatas/Werks}" busyIndicatorDelay="0" busy="{/contentsBusy/search}" editable="false" change=".setOrgehList">
+                        <core:Item key="{code}" text="{text}" />
+                    </ComboBox>
+                    <Label text="{i18n>LABEL_00219}" />
+                    <!-- <ComboBox items="{/OrgehList}" selectedKey="{/searchDatas/Orgeh}" busyIndicatorDelay="0" busy="{/contentsBusy/search}">
+                        <core:Item key="{Orgeh}" text="{Stext}" />
+                    </ComboBox> -->
+                    <Input width="100%" value="{/searchDatas/Otext}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onSearchOrg" class="conspicuous-disabled" />
+                    <Label text="{i18n>LABEL_00122}" />
+                    <DatePicker value="{/searchDatas/Yyyymm}" width="150px"  valueFormat = "yyyyMM" displayFormat= "yyyy.MM"/>
+                    <Button text="{i18n>LABEL_00100}" icon="/sap/public/bc/ui2/zui5_tesnahr/images/icon_search03.png" iconDensityAware="false" press=".onPressSearchWithCheckHeader" busyIndicatorDelay="0" busy="{/contentsBusy/search}" />
+                </HBox>
+            </HBox>
+            <HBox class="vCardBox">
+                <VBox class="timeClosingDivLayout">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.timeClosing.fragment.Master" type="XML" />
+                </VBox>
+                <VBox class="width100p">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.timeClosing.fragment.Detail" type="XML"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </Page>
+</mvc:View>

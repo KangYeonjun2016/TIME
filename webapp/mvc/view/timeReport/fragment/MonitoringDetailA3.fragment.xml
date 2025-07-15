@@ -1,0 +1,99 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:table="sap.ui.table"
+    xmlns:core="sap.ui.core">
+    <table:Table id="MonitoringTableA3" selectionMode="None" width="100%" columnHeaderHeight="35" rowHeight="44" rows="{/MonitoringListA3}" visibleRowCount="{/MonitoringListInfoA3/rowCount}" busyIndicatorDelay="0" busy="{/contentsBusy/table}" noData="{i18n>MSG_00001}" sort=".onSortAndFilter" filter=".onSortAndFilter">
+        <table:columns>
+            <table:Column width="10%" sortProperty="Ename" filterProperty="Ename">
+                <table:multiLabels>
+                    <Label text="이름" textAlign="Center" width="100%"/>
+                    <Label text="이름" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+
+                <table:template>
+                    <Text text="{Ename}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column width="5%">
+                <table:multiLabels>
+                    <Label text="직군" textAlign="Center" width="100%"/>
+                    <Label text="직군" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Zzjobgrtx}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column >
+                <table:multiLabels>
+                    <Label text="Title" textAlign="Center" width="100%"/>
+                    <Label text="Title" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Zzcaltltx}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column >
+                <table:multiLabels>
+                    <Label text="직책" textAlign="Center" width="100%"/>
+                    <Label text="직책" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Zzpsgrptx}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column >
+                <table:multiLabels>
+                    <Label text="소속" textAlign="Center" width="100%"/>
+                    <Label text="소속" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Orgtx}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column >
+                <table:multiLabels>
+                    <Label text="해당월" textAlign="Center" width="100%"/>
+                    <Label text="해당월" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Zzmonth}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column >
+                <table:multiLabels>
+                    <Label text="근무계획 상태" textAlign="Center" width="100%"/>
+                    <Label text="근무계획 상태" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Pppst}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column headerSpan="2">
+                <table:multiLabels>
+                    <Label text="실적입력" textAlign="Center" width="100%"/>
+                    <Label text="총근무 건수" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Ttcnt}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column >
+                <table:multiLabels>
+                    <Label text="실적입력" textAlign="Center" width="100%"/>
+                    <Label text="미입력건수" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Nccnt}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+            <table:Column >
+                <table:multiLabels>
+                    <Label text="마감상태" textAlign="Center" width="100%"/>
+                    <Label text="마감상태" textAlign="Center" width="100%"/>
+                </table:multiLabels>
+                <table:template>
+                    <Text text="{Confirmyn}" width="100%" textAlign="Center" wrapping="false" />
+                </table:template>
+            </table:Column>
+        </table:columns>
+    </table:Table>
+</core:FragmentDefinition>

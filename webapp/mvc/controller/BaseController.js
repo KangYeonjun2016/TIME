@@ -14,6 +14,7 @@ sap.ui.define(
     'sap/ui/time/common/exceptions/UI5Error',
     'sap/ui/time/common/TableUtils',
     'sap/ui/time/common/TextUtils',
+    'sap/ui/time/common/OrgSearchDialogHandler',
   ],
   (
     // prettier 방지용 주석
@@ -29,7 +30,8 @@ sap.ui.define(
     EmployeeSearchDialogHandler,
     UI5Error,
     TableUtils,
-    TextUtils
+    TextUtils,
+    OrgSearchDialogHandler
   ) => {
     'use strict';
 
@@ -54,6 +56,8 @@ sap.ui.define(
         this.getAppointeeModel().setProperty('/showChangeButton', this.isHass());
 
         this.oEmployeeSearchDialogHandler = new EmployeeSearchDialogHandler(this);
+
+        this.oOrgSearchDialogHandler = new OrgSearchDialogHandler(this, this.callbackOrg.bind(this));
 
         // 각 업무 controller에서는 onInit overriding 대신 onBeforeShow, onAfterShow를 사용할 것
         this.getView().addEventDelegate(
@@ -289,6 +293,10 @@ sap.ui.define(
         return this.oEmployeeSearchDialogHandler;
       },
 
+      getOrgSearchDialogHandler() {
+        return this.oOrgSearchDialogHandler;
+      },
+
       onEmployeeSearchOpen() {
         this.getEmployeeSearchDialogHandler()
           .setChangeAppointee(true) // 선택 후 대상자 변경 여부
@@ -296,6 +304,19 @@ sap.ui.define(
           .setOptions(this.getEmployeeSearchDialogCustomOptions()) // Fields 활성화여부 및 초기 선택값 - 각 화면에서 구현
           .setCallback(this.callbackAppointeeChange.bind(this)) // 선택 후 실행 할 Function - 각 화면에서 구현
           .openDialog();
+      },
+
+      onEmployeeSearchOpenForRef() {
+        this.getEmployeeSearchDialogHandler()
+          .setChangeAppointee(false) // 선택 후 대상자 변경 여부
+          .setOnLoadSearch(this.getEmployeeSearchDialogOnLoadSearch()) // Open 후 조회 여부 - 각 화면에서 구현
+          .setOptions(this.getEmployeeSearchDialogCustomOptions()) // Fields 활성화여부 및 초기 선택값 - 각 화면에서 구현
+          .setCallback(this.callbackForRef.bind(this)) // 선택 후 실행 할 Function - 각 화면에서 구현
+          .openDialog();
+      },
+
+      onOrgSearchOpen(Persa) {
+        this.getOrgSearchDialogHandler(this.callbackOrg.bind(this)).setPersa(Persa).openDialog();
       },
 
       getEmployeeSearchDialogCustomOptions() {
@@ -308,6 +329,24 @@ sap.ui.define(
 
       callbackAppointeeChange() {
         return null;
+      },
+
+      callbackForRef() {
+        return null;
+      },
+
+      callbackOrg() {
+        return null;
+      },
+
+      getGroupDialogHandler() {
+        return this.oGroupDialogHandler;
+      },
+
+      onGroupOpen() {
+        this.getGroupDialogHandler()
+          .setCallback(this.callbackForRef.bind(this)) // 선택 후 실행 할 Function - 각 화면에서 구현
+          .openDialog();
       },
 
       /**

@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:me="sap.me"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified">
+    <VBox width="300px" class="vCardBox small sapUiMediumMarginEnd" busyIndicatorDelay="0" busy="{/busy/plan}">
+    <!-- <VBox width="30%"> -->
+        <HBox height="350px" class="align-center">
+            <u:Calendar
+                    id="calendar"
+                    select=".handleCalendarSelect" />
+        </HBox>
+        <!-- <HBox>
+            <core:HTML content='&lt;div class="line" &gt;&lt;/div&gt;' />
+        </HBox> -->
+        <!-- <HBox class="myHBox">
+             <Button
+                press=".handleSelectToday"
+                type="Accept"
+                text="오늘" />
+        </HBox> -->
+    </VBox>
+</core:FragmentDefinition>

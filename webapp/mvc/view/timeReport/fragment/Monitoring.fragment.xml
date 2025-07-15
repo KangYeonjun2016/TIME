@@ -1,0 +1,126 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:custom="sap.ui.time.control"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core">
+    <FlexBox alignItems="Start" binding="{/Monitoring}">
+        <custom:VBox width="120%" press=".onClickForTable2" class="myVBox timeReportSummaryBoxLabel">
+            <Text text="근무계획 미입력"/>
+        </custom:VBox>
+        <custom:VBox width="80%" press=".onClick1" class="myVBox timeReportSummaryBoxData">
+            <Text text="{Npcnt}" class="myVBox"/>
+        </custom:VBox>
+        <custom:VBox width="120%" press=".onClickForTable2" class="myVBox timeReportSummaryBoxLabel">
+            <Text text="실적 미확정 일수"/>
+        </custom:VBox>
+        <custom:VBox width="80%" press=".onClick2" class="myVBox timeReportSummaryBoxData">
+            <Text text="{Npccnt}" />
+        </custom:VBox>
+        <custom:VBox width="120%" press=".onClickForTable2" class="myVBox timeReportSummaryBoxLabel">
+            <Text text="마감 미진행"/>
+        </custom:VBox>
+        <custom:VBox width="80%" press=".onClick3" class="myVBox timeReportSummaryBoxData">
+            <Text text="{Ncpcnt}" />
+        </custom:VBox>
+        <custom:VBox width="120%" press=".onClickForTable1" class="myVBox timeReportSummaryBoxLabel">
+            <Text text="이석 발생"/>
+        </custom:VBox>
+        <custom:VBox width="80%" press=".onClick4" class="myVBox timeReportSummaryBoxData">
+            <Text text="{Idlecnt}" />
+        </custom:VBox>
+        <custom:VBox width="120%" press=".onClickForTable1" class="myVBox timeReportSummaryBoxLabel">
+            <Text text="지각 발생"/>
+        </custom:VBox>
+        <custom:VBox width="80%" press=".onClick5" class="myVBox timeReportSummaryBoxData">
+            <Text text="{Latecnt}" />
+        </custom:VBox>
+        <custom:VBox width="120%" press=".onClickForTable1" class="myVBox timeReportSummaryBoxLabel">
+            <Text text="조퇴 발생"/>
+        </custom:VBox>
+        <custom:VBox width="80%" press=".onClick6" class="myVBox timeReportSummaryBoxData">
+            <Text text="{Earlycnt}" />
+        </custom:VBox>
+        <custom:VBox width="120%" press=".onClickForTable3" class="myVBox timeReportSummaryBoxLabel">
+            <Text text="근무초과 위험"/>
+        </custom:VBox>
+        <custom:VBox width="80%" press=".onClick7" class="myVBox timeReportSummaryBoxData">
+            <Text text="{Ovriskcnt}" />
+        </custom:VBox>
+        <custom:VBox width="120%" press=".onClickForTable3" class="myVBox timeReportSummaryBoxLabel">
+            <Text text="근무 미달"/>
+        </custom:VBox>
+        <custom:VBox width="80%" press=".onClick8" class="myVBox timeReportSummaryBoxData">
+            <Text text="{Undercnt}" />
+        </custom:VBox>
+        <custom:VBox width="120%" press=".onClickForTable3" class="myVBox timeReportSummaryBoxLabel">
+            <Text text="근무 추가"/>
+        </custom:VBox>
+        <custom:VBox width="80%" press=".onClick9" class="myVBox timeReportSummaryBoxDataEnd">
+            <Text text="{Addcnt}" />
+        </custom:VBox>
+    </FlexBox>
+    <VBox class="pt-10-px">
+        <HBox>
+            <Text text="* 근무 미달 : 1일 8시간 근무 대비 20% 이상 미달한 인원 수 입니다." class="desc-txt"/>
+            <!-- <Text text="인원 수 입니다." class="desc-txt noleftMargin fontColorRed pl-10-px" /> -->
+        </HBox>
+        <HBox>
+            <Text text="* 근무 추가 : 1일 8시간 근무 대비 20% 이상 추가한 인원 수 입니다." class="desc-txt"/>
+            <!-- <Text text="인원 수 입니다." class="desc-txt noleftMargin fontColorRed pl-10-px" /> -->
+        </HBox>
+        <HBox>
+            <Text text="* 근무 초과 위험 : 고정 OT 초과 근로한 인원 수 입니다.​" class="desc-txt"/>
+        </HBox>
+    </VBox>
+    <!-- <VBox class="pt-10-px" height="500px">
+        <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='line' >
+
+    <viz:dataset>
+        <viz.data:FlattenedDataset data="{/vizFrameList}">
+            <viz.data:dimensions>
+                <viz.data:DimensionDefinition name="Month" value="{Month}" />
+            </viz.data:dimensions>
+            <viz.data:measures>
+                <viz.data:MeasureDefinition name="Revenue" value="{Revenue}" />
+                <viz.data:MeasureDefinition name="Cost" value="{Cost}" />
+            </viz.data:measures>
+        </viz.data:FlattenedDataset>
+    </viz:dataset>
+    <viz:feeds>
+        <viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Revenue" />
+        <viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension" values="Month" />
+    </viz:feeds>
+    <viz:dependents>
+        <viz:Popover id="idPopOver"></viz:Popover>
+    </viz:dependents>
+</viz:VizFrame>
+</VBox> -->
+
+    <!-- <layout:FixFlex id='chartFixFlex' minFlexSize="250">
+        <layout:flexContent>
+            <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='line' >
+
+                <viz:dataset>
+                    <viz.data:FlattenedDataset data="{/milk}">
+                        <viz.data:dimensions>
+                            <viz.data:DimensionDefinition name="Week" value="{Week}" />
+                        </viz.data:dimensions>
+                        <viz.data:measures>
+                            <viz.data:MeasureDefinition name="Revenue" value="{Revenue}" />
+                            <viz.data:MeasureDefinition name="Cost" value="{Cost}" />
+                        </viz.data:measures>
+                    </viz.data:FlattenedDataset>
+                </viz:dataset>
+                <viz:feeds>
+                    <viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Revenue" />
+                    <viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension" values="Week" />
+                </viz:feeds>
+                <viz:dependents>
+                    <viz:Popover id="idPopOver"></viz:Popover>
+                </viz:dependents>
+            </viz:VizFrame>
+        </layout:flexContent>
+    </layout:FixFlex> -->
+</core:FragmentDefinition>
