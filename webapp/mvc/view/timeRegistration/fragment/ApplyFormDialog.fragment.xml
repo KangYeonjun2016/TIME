@@ -25,31 +25,31 @@
                                     <Text text="{Tmatytx}" width="100%" textAlign="Center" />
                                 </table:template>
                             </table:Column>
-                            <table:Column width="30%">
+                            <table:Column width="15%">
                                 <Label text="{i18n>LABEL_00170}"/>
                                 <table:template>
                                     <Text text="{ path: 'Tmdat', type: 'sap.ui.time.mvc.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" width="100%" textAlign="Center" wrapping="false" />
                                 </table:template>
                             </table:Column>
-                            <table:Column width="20%">
+                            <table:Column width="15%">
                                 <Label text="{i18n>LABEL_00178}"/>
                                 <table:template>
                                     <Text text="{Weekday}" width="100%" textAlign="Center" wrapping="false" />
                                 </table:template>
                             </table:Column>
-                            <table:Column width="20%">
+                            <table:Column width="15%">
                                 <Label text="{i18n>LABEL_00146}"/>
                                 <table:template>
                                     <Text text="{ path: 'Beguz', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" />
                                 </table:template>
                             </table:Column>
-                            <table:Column width="20%">
+                            <table:Column width="15%">
                                 <Label text="{i18n>LABEL_00153}"/>
                                 <table:template>
                                     <Text text="{ path: 'Enduz', type: 'sap.ui.time.mvc.model.type.Time', formatOptions: { pattern: 'HH:mm' } }" width="100%" textAlign="Center" />
                                 </table:template>
                             </table:Column>
-                            <table:Column width="20%">
+                            <table:Column width="15%">
                                 <Label text="{i18n>LABEL_00180}"/>
                                 <table:template>
                                     <Text text="{Stdaz}" width="100%" textAlign="Center">
@@ -73,6 +73,13 @@
                                 <Label text="{i18n>LABEL_00154}"/>
                                 <table:template>
                                     <Text text="{Dtrsn}" width="100%" textAlign="Center" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="20%">
+                                <Label text="{i18n>LABEL_00195}"/>
+                                <table:template>
+                                    <!-- <Link icon="sap-icon://attachment" href="{Zfileurl}" target="_blank" width="100%" textAlign="Begin" visible="{= !!${Zfileurl} }"/> -->
+                                    <core:Icon src="sap-icon://attachment" size="1rem" press=".onPressAppAttachment"/>
                                 </table:template>
                             </table:Column>
                         </table:columns>

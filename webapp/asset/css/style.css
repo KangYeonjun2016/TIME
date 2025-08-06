@@ -3140,3 +3140,8 @@ text.active-link, .active-link .sapMLabel, .active-link .sapMText, .active-link 
   padding: 10px;
   border: 1px solid #ccc; */
 }
+
+.sapUiTableColHdrTr, .sapUiTableTr{
+  color : #222222 !important;
+  font-weight : 500 !important;
+}

@@ -19,17 +19,18 @@
                         <core:Item key="{code}" text="{text}" />
                     </ComboBox>
                     <Label text="{i18n>LABEL_00219}" />
-                    <Input width="100%" value="{/searchConditions/Otext}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onSearchOrg" class="conspicuous-disabled" enabled="{=${/Auth} === 'H' ? true : false}" />
+                    <Input width="100%" value="{/searchConditions/Otext}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onSearchOrg" class="conspicuous-disabled" />
 
-                    <Label text="대상자" />
-                    <Input width="100%" value="{/searchConditions/Ename}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onTargetUserChange" class="conspicuous-disabled" enabled="{=${/Auth} === 'E' ? false : true}" />
+                    <Label text="대상자" visible="{=${/searchConditions/SearchType} === 'A' ? true : false}" />
+                    <Input width="100%" value="{/searchConditions/Ename}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onTargetUserChange" class="conspicuous-disabled" visible="{=${/searchConditions/SearchType} === 'A' ? true : false}" />
 
                     <Label text="조회기간" />
                     <DatePicker value="{/searchConditions/Begda}" width="150px"  valueFormat = "yyyyMMdd" displayFormat= "yyyy.MM.dd"/>
                     <DatePicker value="{/searchConditions/Endda}" width="150px"  valueFormat = "yyyyMMdd" displayFormat= "yyyy.MM.dd" change=".onChangeEndda"/>
 
                     <Label text="조회조건" />
-                    <Select value="{/searchConditions/SearchType}" width="150px">
+                    <Select selectedKey="{/searchConditions/SearchType}" width="150px">
+                        <!-- change=".onChangeSearchType" -->
                         <core:Item key="A" text="개인" />
                         <core:Item key="B" text="팀" />
                     </Select>
@@ -37,13 +38,18 @@
                 </HBox>
             </HBox>
             <VBox class="vCardBox">
-                <HBox class="mb-10-px">
+                <!-- <HBox class="mb-10-px">
                     <Label text="" class="SubTitle mt-10-px" />
                     <VBox width="100%" class="FlexEnd">
                         <Button icon="sap-icon://excel-attachment" text="Excel" press=".onPressExcelDownload" />
                     </VBox>
-                </HBox>
-                <core:Fragment fragmentName="sap.ui.time.mvc.view.flexibleTimeReport.fragment.Table" type="XML" />
+                </HBox> -->
+                <VBox width="100%" visible="{=${/searchConditions/SearchTypeVisible} === 'B' ? true : false}">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.flexibleTimeReport.fragment.TeamTable" type="XML" />
+                </VBox>
+                <VBox width="100%" visible="{=${/searchConditions/SearchTypeVisible} === 'A' ? true : false}">
+                    <core:Fragment fragmentName="sap.ui.time.mvc.view.flexibleTimeReport.fragment.PersonTable" type="XML" />
+                </VBox>
             </VBox>
         </VBox>
     </Page>

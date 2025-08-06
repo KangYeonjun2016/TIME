@@ -128,7 +128,7 @@
                             <Text text="{Tmatytx}" width="100%" textAlign="Center" />
                         </table:template>
                     </table:Column>
-                    <table:Column width="40%">
+                    <table:Column width="15%">
                         <Label text="{i18n>LABEL_00170}"/>
                         <table:template>
                             <Text text="{ path: 'Tmdat', type: 'sap.ui.time.mvc.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" width="100%" textAlign="Center" wrapping="false" />
@@ -179,6 +179,13 @@
                         <Label text="{i18n>LABEL_00154}"/>
                         <table:template>
                             <Text text="{Dtrsn}" width="100%" textAlign="Center" />
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="15%">
+                        <Label text="{i18n>LABEL_00195}"/>
+                        <table:template>
+                            <!-- <Link icon="sap-icon://attachment" href="{Zfileurl}" target="_blank" width="100%" textAlign="Begin" visible="{= !!${Zfileurl} }"/> -->
+                            <core:Icon src="sap-icon://attachment" size="1rem" visible="{= !!${Zfileurl} }" press=".onPressAppAttachment"/>
                         </table:template>
                     </table:Column>
                 </table:columns>

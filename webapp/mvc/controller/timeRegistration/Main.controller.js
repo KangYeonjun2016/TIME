@@ -4701,6 +4701,13 @@ sap.ui.define(
         this.ConsentPrivacyDialog.close();
       },
 
+      async onPressAppAttachment(oEvent) {
+        console.log(oEvent);
+        const oViewModel = this.getViewModel();
+        const vSelectData = oViewModel.getProperty(oEvent.getSource().getParent().getBindingContext().sPath);
+        if (vSelectData.Zfileurl && vSelectData.Zfileurl != '') window.open(vSelectData.Zfileurl);
+      },
+
       async onWorkHistoryProcessClose() {
         MessageBox.alert('개인정보 및 민감정보 수집 이용 동의를 하지 않아 신청이 불가 합니다. 신청 팝업이 종료됩니다.', {
           onClose: () => {

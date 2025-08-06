@@ -53,6 +53,8 @@ sap.ui.define(
             Werks: '',
             Begda: '',
             Endda: '',
+            SearchType: '',
+            SearchTypeVisible: '',
           },
           dialog: {
             data: {},
@@ -84,12 +86,7 @@ sap.ui.define(
        */
       onBeforeShow() {
         BaseController.prototype.onBeforeShow.apply(this, arguments);
-
-        // this.TableUtils.adjustRowSpan({
-        //   oTable: this.byId('Table'),
-        //   aColIndices: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-        //   sTheadOrTbody: 'thead',
-        // });
+        this.onSetTableHeaderSpan();
       },
 
       setContentsBusy(bContentsBusy = true, vTarget = []) {
@@ -117,8 +114,6 @@ sap.ui.define(
           oViewModel.setData(this.initializeModel());
           oViewModel.setProperty('/busy', true);
 
-          this.initializePopover();
-
           if (this.currentAuth() === 'M' || this.currentAuth() === 'E') {
             oViewModel.setProperty('/searchConditions/Orgeh', this.getAppointeeProperty('Orgeh'));
             oViewModel.setProperty('/searchConditions/Otext', this.getAppointeeProperty('Stext'));
@@ -131,9 +126,10 @@ sap.ui.define(
           const curDate = new Date();
           oViewModel.setProperty('/searchConditions/Begda', moment(new Date(curDate.getFullYear(), curDate.getMonth(), '1')).format('YYYYMMDD'));
           oViewModel.setProperty('/searchConditions/Endda', moment(new Date()).format('YYYYMMDD'));
+          oViewModel.setProperty('/searchConditions/SearchType', 'A');
 
           await this.setPersaList();
-          // await this.onPressSearch();
+          await this.onPressSearch();
           oViewModel.refresh(true);
         } catch (oError) {
           this.debug('Controller > home > onObjectMatched Error', oError);
@@ -145,34 +141,21 @@ sap.ui.define(
         }
       },
 
-      async initializePopover() {
-        const oView = this.getView();
+      // Table Header 합치기 설정
+      async onSetTableHeaderSpan() {
+        const oViewModel = this.getViewModel();
 
-        this._Popover = await Fragment.load({
-          id: oView.getId(),
-          name: 'sap.ui.time.mvc.view.flexibleTimeReport.fragment.FormPopover',
-          controller: this,
+        this.TableUtils.adjustRowSpan({
+          oTable: this.byId('PersonTable'),
+          aColIndices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19],
+          sTheadOrTbody: 'thead',
         });
 
-        oView.addDependent(this._Popover);
-
-        this.onAfterRenderingPopOver();
-      },
-
-      async onAfterRenderingPopOver() {
-        const oViewModel = this.getViewModel();
-        this.byId('PopoverTable').addEventDelegate({
-          onAfterRendering: () => {
-            const vWerks = oViewModel.getProperty('/searchConditions/Werks');
-            const colIndex = oViewModel.getProperty('/Auth') === 'E' ? 2 : 5;
-            if (vWerks === '0900') {
-              // this.TableUtils._rederTableRowspan(this.byId('PopoverTable'), [5], 7, 0, 1);
-              this.TableUtils._rederAwardTableRowspan(this.byId('PopoverTable'), [colIndex], vWerks, 0, 1);
-            } else {
-              // this.TableUtils._rederTableRowspan(this.byId('PopoverTable'), [5], 7, 0, 2);
-              this.TableUtils._rederAwardTableRowspan(this.byId('PopoverTable'), [colIndex], vWerks, 0, 2);
-            }
-          },
+        // var vColIndex = [0, 1, 2, 3, 4, 8];
+        this.TableUtils.adjustRowSpan({
+          oTable: this.byId('TeamTable'),
+          aColIndices: [0, 1, 2, 3, 4, 5, 9],
+          sTheadOrTbody: 'thead',
         });
       },
 
@@ -214,14 +197,93 @@ sap.ui.define(
 
       async onPressSearch() {
         const oViewModel = this.getViewModel();
-        this.setContentsBusy(true, ['search', 'table']);
+        if (oViewModel.getProperty('/searchConditions/SearchType') == 'A') {
+          this.onPressSearchPerson();
+        } else {
+          this.onPressSearchTeam();
+        }
+      },
+
+      async onPressSearchPerson() {
+        const oViewModel = this.getViewModel();
+        this.setContentsBusy(true, ['search', 'PersonTable']);
 
         try {
-          const oTable = this.byId('Table');
+          const oTable = this.byId('PersonTable');
           const vWerks = oViewModel.getProperty('/searchConditions/Werks');
           const vBegda = oViewModel.getProperty('/searchConditions/Begda');
           const vEndda = oViewModel.getProperty('/searchConditions/Endda');
+          const vPernr = oViewModel.getProperty('/searchConditions/Pernr');
 
+          oViewModel.setProperty('/searchConditions/SearchTypeVisible', 'A');
+          if (!vWerks || !vBegda || !vEndda) return;
+
+          oViewModel.setProperty('/Personlist', []);
+          oViewModel.refresh(true);
+          this.TableUtils.clearTablePicker(oTable);
+
+          const sAppstateNullText = this.getBundleText('LABEL_00102');
+          var aRowData = await Client.getEntitySet(this.getViewModel(ServiceNames.FLEXIBLETIME), 'FlexibleStatusP', {
+            Austy: oViewModel.getProperty('/Auth'),
+            Werks: vWerks,
+            Orgeh: oViewModel.getProperty('/searchConditions/Orgeh'),
+            Pernr: oViewModel.getProperty('/searchConditions/Pernr'),
+            Begda: this.DateUtils.parse(vBegda),
+            Endda: this.DateUtils.parse(vEndda),
+            FlexibleStatusSet: [],
+          });
+
+          for (var i = 0; i < aRowData.length; i++) {
+            aRowData[i].Wktimtx = aRowData[i].Wktimtx.replace('\\n', '<br>');
+            aRowData[i].Cutimtx = aRowData[i].Cutimtx.replace('\\n', '<br>');
+            aRowData[i].Perid = aRowData[i].Perid.replace('\\n', '<br>');
+          }
+
+          oViewModel.setProperty('/PersonlistInfo', {
+            ...oViewModel.getProperty('/PersonlistInfo'),
+            ...this.TableUtils.count({ oTable, aRowData }),
+          });
+
+          oViewModel.setProperty('/Personlist', aRowData);
+
+          setTimeout(() => oTable.setFirstVisibleRow(), 100);
+          this.TableUtils.clearTable(oTable);
+          oViewModel.refresh(true);
+        } catch (oError) {
+          this.debug('Controller > commuteCheck > retrieveList Error', oError);
+
+          AppUtils.handleError(oError);
+          this.setContentsBusy(false);
+        } finally {
+          this.setContentsBusy(false);
+        }
+      },
+
+      async onPressSearchTeam() {
+        const oViewModel = this.getViewModel();
+        this.setContentsBusy(true, ['search', 'TeamTable']);
+
+        try {
+          const oTable = this.byId('TeamTable');
+          const vWerks = oViewModel.getProperty('/searchConditions/Werks');
+          const vBegda = oViewModel.getProperty('/searchConditions/Begda');
+          const vEndda = oViewModel.getProperty('/searchConditions/Endda');
+          const vHeaderCount = 110;
+          var vHeaderContents = {};
+          var vTeamTaleList = [];
+          var vHeaderPeridCount = 1;
+          for (let i = 1; i <= vHeaderCount; i++) {
+            if (i < 10) {
+              eval('vHeaderContents.Perid0' + i + " = '';");
+              eval('vHeaderContents.Perid0' + i + 'Visible = false;');
+            } else {
+              eval('vHeaderContents.Perid' + i + " = '';");
+              eval('vHeaderContents.Perid' + i + 'Visible = false;');
+            }
+          }
+          oViewModel.setProperty('/header', vHeaderContents);
+          oViewModel.setProperty('/header/count', vHeaderPeridCount);
+          oViewModel.setProperty('/searchConditions/SearchTypeVisible', 'B');
           if (!vWerks || !vBegda || !vEndda) return;
 
           oViewModel.setProperty('/list', []);
@@ -229,32 +291,68 @@ sap.ui.define(
           this.TableUtils.clearTablePicker(oTable);
 
           const sAppstateNullText = this.getBundleText('LABEL_00102');
-          var aRowData = await Client.getEntitySet(this.getViewModel(ServiceNames.MYTIME), 'ReadBosangcnt', {
-            Persa: vWerks,
+          var aRowData = await Client.deep(this.getViewModel(ServiceNames.FLEXIBLETIME), 'FlexibleStatus', {
+            Werks: vWerks,
             Austy: oViewModel.getProperty('/Auth'),
             Orgeh: oViewModel.getProperty('/searchConditions/Orgeh'),
             Pernr: oViewModel.getProperty('/searchConditions/Pernr'),
             Begda: this.DateUtils.parse(vBegda),
             Endda: this.DateUtils.parse(vEndda),
+            FlexiblePeriodSet: [],
+            FlexibleStatusSet: [],
           });
 
-          oViewModel.setProperty('/listInfo', {
-            ...oViewModel.getProperty('/listInfo'),
-            ...this.TableUtils.count({ oTable, aRowData }),
-          });
-
-          for (var i = 0; i < aRowData.length; i++) {
-            if (aRowData[i].Tmdat != '') {
-              const tempTmdat = this.DateUtils.formatDateToYYYYMMDD(aRowData[i].Tmdat);
-              if (aRowData[i].Zzcheck == '' || aRowData[i].Persa == '0900') {
-                aRowData[i].TmdatTx = tempTmdat.substring(0, 4) + '.' + tempTmdat.substring(4, 6) + '.' + tempTmdat.substring(6, 8);
+          // Table Header 설정
+          if (aRowData.FlexiblePeriodSet.results && aRowData.FlexiblePeriodSet.results.length > 0) {
+            vHeaderContents = {};
+            var vHeaderPerid = '';
+            for (let i = 1; i <= vHeaderCount; i++) {
+              if (i < 10) {
+                eval('vHeaderPerid = aRowData.FlexiblePeriodSet.results[0].Perid0' + i + ';');
+                eval('vHeaderContents.Perid0' + i + ' = vHeaderPerid ;');
+                if (vHeaderPerid != '') {
+                  eval('vHeaderContents.Perid0' + i + 'Visible = true;');
+                } else {
+                  eval('vHeaderContents.Perid0' + i + 'Visible = false;');
+                }
               } else {
-                aRowData[i].TmdatTx = tempTmdat.substring(0, 4) + '.' + tempTmdat.substring(4, 6);
+                eval('vHeaderPerid = aRowData.FlexiblePeriodSet.results[0].Perid' + i + ';');
+                eval('vHeaderContents.Perid' + i + ' = vHeaderPerid ;');
+                if (vHeaderPerid != '') {
+                  eval('vHeaderContents.Perid' + i + 'Visible = true;');
+                } else {
+                  eval('vHeaderContents.Perid' + i + 'Visible = false;');
+                }
+              }
+              // 주차별 근무 기간 Header Count 설정
+              if (vHeaderPeridCount == 1 && vHeaderPerid == '') {
+                vHeaderPeridCount = i;
               }
             }
+
+            oViewModel.setProperty('/header', vHeaderContents);
+            oViewModel.setProperty('/header/count', vHeaderPeridCount);
           }
 
-          oViewModel.setProperty('/list', aRowData);
+          // Table 내용 적용
+          if (aRowData.FlexibleStatusSet.results && aRowData.FlexibleStatusSet.results.length > 0) {
+            // vTeamTaleList = aRowData.FlexibleStatusSet.results;
+            for (var i = 0; i < aRowData.FlexibleStatusSet.results.length; i++) {
+              if (aRowData.FlexibleStatusSet.results[i].Begda && aRowData.FlexibleStatusSet.results[i].Begda != '') {
+                aRowData.FlexibleStatusSet.results[i].Begda = moment(aRowData.FlexibleStatusSet.results[i].Begda).format('YYYY-MM-DD');
+              }
+              if (aRowData.FlexibleStatusSet.results[i].Endda && aRowData.FlexibleStatusSet.results[i].Endda != '') {
+                aRowData.FlexibleStatusSet.results[i].Endda = moment(aRowData.FlexibleStatusSet.results[i].Endda).format('YYYY-MM-DD');
+              }
+              vTeamTaleList.push(aRowData.FlexibleStatusSet.results[i]);
+            }
+          }
+          oViewModel.setProperty('/Teamlist', vTeamTaleList);
+
+          oViewModel.setProperty('/TeamlistInfo', {
+            ...oViewModel.getProperty('/TeamlistInfo'),
+            ...this.TableUtils.count({ oTable, aRowData }),
+          });
 
           setTimeout(() => oTable.setFirstVisibleRow(), 100);
           this.TableUtils.clearTable(oTable);
@@ -283,134 +381,6 @@ sap.ui.define(
 
       getBreadcrumbsLinks() {
         return [{ name: this.getBundleText('LABEL_01001') }]; // My Time
-      },
-
-      /*
-        List Click -> Popup Open ( Read Olny )
-      */
-      // onSelectRow(oEvent) {
-      //   const sPath = oEvent.getParameters().rowBindingContext.getPath();
-      //   const mRowData = this.getViewModel().getProperty(sPath);
-
-      //   this.getRouter().navTo(`${this.ROUTE_NAME}-detail`, {
-      //     appno: mRowData.Appno,
-      //     werks: mRowData.Werks,
-      //     orgeh: mRowData.Orgeh,
-      //     kostl: mRowData.Kostl,
-      //   });
-      // },
-
-      // 평일연장
-      async onPressAddhr(oEvent) {
-        const oViewModel = this.getViewModel();
-        const oSource = oEvent.getSource();
-
-        const aReturn = await this.getFormData(oViewModel.getProperty(oEvent.getSource().getParent().getBindingContext().sPath), 'AD');
-
-        if (aReturn) this._Popover.openBy(oSource);
-      },
-
-      // 야간근무
-      async onPressNgthr(oEvent) {
-        const oViewModel = this.getViewModel();
-        const oSource = oEvent.getSource();
-
-        const aReturn = await this.getFormData(oViewModel.getProperty(oEvent.getSource().getParent().getBindingContext().sPath), 'NH');
-
-        if (aReturn) this._Popover.openBy(oSource);
-      },
-
-      // 휴일근무
-      async onPressHwkhr(oEvent) {
-        const oViewModel = this.getViewModel();
-        const oSource = oEvent.getSource();
-
-        const aReturn = await this.getFormData(oViewModel.getProperty(oEvent.getSource().getParent().getBindingContext().sPath), 'HH');
-
-        if (aReturn) this._Popover.openBy(oSource);
-      },
-
-      // 휴일연장
-      async onPressHwkexhr(oEvent) {
-        const oViewModel = this.getViewModel();
-        const oSource = oEvent.getSource();
-
-        const aReturn = await this.getFormData(oViewModel.getProperty(oEvent.getSource().getParent().getBindingContext().sPath), 'HX');
-
-        if (aReturn) this._Popover.openBy(oSource);
-      },
-
-      // 발생시간
-      async onPressCrecnt(oEvent) {
-        const oViewModel = this.getViewModel();
-        const oSource = oEvent.getSource();
-
-        const aReturn = await this.getFormData(oViewModel.getProperty(oEvent.getSource().getParent().getBindingContext().sPath), 'CR');
-        if (aReturn) this._Popover.openBy(oSource);
-      },
-
-      async getFormData(rData, rType) {
-        const oViewModel = this.getViewModel();
-        const oTable = this.byId('FormTable');
-
-        let numbers = await this.replaceAll(rData.TmdatTx, '.', '');
-        if (numbers.length == 6) {
-          numbers = _.toString(numbers) + '01';
-        } else if (numbers.length == 8) {
-        } else {
-          MessageBox.alert('잘못된 근태 기간값이 입력되어 있습니다.');
-          return;
-        }
-
-        var aRowData = await Client.getEntitySet(this.getViewModel(ServiceNames.MYTIME), 'Subty30BaseEntitlement', {
-          Pernr: rData.Pernr,
-          Begda: this.DateUtils.parse(numbers),
-        });
-
-        aRowData = aRowData.filter((o) => _.toNumber(o.Weight) > 0);
-
-        for (var i = 0; i < aRowData.length; i++) {
-          if (aRowData[i].Begda != '') {
-            aRowData[i].Begda = moment(aRowData[i].Begda).format('YYYY.MM.DD');
-          }
-        }
-
-        oViewModel.setProperty('/Formlist', aRowData);
-        oViewModel.setProperty('/FormlistInfo/rowCount', aRowData.length);
-        return true;
-      },
-
-      async onSelectRow(oEvent) {
-        const oViewModel = this.getViewModel();
-        const aSelectedData = _.cloneDeep(oViewModel.getProperty(oEvent.getSource().getParent().getBindingContext().sPath));
-
-        // if (!this.FormDialog) {
-        //   const oView = this.getView();
-        //   this.FormDialog = await Fragment.load({
-        //     id: oView.getId(),
-        //     name: 'sap.ui.time.mvc.view.flexibleTimeReport.fragment.FormDialog',
-        //     controller: this,
-        //   });
-
-        //   oView.addDependent(this.FormDialog);
-        // }
-
-        oViewModel.setProperty('/dialog/data', aSelectedData);
-        oViewModel.setProperty('/dialog/data/Prcty', 'M');
-
-        // this.FormDialog.open();
-      },
-
-      async onSearchOType() {
-        const oViewModel = this.getViewModel();
-        const aOtype = oViewModel.getProperty('/dialog/data/Otype');
-        if (aOtype === 'P') {
-          //개인
-          this.onEmployeeSearchOpenForRef();
-        } else if (aOtype === 'O') {
-          this.onOrgSearchOpen(oViewModel.getProperty('/dialog/data/Werks'));
-          //조직
-        }
       },
 
       // 적용 대상 구분 변경 시 적용 대상 Clear

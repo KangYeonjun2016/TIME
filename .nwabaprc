@@ -16,7 +16,7 @@
     "abap_bsp": "ZHRXX_TIME",
     "abap_bsp_text": "두산 - 근태",
     "abap_package": "ZHR_RNXX",
-    "abap_transport": "GHDK958647",
+    "abap_transport": "GHDK958721",
     "calcappindex": true,
     "preserve_unselected": false
 }
